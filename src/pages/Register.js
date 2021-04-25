@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 
 import classes from './Auth.module.css';
-import { authActions } from '../store/auth';
+import { authActions } from '../store/authSlice';
 
 export default function Register() {
     const dispatch = useDispatch();

@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { authActions } from "../store/auth";
+import { authActions } from "../store/authSlice";
 
 export default function Login() {
   const dispatch = useDispatch();
