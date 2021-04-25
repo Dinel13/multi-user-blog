@@ -11,7 +11,7 @@ export default function Header() {
   }, []);
 
   return (
-    <header className={`text-gray-600 body-font shadow-lg border-gray-900 sticky top-0 w-full ${offset > 10 ? "bg-white" : "bg-pink-300"} `}>
+    <header className={`text-gray-600 body-font shadow-lg border-gray-900 sticky top-0 w-full z-10 ${offset > 10 ? "bg-white" : "bg-pink-300"} `}>
       <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
         <a
           href="/"

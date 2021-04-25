@@ -6,9 +6,11 @@ import Header from "./components/header/header";
 import Hero from "./components/hero/Hero";
 import PenulisPop from "./components/Populer/PenulisPop";
 import TulisanPop from "./components/Populer/TulisanPop";
+import Baca from "./pages/Baca";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import Register from "./pages/Register";
+import Tulis from "./pages/Tulis";
 
 function App() {
   const isAuth = useSelector((state) => state.auth.isAuthenticated);
@@ -25,8 +27,14 @@ function App() {
         <Route path="/masuk" exact>
           <Login />
         </Route>
-        <Route path="/masuk" exact>
+        <Route path="/daftar" exact>
           <Register />
+        </Route>
+        <Route path="/tulis" exact>
+          <Tulis />
+        </Route>
+        <Route path="/baca" exact>
+          <Baca />
         </Route>
         <Route path="*">
           <NotFound />
