@@ -1,6 +1,6 @@
 export default function Hero() {
   return (
-    <section className="text-gray-600 body-font">
+    <section className="text-gray-600 body-font  bg-pink-300">
       <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
         <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0">
           <img
