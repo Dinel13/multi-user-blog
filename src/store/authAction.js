@@ -1,30 +1,34 @@
 import { authActions } from "./authSlice";
 import { uiActions } from "./uiSlice";
 
-export const login = (userData) => {
+export const login = (email, password) => {
   return async (dispatch) => {
     const loginToBackend = async () => {
       const response = await await fetch(
-        "https://react-http-6b4a6.firebaseio.com/cart.json",
+        "http://localhost:8080/api/user/login",
         {
           method: "POST",
           body: JSON.stringify({
-            name: userData.name,
-            email: userData.email,
+            email,
+            password,
           }),
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
       );
+      const result = await response.json();
       if (!response.ok) {
-        throw new Error("Tidak bisa login!");
+        throw new Error(result.message || "Tidak bisa masuk");
       }
-      const data = await response.json();
-      return data;
+      return result;
     };
 
     try {
       const result = await loginToBackend();
       dispatch(authActions.login(result));
     } catch (error) {
+      console.log(error);
       dispatch(
         uiActions.showNotification({
           status: "error",
@@ -36,7 +40,7 @@ export const login = (userData) => {
   };
 };
 
-export const signup = (userData) => {
+export const signup = (email, name, password) => {
   return async (dispatch) => {
     dispatch(
       uiActions.showNotification({
@@ -48,27 +52,30 @@ export const signup = (userData) => {
 
     const signupToBackend = async () => {
       const response = await await fetch(
-        "https://react-http-6b4a6.firebaseio.com/cart.json",
+        "http://localhost:8080/api/user/signup",
         {
           method: "POST",
           body: JSON.stringify({
-            name: userData.name,
-            email: userData.email,
-            password: userData.password,
+            name,
+            email,
+            password,
           }),
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
       );
-
+      const result = await response.json();
       if (!response.ok) {
-        throw new Error("Could not signup!");
+        throw new Error(result.message || "Tidak bisa mendaftar!");
       }
-      const data = await response.json();
-      return data;
+      return result;
     };
 
     try {
       const result = await signupToBackend();
       dispatch(authActions.login(result));
+      console.log(result);
     } catch (error) {
       dispatch(
         uiActions.showNotification({

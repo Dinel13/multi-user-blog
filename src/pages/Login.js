@@ -1,14 +1,16 @@
+import { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { authActions } from "../store/authSlice";
+import { login } from "../store/authAction";
 
 export default function Login() {
   const dispatch = useDispatch();
+  const email = useRef();
+  const password = useRef();
 
   const loginHandler = (event) => {
     event.preventDefault();
-
-    dispatch(authActions.login());
+    dispatch(login(email.current.value, password.current.value));
   };
 
   return (
@@ -25,6 +27,7 @@ export default function Login() {
             Email
           </label>
           <input
+            ref={email}
             type="email"
             class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
           />
@@ -46,6 +49,7 @@ export default function Login() {
           </div>
 
           <input
+            ref={password}
             type="password"
             class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
           />
@@ -99,7 +103,7 @@ export default function Login() {
           to="/daftar"
           class="font-medium text-gray-800 dark:text-gray-200 hover:underline"
         >
-          Daftar
+          DAFTAR
         </Link>
       </p>
     </div>
