@@ -13,11 +13,36 @@ import Register from "./pages/Register";
 import Tulis from "./pages/Tulis";
 
 function App() {
-  const isAuth = useSelector((state) => state.auth.isAuthenticated);
-  console.log(isAuth);
-  return (
-    <>
-      <Header />
+  const token = useSelector((state) => state.auth.token);
+
+  let routes;
+  if (token) {
+    routes = (
+      <Switch>
+        <Route path="/" exact>
+          <Hero />
+          <TulisanPop />
+          <PenulisPop />
+        </Route>
+        <Route path="/masuk" exact>
+          <Redirect to="/" />
+        </Route>
+        <Route path="/daftar" exact>
+          <Redirect to="/" />
+        </Route>
+        <Route path="/tulis" exact>
+          <Tulis />
+        </Route>
+        <Route path="/baca" exact>
+          <Baca />
+        </Route>
+        <Route path="*">
+          <NotFound />
+        </Route>
+      </Switch>
+    );
+  } else {
+    routes = (
       <Switch>
         <Route path="/" exact>
           <Hero />
@@ -31,7 +56,7 @@ function App() {
           <Register />
         </Route>
         <Route path="/tulis" exact>
-          <Tulis />
+          <Redirect to="/masuk" />
         </Route>
         <Route path="/baca" exact>
           <Baca />
@@ -40,6 +65,12 @@ function App() {
           <NotFound />
         </Route>
       </Switch>
+    );
+  }
+  return (
+    <>
+      <Header />
+      <main>{routes}</main>
       <Footer />
     </>
   );
