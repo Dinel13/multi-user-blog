@@ -14,7 +14,6 @@ import Tulis from "./pages/Tulis";
 
 function App() {
   const token = useSelector((state) => state.auth.token);
-
   let routes;
   if (token) {
     routes = (

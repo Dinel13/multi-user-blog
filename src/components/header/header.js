@@ -4,8 +4,7 @@ import { useSelector } from "react-redux";
 
 export default function Header() {
   const [offset, setOffset] = useState(0);
-  const name = useSelector((state) => state.auth);
-  console.log(name);
+  const name = useSelector((state) => state.auth.name);
   useEffect(() => {
     //to get value of scrool
     window.onscroll = () => {
