@@ -1,215 +1,268 @@
-import React, { useCallback, useMemo, useState } from 'react'
-import isHotkey from 'is-hotkey'
-import { Editable, withReact, useSlate, Slate } from 'slate-react'
-import {
-  Editor,
-  Transforms,
-  createEditor,
-  Descendant,
-  Element as SlateElement,
-} from 'slate'
-import { withHistory } from 'slate-history'
+import { useState, useEffect, useRef } from "react";
+import ReactQuill from "react-quill";
+import "../../node_modules/react-quill/dist/quill.snow.css";
+import { QuillModules, QuillFormats } from "../helpers/quill";
 
-import { Button, Icon, Toolbar } from './components'
+const CreateBlog = ({ router }) => {
+  const blogFromLS = () => {
+    if (typeof window === "undefined") {
+      return false;
+    }
 
-const HOTKEYS = {
-  'mod+b': 'bold',
-  'mod+i': 'italic',
-  'mod+u': 'underline',
-  'mod+`': 'code',
-}
+    if (localStorage.getItem("blog")) {
+      return JSON.parse(localStorage.getItem("blog"));
+    } else {
+      return false;
+    }
+  };
 
-const LIST_TYPES = ['numbered-list', 'bulleted-list']
+  const [categories, setCategories] = useState([]);
+  const [tags, setTags] = useState([]);
 
-const RichTextExample = () => {
-  const [value, setValue] = useState(initialValue)
-  const renderElement = useCallback(props => <Element {...props} />, [])
-  const renderLeaf = useCallback(props => <Leaf {...props} />, [])
-  const editor = useMemo(() => withHistory(withReact(createEditor())), [])
+  const [checked, setChecked] = useState([]); // categories
+  const [checkedTag, setCheckedTag] = useState([]); // tags
+  const imagePreview = useRef();
 
-  return (
-    <Slate editor={editor} value={value} onChange={value => setValue(value)}>
-      <Toolbar>
-        <MarkButton format="bold" icon="format_bold" />
-        <MarkButton format="italic" icon="format_italic" />
-        <MarkButton format="underline" icon="format_underlined" />
-        <MarkButton format="code" icon="code" />
-        <BlockButton format="heading-one" icon="looks_one" />
-        <BlockButton format="heading-two" icon="looks_two" />
-        <BlockButton format="block-quote" icon="format_quote" />
-        <BlockButton format="numbered-list" icon="format_list_numbered" />
-        <BlockButton format="bulleted-list" icon="format_list_bulleted" />
-      </Toolbar>
-      <Editable
-        renderElement={renderElement}
-        renderLeaf={renderLeaf}
-        placeholder="Enter some rich text…"
-        spellCheck
-        autoFocus
-        onKeyDown={event => {
-          for (const hotkey in HOTKEYS) {
-            if (isHotkey(hotkey, event)) {
-              event.preventDefault()
-              const mark = HOTKEYS[hotkey]
-              toggleMark(editor, mark)
-            }
-          }
-        }}
-      />
-    </Slate>
-  )
-}
+  const [body, setBody] = useState(blogFromLS());
+  const [values, setValues] = useState({
+    error: "",
+    sizeError: "",
+    success: "",
+    formData: "",
+    title: "",
+    hidePublishButton: false,
+  });
 
-const toggleBlock = (editor, format) => {
-  const isActive = isBlockActive(editor, format)
-  const isList = LIST_TYPES.includes(format)
+  const {
+    error,
+    sizeError,
+    success,
+    formData,
+    title,
+    hidePublishButton,
+  } = values;
+  // const token = getCookie('token');
 
-  Transforms.unwrapNodes(editor, {
-    match: n =>
-      LIST_TYPES.includes(
-        !Editor.isEditor(n) && SlateElement.isElement(n) && n.type
-      ),
-    split: true,
-  })
-  const newProperties= {
-    type: isActive ? 'paragraph' : isList ? 'list-item' : format,
-  }
-  Transforms.setNodes(editor, newProperties)
+  useEffect(() => {
+    setValues({ ...values, formData: new FormData() });
+    // initCategories();
+    // initTags();
+  }, []);
 
-  if (!isActive && isList) {
-    const block = { type: format, children: [] }
-    Transforms.wrapNodes(editor, block)
-  }
-}
+  // const initCategories = () => {
+  //     getCategories().then(data => {
+  //         if (data.error) {
+  //             setValues({ ...values, error: data.error });
+  //         } else {
+  //             setCategories(data);
+  //         }
+  //     });
+  // };
 
-const toggleMark = (editor, format) => {
-  const isActive = isMarkActive(editor, format)
+  // const initTags = () => {
+  //     getTags().then(data => {
+  //         if (data.error) {
+  //             setValues({ ...values, error: data.error });
+  //         } else {
+  //             setTags(data);
+  //         }
+  //     });
+  // };
 
-  if (isActive) {
-    Editor.removeMark(editor, format)
-  } else {
-    Editor.addMark(editor, format, true)
-  }
-}
+  // const publishBlog = e => {
+  //     e.preventDefault();
+  //     // console.log('ready to publishBlog');
+  //     createBlog(formData, token).then(data => {
+  //         if (data.error) {
+  //             setValues({ ...values, error: data.error });
+  //         } else {
+  //             setValues({ ...values, title: '', error: '', success: `A new blog titled "${data.title}" is created` });
+  //             setBody('');
+  //             setCategories([]);
+  //             setTags([]);
+  //         }
+  //     });
+  // };
 
-const isBlockActive = (editor, format) => {
-  const [match] = Editor.nodes(editor, {
-    match: n =>
-      !Editor.isEditor(n) && SlateElement.isElement(n) && n.type === format,
-  })
+  const handleChange = (name) => (e) => {
+    // console.log(e.target.value);
+    const value = name === "photo" ? e.target.files[0] : e.target.value;
+    formData.set(name, value);
+    setValues({ ...values, [name]: value, formData, error: "" });
+  };
 
-  return !!match
-}
+  const handleBody = (e) => {
+    // console.log(e);
+    setBody(e);
+    // formData.set("body", e);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("blog", JSON.stringify(e));
+    }
+  };
 
-const isMarkActive = (editor, format) => {
-  const marks = Editor.marks(editor)
-  return marks ? marks[format] === true : false
-}
+  // const handleToggle = c => () => {
+  //     setValues({ ...values, error: '' });
+  //     // return the first index or -1
+  //     const clickedCategory = checked.indexOf(c);
+  //     const all = [...checked];
 
-const Element = ({ attributes, children, element }) => {
-  switch (element.type) {
-    case 'block-quote':
-      return <blockquote {...attributes}>{children}</blockquote>
-    case 'bulleted-list':
-      return <ul {...attributes}>{children}</ul>
-    case 'heading-one':
-      return <h1 {...attributes}>{children}</h1>
-    case 'heading-two':
-      return <h2 {...attributes}>{children}</h2>
-    case 'list-item':
-      return <li {...attributes}>{children}</li>
-    case 'numbered-list':
-      return <ol {...attributes}>{children}</ol>
-    default:
-      return <p {...attributes}>{children}</p>
-  }
-}
+  //     if (clickedCategory === -1) {
+  //         all.push(c);
+  //     } else {
+  //         all.splice(clickedCategory, 1);
+  //     }
+  //     console.log(all);
+  //     setChecked(all);
+  //     formData.set('categories', all);
+  // };
 
-const Leaf = ({ attributes, children, leaf }) => {
-  if (leaf.bold) {
-    children = <strong>{children}</strong>
-  }
+  // const handleTagsToggle = t => () => {
+  //     setValues({ ...values, error: '' });
+  //     // return the first index or -1
+  //     const clickedTag = checked.indexOf(t);
+  //     const all = [...checkedTag];
 
-  if (leaf.code) {
-    children = <code>{children}</code>
-  }
+  //     if (clickedTag === -1) {
+  //         all.push(t);
+  //     } else {
+  //         all.splice(clickedTag, 1);
+  //     }
+  //     console.log(all);
+  //     setCheckedTag(all);
+  //     formData.set('tags', all);
+  // };
 
-  if (leaf.italic) {
-    children = <em>{children}</em>
-  }
+  // const showCategories = () => {
+  //     return (
+  //         categories &&
+  //         categories.map((c, i) => (
+  //             <li key={i} className="list-unstyled">
+  //                 <input onChange={handleToggle(c._id)} type="checkbox" className="mr-2" />
+  //                 <label className="form-check-label">{c.name}</label>
+  //             </li>
+  //         ))
+  //     );
+  // };
 
-  if (leaf.underline) {
-    children = <u>{children}</u>
-  }
+  // const showTags = () => {
+  //     return (
+  //         tags &&
+  //         tags.map((t, i) => (
+  //             <li key={i} className="list-unstyled">
+  //                 <input onChange={handleTagsToggle(t._id)} type="checkbox" className="mr-2" />
+  //                 <label className="form-check-label">{t.name}</label>
+  //             </li>
+  //         ))
+  //     );
+  // };
 
-  return <span {...attributes}>{children}</span>
-}
-
-const BlockButton = ({ format, icon }) => {
-  const editor = useSlate()
-  return (
-    <Button
-      active={isBlockActive(editor, format)}
-      onMouseDown={event => {
-        event.preventDefault()
-        toggleBlock(editor, format)
-      }}
+  const showError = () => (
+    <div
+      className="alert alert-danger"
+      style={{ display: error ? "" : "none" }}
     >
-      <Icon>{icon}</Icon>
-    </Button>
-  )
-}
+      {error}
+    </div>
+  );
 
-const MarkButton = ({ format, icon }) => {
-  const editor = useSlate()
-  return (
-    <Button
-      active={isMarkActive(editor, format)}
-      onMouseDown={event => {
-        event.preventDefault()
-        toggleMark(editor, format)
-      }}
+  const showSuccess = () => (
+    <div
+      className="alert alert-success"
+      style={{ display: success ? "" : "none" }}
     >
-      <Icon>{icon}</Icon>
-    </Button>
-  )
-}
+      {success}
+    </div>
+  );
 
-const initialValue = [
-  {
-    type: 'paragraph',
-    children: [
-      { text: 'This is editable ' },
-      { text: 'rich', bold: true },
-      { text: ' text, ' },
-      { text: 'much', italic: true },
-      { text: ' better than a ' },
-      { text: '<textarea>', code: true },
-      { text: '!' },
-    ],
-  },
-  {
-    type: 'paragraph',
-    children: [
-      {
-        text:
-          "Since it's rich text, you can do things like turn a selection of text ",
-      },
-      { text: 'bold', bold: true },
-      {
-        text:
-          ', or add a semantically rendered block quote in the middle of the page, like this:',
-      },
-    ],
-  },
-  {
-    type: 'block-quote',
-    children: [{ text: 'A wise quote.' }],
-  },
-  {
-    type: 'paragraph',
-    children: [{ text: 'Try it out for yourself!' }],
-  },
-]
+  const createBlogForm = () => {
+    return (
+      <form onSubmit={() => {}} className="flex flex-col">
+        <div className="w-full">
+          <label htmlFor="judul" className="py-2 text-gray-800">
+            Judul
+          </label>
+          <input
+            type="text"
+            id="judul"
+            className="rounded border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-900 placeholder-gray-500 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-pink-600 focus:border-transparent mb-4"
+            placeholder="Judul Tulisan"
+            value={title}
+            onChange={handleChange("title")}
+          />
+        </div>
 
-export default RichTextExample
+        <div className="w-full h-100">
+          <ReactQuill
+            modules={QuillModules}
+            formats={QuillFormats}
+            value={body}
+            placeholder="Tulis sesuatu yang mengagumkan"
+            onChange={handleBody}
+            className="h-64"
+          />
+        </div>
+
+        <div>
+          <button
+            type="submit"
+            className="items-center bg-pink-700 border-5 py-2 px-5 focus:outline-none hover:bg-pink-900 rounded text-gray-100 my-16"
+          >
+            Publish
+          </button>
+        </div>
+      </form>
+    );
+  };
+
+  return (
+    <div className="container w-full mx-auto bg-white  dark:bg-gray-800">
+      <div className="flex flex-wrap  p-4">
+        <div className="p-2 lg:w-2/3 w-full ">
+          {createBlogForm()}
+          <div className="pt-5">
+            {showError()}
+            {showSuccess()}
+          </div>
+        </div>
+
+        <div className="p-2 lg:w-1/3 w-full ">
+          <div>
+            <div className="w-full pb-4">
+              <h5 className="mb-2">Gambar sampul</h5>
+              <hr />
+              <small className="block text-gray-600 mt-1">
+                Ukuran maksimal: 1mb
+              </small>
+              <label className="inline-flex items-center bg-pink-700 border-5 md:w-5/6 py-2 px-3 focus:outline-none hover:bg-pink-900 rounded-lg text-gray-100 mt-2 ">
+                <input
+                  onChange={handleChange("photo")}
+                  type="file"
+                  accept="image/*"
+                  alt="your image"
+                  // hidden untuk menghilangkan nama file yang diupload
+                />
+              </label>
+            </div>
+          </div>
+          <div>
+            <h5>Categories</h5>
+            <hr />
+
+            <ul style={{ maxHeight: "200px", overflowY: "scroll" }}>
+              {() => {}}
+            </ul>
+          </div>
+          <div>
+            <h5>Tags</h5>
+            <hr />
+            <ul style={{ maxHeight: "200px", overflowY: "scroll" }}>
+              {() => {}}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default CreateBlog;
