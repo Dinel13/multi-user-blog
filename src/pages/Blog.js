@@ -1,7 +1,10 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import ReactQuill from "react-quill";
 import "../../node_modules/react-quill/dist/quill.snow.css";
+
 import { QuillModules, QuillFormats } from "../helpers/quill";
+import { getCategories } from '../actions/category';
+import { getTags } from '../actions/tag';
 
 const CreateBlog = ({ router }) => {
   const blogFromLS = () => {
@@ -21,7 +24,6 @@ const CreateBlog = ({ router }) => {
 
   const [checked, setChecked] = useState([]); // categories
   const [checkedTag, setCheckedTag] = useState([]); // tags
-  const imagePreview = useRef();
 
   const [body, setBody] = useState(blogFromLS());
   const [values, setValues] = useState({
@@ -45,44 +47,44 @@ const CreateBlog = ({ router }) => {
 
   useEffect(() => {
     setValues({ ...values, formData: new FormData() });
-    // initCategories();
-    // initTags();
+     initCategories();
+     initTags();
   }, []);
 
-  // const initCategories = () => {
-  //     getCategories().then(data => {
-  //         if (data.error) {
-  //             setValues({ ...values, error: data.error });
-  //         } else {
-  //             setCategories(data);
-  //         }
-  //     });
-  // };
+  const initCategories = () => {
+      getCategories().then(data => {
+          if (data.error) {
+              setValues({ ...values, error: data.error });
+          } else {
+              setCategories(data);
+          }
+      });
+  };
 
-  // const initTags = () => {
-  //     getTags().then(data => {
-  //         if (data.error) {
-  //             setValues({ ...values, error: data.error });
-  //         } else {
-  //             setTags(data);
-  //         }
-  //     });
-  // };
+  const initTags = () => {
+      getTags().then(data => {
+          if (data.error) {
+              setValues({ ...values, error: data.error });
+          } else {
+              setTags(data);
+          }
+      });
+  };
 
-  // const publishBlog = e => {
-  //     e.preventDefault();
-  //     // console.log('ready to publishBlog');
-  //     createBlog(formData, token).then(data => {
-  //         if (data.error) {
-  //             setValues({ ...values, error: data.error });
-  //         } else {
-  //             setValues({ ...values, title: '', error: '', success: `A new blog titled "${data.title}" is created` });
-  //             setBody('');
-  //             setCategories([]);
-  //             setTags([]);
-  //         }
-  //     });
-  // };
+  const publishBlog = e => {
+      e.preventDefault();
+      console.log(formData);
+      // createBlog(formData, token).then(data => {
+      //     if (data.error) {
+      //         setValues({ ...values, error: data.error });
+      //     } else {
+      //         setValues({ ...values, title: '', error: '', success: `A new blog titled "${data.title}" is created` });
+      //         setBody('');
+      //         setCategories([]);
+      //         setTags([]);
+      //     }
+      // });
+  };
 
   const handleChange = (name) => (e) => {
     // console.log(e.target.value);
@@ -100,61 +102,61 @@ const CreateBlog = ({ router }) => {
     }
   };
 
-  // const handleToggle = c => () => {
-  //     setValues({ ...values, error: '' });
-  //     // return the first index or -1
-  //     const clickedCategory = checked.indexOf(c);
-  //     const all = [...checked];
+  const handleCategoriesToggle = c => () => {
+      setValues({ ...values, error: '' });
+      // return the first index or -1
+      const clickedCategory = checked.indexOf(c);
+      const all = [...checked];
 
-  //     if (clickedCategory === -1) {
-  //         all.push(c);
-  //     } else {
-  //         all.splice(clickedCategory, 1);
-  //     }
-  //     console.log(all);
-  //     setChecked(all);
-  //     formData.set('categories', all);
-  // };
+      if (clickedCategory === -1) {
+          all.push(c);
+      } else {
+          all.splice(clickedCategory, 1);
+      }
+      console.log(all);
+      setChecked(all);
+      formData.set('categories', all);
+  };
 
-  // const handleTagsToggle = t => () => {
-  //     setValues({ ...values, error: '' });
-  //     // return the first index or -1
-  //     const clickedTag = checked.indexOf(t);
-  //     const all = [...checkedTag];
+  const handleTagsToggle = t => () => {
+      setValues({ ...values, error: '' });
+      // return the first index or -1
+      const clickedTag = checked.indexOf(t);
+      const all = [...checkedTag];
 
-  //     if (clickedTag === -1) {
-  //         all.push(t);
-  //     } else {
-  //         all.splice(clickedTag, 1);
-  //     }
-  //     console.log(all);
-  //     setCheckedTag(all);
-  //     formData.set('tags', all);
-  // };
+      if (clickedTag === -1) {
+          all.push(t);
+      } else {
+          all.splice(clickedTag, 1);
+      }
+      console.log(all);
+      setCheckedTag(all);
+      formData.set('tags', all);
+  };
 
-  // const showCategories = () => {
-  //     return (
-  //         categories &&
-  //         categories.map((c, i) => (
-  //             <li key={i} className="list-unstyled">
-  //                 <input onChange={handleToggle(c._id)} type="checkbox" className="mr-2" />
-  //                 <label className="form-check-label">{c.name}</label>
-  //             </li>
-  //         ))
-  //     );
-  // };
+  const showCategories = () => {
+      return (
+          categories &&
+          categories.map((categori, index) => (
+              <li key={index} className="list-unstyled">
+                  <input onChange={handleCategoriesToggle(categori._id)} type="checkbox" className="mr-2" />
+                  <label className="form-check-label">{categori.name}</label>
+              </li>
+          ))
+      );
+  };
 
-  // const showTags = () => {
-  //     return (
-  //         tags &&
-  //         tags.map((t, i) => (
-  //             <li key={i} className="list-unstyled">
-  //                 <input onChange={handleTagsToggle(t._id)} type="checkbox" className="mr-2" />
-  //                 <label className="form-check-label">{t.name}</label>
-  //             </li>
-  //         ))
-  //     );
-  // };
+  const showTags = () => {
+      return (
+          tags &&
+          tags.map((tag, index) => (
+              <li key={index} className="list-unstyled">
+                  <input onChange={handleTagsToggle(tag._id)} type="checkbox" className="mr-2" />
+                  <label className="form-check-label">{tag.name}</label>
+              </li>
+          ))
+      );
+  };
 
   const showError = () => (
     <div
@@ -247,16 +249,15 @@ const CreateBlog = ({ router }) => {
           <div>
             <h5>Categories</h5>
             <hr />
-
             <ul style={{ maxHeight: "200px", overflowY: "scroll" }}>
-              {() => {}}
+              {showCategories()}
             </ul>
           </div>
           <div>
             <h5>Tags</h5>
             <hr />
             <ul style={{ maxHeight: "200px", overflowY: "scroll" }}>
-              {() => {}}
+              {showTags()}
             </ul>
           </div>
         </div>
