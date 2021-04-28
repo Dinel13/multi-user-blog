@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import ReactQuill from "react-quill";
 import "../../node_modules/react-quill/dist/quill.snow.css";
+import {useSelector} from 'react-redux'
 
 import { QuillModules, QuillFormats } from "../helpers/quill";
 import { getCategories } from '../actions/category';
 import { getTags } from '../actions/tag';
+import { createBlog } from '../actions/blog';
 
-const CreateBlog = ({ router }) => {
+const CreateBlog = () => {
   const blogFromLS = () => {
     if (typeof window === "undefined") {
       return false;
@@ -35,26 +37,25 @@ const CreateBlog = ({ router }) => {
     hidePublishButton: false,
   });
 
+  const token = useSelector(state => state.auth.token)
+
   const {
     error,
-    sizeError,
     success,
     formData,
     title,
-    hidePublishButton,
   } = values;
-  // const token = getCookie('token');
 
   useEffect(() => {
     setValues({ ...values, formData: new FormData() });
      initCategories();
      initTags();
-  }, []);
+  }, [token]);
 
   const initCategories = () => {
       getCategories().then(data => {
           if (data.error) {
-              setValues({ ...values, error: data.error });
+             setValues({ ...values, error: data.error });
           } else {
               setCategories(data);
           }
@@ -73,30 +74,31 @@ const CreateBlog = ({ router }) => {
 
   const publishBlog = e => {
       e.preventDefault();
+      console.log(token);
       console.log(formData);
-      // createBlog(formData, token).then(data => {
-      //     if (data.error) {
-      //         setValues({ ...values, error: data.error });
-      //     } else {
-      //         setValues({ ...values, title: '', error: '', success: `A new blog titled "${data.title}" is created` });
-      //         setBody('');
-      //         setCategories([]);
-      //         setTags([]);
-      //     }
-      // });
+      createBlog(formData, token).then(data => {
+          if (data.error) {
+              setValues({ ...values, error: data.error });
+          } else {
+              setValues({ ...values, title: '', error: '', success: `A new blog titled "${data.title}" is created` });
+              setBody('');
+              setCategories([]);
+              setTags([]);
+          }
+      });
   };
 
   const handleChange = (name) => (e) => {
     // console.log(e.target.value);
     const value = name === "photo" ? e.target.files[0] : e.target.value;
-    formData.set(name, value);
+    formData.append(name, value);
     setValues({ ...values, [name]: value, formData, error: "" });
   };
 
   const handleBody = (e) => {
-    // console.log(e);
+   console.log(e);
     setBody(e);
-    // formData.set("body", e);
+    formData.append("body", e);
     if (typeof window !== "undefined") {
       localStorage.setItem("blog", JSON.stringify(e));
     }
@@ -115,7 +117,7 @@ const CreateBlog = ({ router }) => {
       }
       console.log(all);
       setChecked(all);
-      formData.set('categories', all);
+      formData.append('categories', all);
   };
 
   const handleTagsToggle = t => () => {
@@ -131,7 +133,7 @@ const CreateBlog = ({ router }) => {
       }
       console.log(all);
       setCheckedTag(all);
-      formData.set('tags', all);
+      formData.append('tags', all);
   };
 
   const showCategories = () => {
@@ -178,7 +180,7 @@ const CreateBlog = ({ router }) => {
 
   const createBlogForm = () => {
     return (
-      <form onSubmit={() => {}} className="flex flex-col">
+      <form onSubmit={publishBlog} className="flex flex-col">
         <div className="w-full">
           <label htmlFor="judul" className="py-2 text-gray-800">
             Judul
