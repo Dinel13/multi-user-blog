@@ -7,11 +7,11 @@ import Hero from "./components/hero/Hero";
 import PenulisPop from "./components/Populer/PenulisPop";
 import TulisanPop from "./components/Populer/TulisanPop";
 import Baca from "./pages/Baca";
+import CreateBlog from "./pages/Blog";
 import Blog from "./pages/Blog";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import Register from "./pages/Register";
-import Tulis from "./pages/Tulis";
 
 function App() {
   const token = useSelector((state) => state.auth.token);
@@ -31,7 +31,7 @@ function App() {
           <Redirect to="/" />
         </Route>
         <Route path="/tulis" exact>
-          <Tulis />
+          <CreateBlog />
         </Route>
         <Route path="/baca" exact>
           <Baca />

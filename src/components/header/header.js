@@ -19,8 +19,8 @@ export default function Header() {
       } `}
     >
       <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
-        <a
-          href="/"
+        <Link
+          to="/"
           className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0"
         >
           <svg
@@ -36,17 +36,17 @@ export default function Header() {
             <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
           </svg>
           <span className="ml-3 text-xl">UnhasTa</span>
-        </a>
+        </Link>
         <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
-          <a href="/" className="mr-5 hover:text-gray-900">
+          <Link to="/" className="mr-5 hover:text-gray-900">
             Beranda
-          </a>
-          <a href="/tulis" className="mr-5 hover:text-gray-900">
+          </Link>
+          <Link to="/tulis" className="mr-5 hover:text-gray-900">
             Tulis
-          </a>
-          <a href="/baca" className="mr-5 hover:text-gray-900">
+          </Link>
+          <Link to="/baca" className="mr-5 hover:text-gray-900">
             Baca
-          </a>
+          </Link>
         </nav>
         {name ? (
           <p>My profile</p>

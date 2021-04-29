@@ -22,7 +22,7 @@ export default function Login() {
       <form className="mt-6" onSubmit={loginHandler}>
         <div>
           <label
-            for="username"
+            htmlFor="username"
             className="block text-sm text-gray-800 dark:text-gray-200"
           >
             Email
@@ -36,7 +36,7 @@ export default function Login() {
         <div className="mt-4">
           <div className="flex items-center justify-between">
             <label
-              for="name"
+              htmlFor="name"
               className="block text-sm text-gray-800 dark:text-gray-200"
             >
               Nama
@@ -51,7 +51,7 @@ export default function Login() {
         <div className="mt-4">
           <div className="flex items-center justify-between">
             <label
-              for="password"
+              htmlFor="password"
               className="block text-sm text-gray-800 dark:text-gray-200"
             >
               Password

@@ -74,7 +74,6 @@ const CreateBlog = () => {
 
   const publishBlog = e => {
       e.preventDefault();
-      console.log(token);
       console.log(formData);
       createBlog(formData, token).then(data => {
           if (data.error) {
