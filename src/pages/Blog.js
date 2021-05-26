@@ -32,7 +32,7 @@ const CreateBlog = () => {
     error: "",
     sizeError: "",
     success: "",
-    formData: "",
+    formData: new FormData(),
     title: "",
     hidePublishButton: false,
   });
@@ -50,7 +50,7 @@ const CreateBlog = () => {
     setValues({ ...values, formData: new FormData() });
      initCategories();
      initTags();
-  }, [token]);
+  },[token]);
 
   const initCategories = () => {
       getCategories().then(data => {
@@ -74,7 +74,6 @@ const CreateBlog = () => {
 
   const publishBlog = e => {
       e.preventDefault();
-      console.log(formData);
       createBlog(formData, token).then(data => {
           if (data.error) {
               setValues({ ...values, error: data.error });
@@ -88,7 +87,6 @@ const CreateBlog = () => {
   };
 
   const handleChange = (name) => (e) => {
-    // console.log(e.target.value);
     const value = name === "photo" ? e.target.files[0] : e.target.value;
     formData.append(name, value);
     setValues({ ...values, [name]: value, formData, error: "" });
@@ -148,7 +146,8 @@ const CreateBlog = () => {
   };
 
   const showTags = () => {
-      return (
+    console.log(tags);
+    return (
           tags &&
           tags.map((tag, index) => (
               <li key={index} className="list-unstyled">
