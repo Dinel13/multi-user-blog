@@ -30,12 +30,12 @@ export default function Header() {
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth="2"
-            className="w-10 h-10 text-white p-2 bg-pink-500 rounded-full"
+            className="w-10 h-10 text-white p-2 bg-pink-700 rounded-full"
             viewBox="0 0 24 24"
           >
             <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
           </svg>
-          <span className="ml-3 text-xl">UnhasTa</span>
+          <span className="ml-3 text-xl">SuaraUnhas</span>
         </Link>
         <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
           <Link to="/" className="mr-5 hover:text-gray-900">
@@ -49,7 +49,7 @@ export default function Header() {
           </Link>
         </nav>
         {name ? (
-          <p>My profile</p>
+          <Link to="/akunku">My Account</Link>
         ) : (
           <Link
             to="/masuk"

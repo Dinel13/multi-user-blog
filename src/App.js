@@ -10,6 +10,7 @@ import Baca from "./pages/Baca";
 import CreateBlog from "./pages/Blog";
 import Blog from "./pages/Blog";
 import Login from "./pages/Login";
+import MyAccount from "./pages/MyAccount";
 import NotFound from "./pages/NotFound";
 import Register from "./pages/Register";
 
@@ -36,6 +37,9 @@ function App() {
         <Route path="/baca" exact>
           <Baca />
         </Route>
+        <Route path="/akunku" exact>
+          <MyAccount />
+        </Route>
         <Route path="*">
           <NotFound />
         </Route>
@@ -60,7 +64,10 @@ function App() {
         </Route>
         <Route path="/baca" exact>
           <Blog />
-        </Route>        
+        </Route> 
+        <Route path="/akunku" exact>
+          <Redirect to="/masuk" />
+        </Route>       
         <Route path="*">
           <NotFound />
         </Route>

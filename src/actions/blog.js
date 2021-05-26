@@ -5,7 +5,7 @@ export const createBlog = async (blog, token) => {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${token}`,
             },
             body: blog
         })

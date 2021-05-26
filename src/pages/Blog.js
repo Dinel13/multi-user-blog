@@ -146,7 +146,6 @@ const CreateBlog = () => {
   };
 
   const showTags = () => {
-    console.log(tags);
     return (
           tags &&
           tags.map((tag, index) => (
