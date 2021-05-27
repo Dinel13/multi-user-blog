@@ -1,5 +1,4 @@
 export const createBlog = async (blog, token) => {
-    console.log(token);
     try {
         const response= await fetch(`${process.env.REACT_APP_SERVER_URL}/blog`, {
             method: 'POST',

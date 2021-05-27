@@ -7,8 +7,7 @@ import Hero from "./components/hero/Hero";
 import PenulisPop from "./components/Populer/PenulisPop";
 import TulisanPop from "./components/Populer/TulisanPop";
 import Baca from "./pages/Baca";
-import CreateBlog from "./pages/Blog";
-import Blog from "./pages/Blog";
+import CreateBlog from "./pages/CreateBlog";
 import Login from "./pages/Login";
 import MyAccount from "./pages/MyAccount";
 import NotFound from "./pages/NotFound";
@@ -63,7 +62,7 @@ function App() {
           <Redirect to="/masuk" />
         </Route>
         <Route path="/baca" exact>
-          <Blog />
+          <Baca />
         </Route> 
         <Route path="/akunku" exact>
           <Redirect to="/masuk" />
