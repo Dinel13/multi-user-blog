@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { createBlog } from "../actions/blog";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+
+import { createBlog } from "../actions/blog";
 
 const Editor = () => {
   const [editorHtml, setEditorHtml] = useState("");
@@ -12,6 +14,8 @@ const Editor = () => {
   const [category, setCategory] = useState(null);
 
   const token = useSelector((state) => state.auth.token);
+  const userId = useSelector((state) => state.auth.userId);
+  const history = useHistory();
 
   const handleChange = (html) => {
     setEditorHtml(html);
@@ -19,9 +23,7 @@ const Editor = () => {
 
   const publishBlog = async () => {
     const arrayHastag = hastags.split("#");
-    arrayHastag.shift() //memghilang kan index pertmaa yang berisi spasi kosong
-    
-    console.log(arrayHastag);
+    arrayHastag.shift(); //memghilang kan index pertmaa yang berisi spasi kosong
     const formdata = new FormData();
     formdata.append("bodyBlog", editorHtml);
     formdata.append("titleBlog", blogTitle);
@@ -30,7 +32,7 @@ const Editor = () => {
     formdata.append("imageBlog", blogImage);
     try {
       const response = await createBlog(formdata, token);
-      console.log(response);
+      history.push(`/baca/${response.slug}`);
     } catch (error) {
       console.log(error);
     }

@@ -6,7 +6,8 @@ import Header from "./components/header/header";
 import Hero from "./components/hero/Hero";
 import PenulisPop from "./components/Populer/PenulisPop";
 import TulisanPop from "./components/Populer/TulisanPop";
-import Baca from "./pages/Baca";
+import Bacaan from "./pages/Bacaan";
+import BacaOneBlog from "./pages/BacaOneBlog";
 import CreateBlog from "./pages/CreateBlog";
 import Login from "./pages/Login";
 import MyAccount from "./pages/MyAccount";
@@ -34,7 +35,10 @@ function App() {
           <CreateBlog />
         </Route>
         <Route path="/baca" exact>
-          <Baca />
+          <Bacaan />
+        </Route>
+        <Route path="/baca/:slug" exact>
+          <BacaOneBlog />
         </Route>
         <Route path="/akunku" exact>
           <MyAccount />
@@ -61,8 +65,11 @@ function App() {
         <Route path="/tulis" exact>
           <Redirect to="/masuk" />
         </Route>
-        <Route path="/baca" exact>
-          <Baca />
+        <Route path="/bacaan" exact>
+          <Bacaan />
+        </Route> 
+        <Route path="/baca/:slug" exact>
+          <BacaOneBlog />
         </Route> 
         <Route path="/akunku" exact>
           <Redirect to="/masuk" />
