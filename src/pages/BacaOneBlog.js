@@ -21,7 +21,6 @@ export default function BacaOneBlog() {
     document.getElementById("body").innerHTML = body;
   }, [body]);
 
-  console.log(blogData);
 
   return (
     <div className="lg:container mx-auto my-8 lg:px-24">
