@@ -23,7 +23,7 @@ export default function BacaOneBlog() {
 
 
   return (
-    <div className="lg:container mx-auto my-8 lg:px-24">
+    <div className="lg:container mx-auto my-8 px-8 lg:px-24">
       <h1 className="text-gray-900 text-3xl font-bold">{blogData.title}</h1>
       <img
         className="text-center mx-auto h-2/3"

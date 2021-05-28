@@ -80,8 +80,8 @@ export const signup = (email, name, password) => {
       dispatch(
         uiActions.showNotification({
           status: "error",
-          title: "Error!",
-          message: "signup failed!",
+          title: "Gagal mendaftar",
+          message: error,
         })
       );
     }

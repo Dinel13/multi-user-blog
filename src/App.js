@@ -4,6 +4,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import Footer from "./components/footer/Footer";
 import Header from "./components/header/header";
 import Hero from "./components/hero/Hero";
+import ErrorModal from "./components/modal/ErrorModal";
 import PenulisPop from "./components/Populer/PenulisPop";
 import TulisanPop from "./components/Populer/TulisanPop";
 import Bacaan from "./pages/Bacaan";
@@ -13,9 +14,11 @@ import Login from "./pages/Login";
 import MyAccount from "./pages/MyAccount";
 import NotFound from "./pages/NotFound";
 import Register from "./pages/Register";
+import { showError } from "./store/uiAction";
 
 function App() {
   const token = useSelector((state) => state.auth.token);
+  const notif = useSelector((state) => state.ui.notification);
   let routes;
   if (token) {
     routes = (
@@ -67,13 +70,13 @@ function App() {
         </Route>
         <Route path="/bacaan" exact>
           <Bacaan />
-        </Route> 
+        </Route>
         <Route path="/bacaan/:slug" exact>
           <BacaOneBlog />
-        </Route> 
+        </Route>
         <Route path="/akunku" exact>
           <Redirect to="/masuk" />
-        </Route>       
+        </Route>
         <Route path="*">
           <NotFound />
         </Route>
@@ -83,6 +86,17 @@ function App() {
   return (
     <>
       <Header />
+      <button
+        className="z-10 p-10 bg-gray-900"
+        onClick={() => {
+          console.log("hdsad")
+          showError("test", "test", "test", "test");
+        }}
+      >
+        test
+      </button>
+      {notif && <ErrorModal />}
+      <ErrorModal />
       <main>{routes}</main>
       <Footer />
     </>

@@ -20,7 +20,6 @@ export const createBlog = async (blog, token) => {
   }
 };
 
-
 export const singleBlog = async (slug) => {
   console.log(slug);
   try {
@@ -40,30 +39,20 @@ export const singleBlog = async (slug) => {
   }
 };
 
+export const listAllBlog = async () => {
+  try {
+    const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/blogs`, {
+      method: "GET",
+    });
 
-export const listRelated = (blog) => {
-  return fetch(`${process.env.REACT_APP_SERVER_URL}/blogs/related`, {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(blog),
-  })
-    .then((response) => {
-      return response.json();
-    })
-    .catch((err) => console.log(err));
-};
-
-export const list = (username) => {
-  return fetch(`${process.env.REACT_APP_SERVER_URL}/${username}/blogs`, {
-    method: "GET",
-  })
-    .then((response) => {
-      return response.json();
-    })
-    .catch((err) => console.log(err));
+    const data = await res.json();
+    if (!res.ok) {
+      return { error: data.message || "gagal" };
+    }
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const removeBlog = (slug, token) => {

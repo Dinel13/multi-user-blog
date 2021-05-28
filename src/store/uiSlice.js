@@ -1,7 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const uiSlice = createSlice({
-  name: 'ui',
+  name: "ui",
   initialState: { notification: null },
   reducers: {
     showNotification(state, action) {
@@ -9,11 +9,15 @@ const uiSlice = createSlice({
         status: action.payload.status,
         title: action.payload.title,
         message: action.payload.message,
+        action: action.payload.action,
       };
+    },
+    hideNotification(state) {
+      state.notification = null
     },
   },
 });
 
 export const uiActions = uiSlice.actions;
 
-export default uiSlice;
+export default uiSlice.reducer;
