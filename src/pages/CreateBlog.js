@@ -11,10 +11,10 @@ const Editor = () => {
   const [blogTitle, setBlogTitle] = useState("");
   const [blogImage, setBlogImage] = useState(null);
   const [hastags, setHastags] = useState([]);
+  const [arrayHastags, setArrayHastags] = useState([]);
   const [category, setCategory] = useState(null);
 
   const token = useSelector((state) => state.auth.token);
-  const userId = useSelector((state) => state.auth.userId);
   const history = useHistory();
 
   const handleChange = (html) => {
@@ -22,17 +22,15 @@ const Editor = () => {
   };
 
   const publishBlog = async () => {
-    const arrayHastag = hastags.split("#");
-    arrayHastag.shift(); //memghilang kan index pertmaa yang berisi spasi kosong
     const formdata = new FormData();
     formdata.append("bodyBlog", editorHtml);
     formdata.append("titleBlog", blogTitle);
-    formdata.append("hastagsBlog", hastags);
+    formdata.append("hastagsBlog", arrayHastags);
     formdata.append("categoryBlog", category);
     formdata.append("imageBlog", blogImage);
     try {
       const response = await createBlog(formdata, token);
-      history.push(`/baca/${response.slug}`);
+      history.push(`/bacaan/${response.slug}`);
     } catch (error) {
       console.log(error);
     }
@@ -43,10 +41,11 @@ const Editor = () => {
   };
 
   const categoriFake = [
-    "teggst",
-    "teggstgf",
-    "teggstfdgfd",
-    "teggstfdgfdhfghfg",
+    "Inspiratif",
+    "Cerita",
+    "Kritik",
+    "Tutorial",
+    "Info kegiatan",
   ];
 
   return (
@@ -99,7 +98,7 @@ const Editor = () => {
             </div>
           </div>
           <div className="my-3">
-            <h5>Categories</h5>
+            <h5>Kategori tulisan</h5>
             <hr />
             <div onChange={(e) => setCategory(e.target.value)}>
               {categoriFake.map((categori, index) => (
@@ -118,15 +117,22 @@ const Editor = () => {
           </div>
           <div>
             <label htmlFor="tag" className="py-2 text-gray-800">
-              Hastag
+              Hastag tulisan
             </label>
             <input
               type="text"
               id="tag"
               className="rounded border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-900 placeholder-gray-500 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-pink-600 focus:border-transparent mb-4"
-              placeholder="Hastag untuk tulisan anda"
+              placeholder="Gunakan tanda pagar, maksimal 5 hastag"
               value={hastags}
-              onChange={(e) => setHastags(e.target.value)}
+              onChange={(e) =>{
+                setHastags(e.target.value)
+                const arrayHastags = e.target.value.split("#")
+                arrayHastags.shift()
+                console.log(arrayHastags);
+                arrayHastags.length > 5 ? console.log("error") : console.log("aman");
+                setArrayHastags(arrayHastags)
+              } }
             />
           </div>
           <div className="w-full">

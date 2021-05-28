@@ -1,0 +1,13 @@
+ul {
+    list-style: disc;
+    list-style-position: inside;
+    margin-left: 10px;
+}
+ol {
+    list-style: decimal;
+    list-style-position: inside;
+}
+
+#imageBlog {
+    max-height: 50vh !important;
+}

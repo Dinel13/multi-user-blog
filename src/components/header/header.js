@@ -44,7 +44,7 @@ export default function Header() {
           <Link to="/tulis" className="mr-5 hover:text-gray-900">
             Tulis
           </Link>
-          <Link to="/baca" className="mr-5 hover:text-gray-900">
+          <Link to="/bacaan" className="mr-5 hover:text-gray-900">
             Baca
           </Link>
         </nav>

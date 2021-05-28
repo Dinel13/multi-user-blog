@@ -34,10 +34,10 @@ function App() {
         <Route path="/tulis" exact>
           <CreateBlog />
         </Route>
-        <Route path="/baca" exact>
+        <Route path="/bacaan" exact>
           <Bacaan />
         </Route>
-        <Route path="/baca/:slug" exact>
+        <Route path="/bacaan/:slug" exact>
           <BacaOneBlog />
         </Route>
         <Route path="/akunku" exact>
@@ -68,7 +68,7 @@ function App() {
         <Route path="/bacaan" exact>
           <Bacaan />
         </Route> 
-        <Route path="/baca/:slug" exact>
+        <Route path="/bacaan/:slug" exact>
           <BacaOneBlog />
         </Route> 
         <Route path="/akunku" exact>
