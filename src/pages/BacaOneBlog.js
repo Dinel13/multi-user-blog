@@ -22,6 +22,7 @@ export default function BacaOneBlog() {
   }, [params]);
 
   const { body } = blogData;
+  console.table(blogData.comment);
   useEffect(() => {
     document.getElementById("body").innerHTML = body;
   }, [body]);
@@ -42,16 +43,16 @@ export default function BacaOneBlog() {
       return;
     } else {
       const saveComment = async () => {
-        
         const respon = await fetch(
           `${process.env.REACT_APP_SERVER_URL}/blog/${blogData.slug}/comment`,
           {
             method: "POST",
-            body: JSON.stringify({ comment }),
             headers: {
               Accept: "application/json",
+              "Content-Type": "application/json",
               Authorization: `Bearer ${token}`,
             },
+            body: JSON.stringify({ comment: comment }),
           }
         );
         const data = await respon.json();
@@ -62,10 +63,11 @@ export default function BacaOneBlog() {
       };
       try {
         const data = await saveComment();
-        setBlogData(data);
+        console.log(data);
+        setBlogData(prevState => ({ ...prevState, comment : data.comment}));
       } catch (error) {
-        console.log(error);
-        setCommentEror(error);
+        console.log(error.TypeError);
+        setCommentEror(error.TypeError);
       }
     }
   };
@@ -100,24 +102,16 @@ export default function BacaOneBlog() {
 
       <div>
         <h3 className="text-xl">Komentar</h3>
-        {[
-          {
-            id: 3,
-            nama: "nama",
-            komen:
-              "tYou can control which variants are generated for the resizing utilities by modifying the resize property in the variants section of your tailwind.config.js file. ",
-          },
-          { id: 4, nama: "nama", komen: "test" },
-        ].map((comment) => (
-          <p className="text-gray-800 my-2">
-            {comment.nama} :
-            <span className="text-gray-600">{comment.komen}</span>
+        {blogData.comment && blogData.comment.map((comment, index) => (
+          <p key={index} className="text-gray-800 my-2">
+            {comment.name} :
+            <span className="text-gray-600 text-sm">{comment.comment}</span>
           </p>
         ))}
       </div>
 
       <form action="#" onSubmit={submitComment} className="w-full">
-        <label htmlFor="komen" className="py-2 text-gray-800">
+        <label htmlFor="komen" className="py-2 text-gray-900">
           Tambahkan Komen
         </label>
         <textarea

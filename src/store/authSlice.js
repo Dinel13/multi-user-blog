@@ -12,7 +12,6 @@ const authSlice = createSlice({
   reducers: {
     login(state, action) {
       const { token, userId, name } = action.payload;
-      console.log(token, userId, name);
       localStorage.setItem(
         "authUnhas",
         JSON.stringify({
