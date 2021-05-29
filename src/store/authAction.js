@@ -32,8 +32,8 @@ export const login = (email, password) => {
       dispatch(
         uiActions.showNotification({
           status: "error",
-          title: "Error!",
-          message: "login failed!",
+          title: "Gagal masuk",
+          message: error.message,
         })
       );
     }
@@ -45,8 +45,8 @@ export const signup = (email, name, password) => {
     dispatch(
       uiActions.showNotification({
         status: "pending",
-        title: "Sending...",
-        message: "Sending cart data!",
+        title: "Mendaftar...",
+        message: "Harap tunggu sebentar",
       })
     );
 
@@ -81,7 +81,7 @@ export const signup = (email, name, password) => {
         uiActions.showNotification({
           status: "error",
           title: "Gagal mendaftar",
-          message: error,
+          message: error.message,
         })
       );
     }

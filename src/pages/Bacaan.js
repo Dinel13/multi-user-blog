@@ -2,17 +2,17 @@ import React, {useEffect, useState} from "react";
 import { listAllBlog } from "../actions/blog";
 import Blog from "../components/blog/Blog";
 
-const fakeBlog = [
-    {
-        title : "tes", category : "cate", excerpt : "<p> teagd djsadhjas njsahd jhdjsa jd ash </>", slug:"test", image : "testt" , like:654, comment:670
-    },
-    {
-        title : "tesdd", category : "catefdf", excerpt : "<p> teagddsfdsfds djsadhjas njsahd jhdjsa jd ash </>", slug:"test", image : "testt" , like:654, comment:67
-    },
-    {
-        title : "tesasdsad", category : "catefds", excerpt : "<p> teagdfdsfdsfds djsadhjas njsahd jhdjsa jd ash </>", slug:"test", image : "testt" , like:654, comment:67
-    },
-]
+// const fakeBlog = [
+//     {
+//         title : "tes", category : "cate", excerpt : "<p> teagd djsadhjas njsahd jhdjsa jd ash </>", slug:"test", image : "testt" , like:654, comment:670
+//     },
+//     {
+//         title : "tesdd", category : "catefdf", excerpt : "<p> teagddsfdsfds djsadhjas njsahd jhdjsa jd ash </>", slug:"test", image : "testt" , like:654, comment:67
+//     },
+//     {
+//         title : "tesasdsad", category : "catefds", excerpt : "<p> teagdfdsfdsfds djsadhjas njsahd jhdjsa jd ash </>", slug:"test", image : "testt" , like:654, comment:67
+//     },
+// ]
 
 export default function Baca() {
 const [blogData , setBlogData] = useState(null)

@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import { singleBlog } from "../actions/blog";
 import "./BacaOneBlog.css";
+
 export default function BacaOneBlog() {
+  const token = useSelector((state) => state.auth.token);
+
   const params = useParams();
   const [blogData, setBlogData] = useState("");
   const [comment, setComment] = useState("");
+  const [commentEror, setCommentEror] = useState("");
 
   useEffect(() => {
     async function getBlog() {
@@ -21,6 +26,49 @@ export default function BacaOneBlog() {
     document.getElementById("body").innerHTML = body;
   }, [body]);
 
+  const submitComment = async (e) => {
+    e.preventDefault();
+    if (!comment || comment instanceof String) {
+      setCommentEror("Tuliskan komentar anda dulu");
+      setTimeout(() => setCommentEror(null), 4000);
+      return;
+    } else if (comment.length > 2000) {
+      setCommentEror("Komentar anda terlalu panjang");
+      setTimeout(() => setCommentEror(null), 4000);
+      return;
+    } else if (!token) {
+      setCommentEror("Harus login sebelum komen");
+      setTimeout(() => setCommentEror(null), 4000);
+      return;
+    } else {
+      const saveComment = async () => {
+        
+        const respon = await fetch(
+          `${process.env.REACT_APP_SERVER_URL}/blog/${blogData.slug}/comment`,
+          {
+            method: "POST",
+            body: JSON.stringify({ comment }),
+            headers: {
+              Accept: "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const data = await respon.json();
+        if (!respon.ok) {
+          throw new Error(data.message || "Tidak bisa mengirim komen");
+        }
+        return data;
+      };
+      try {
+        const data = await saveComment();
+        setBlogData(data);
+      } catch (error) {
+        console.log(error);
+        setCommentEror(error);
+      }
+    }
+  };
 
   return (
     <div className="lg:container mx-auto my-8 px-8 lg:px-24">
@@ -68,22 +116,29 @@ export default function BacaOneBlog() {
         ))}
       </div>
 
-      <div className="w-full">
+      <form action="#" onSubmit={submitComment} className="w-full">
         <label htmlFor="komen" className="py-2 text-gray-800">
-         Tambahkan Komen
+          Tambahkan Komen
         </label>
         <textarea
           id="komen"
-          className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none"
+          type="text"
+          className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none require"
           rows="3"
           placeholder="Tuliskan komen anda"
           value={comment}
           onChange={(e) => setComment(e.target.value)}
         />
-        <button className="items-center bg-pink-700 border-5 focus:outline-none hover:bg-pink-900 rounded text-gray-100 py-1 px-3">
+        {commentEror && (
+          <p className="text-red-500 text-sm py-1 italic">{commentEror}</p>
+        )}
+        <button
+          type="submit"
+          className="items-center bg-pink-700 border-5 focus:outline-none hover:bg-pink-900 rounded text-gray-100 py-1 px-3"
+        >
           Kirim
         </button>
-      </div>
+      </form>
     </div>
   );
 }

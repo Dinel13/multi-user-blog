@@ -1,5 +1,8 @@
-import { useSelector } from "react-redux";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Route, Switch, Redirect } from "react-router-dom";
+
+import { authActions } from "./store/authSlice";
 
 import Footer from "./components/footer/Footer";
 import Header from "./components/header/header";
@@ -14,11 +17,16 @@ import Login from "./pages/Login";
 import MyAccount from "./pages/MyAccount";
 import NotFound from "./pages/NotFound";
 import Register from "./pages/Register";
-import { showError } from "./store/uiAction";
 
 function App() {
+  const dispatch = useDispatch();
   const token = useSelector((state) => state.auth.token);
-  const notif = useSelector((state) => state.ui.notification);
+  React.useEffect(() => {
+    localStorage.getItem("authUnhas") &&
+      dispatch(
+        authActions.login(JSON.parse(localStorage.getItem("authUnhas")))
+      );
+  });
   let routes;
   if (token) {
     routes = (
@@ -86,16 +94,6 @@ function App() {
   return (
     <>
       <Header />
-      <button
-        className="z-10 p-10 bg-gray-900"
-        onClick={() => {
-          console.log("hdsad")
-          showError("test", "test", "test", "test");
-        }}
-      >
-        test
-      </button>
-      {notif && <ErrorModal />}
       <ErrorModal />
       <main>{routes}</main>
       <Footer />

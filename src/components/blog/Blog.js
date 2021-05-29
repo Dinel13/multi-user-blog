@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export default function Blog(props) {
-  const { category, title, image, excerpt, slug, like, comment } = props.blog;
+  const { category, title, image, excerpt, slug, comment } = props.blog;
   return (
     <div className="p-4 md:w-1/3">
       <div className="h-full border-2 border-gray-300 border-opacity-60 rounded-lg overflow-hidden">
@@ -39,19 +39,7 @@ export default function Blog(props) {
               </svg>
             </Link>
             <span className="text-gray-500 mr-3 inline-flex items-center lg:ml-auto md:ml-0 ml-auto leading-none text-sm pr-3 py-1 border-r-2 border-gray-200">
-              <svg
-                className="w-4 h-4 mr-1"
-                stroke="currentColor"
-                strokeWidth="2"
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                viewBox="0 0 24 24"
-              >
-                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                <circle cx="12" cy="12" r="3"></circle>
-              </svg>
-              {like}
+              
             </span>
             <span className="text-gray-500 inline-flex items-center leading-none text-sm">
               <svg

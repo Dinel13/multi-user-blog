@@ -11,9 +11,19 @@ const authSlice = createSlice({
   initialState: initialAuthState,
   reducers: {
     login(state, action) {
-      state.token = action.payload.token;
-      state.userId = action.payload.userId;
-      state.name = action.payload.name;
+      const { token, userId, name } = action.payload;
+      console.log(token, userId, name);
+      localStorage.setItem(
+        "authUnhas",
+        JSON.stringify({
+          token,
+          userId,
+          name,
+        })
+      );
+      state.token = token;
+      state.userId = userId;
+      state.name = name;
     },
     logout(state) {
       state.token = null;
