@@ -9,18 +9,20 @@ export default function PenulisPop() {
     const getTulisanPop = async () => {
       const fetchToBackend = async () => {
         const res = await fetch(
-          `${process.env.REACT_APP_SERVER_URL}/user/populer`,
+          `${process.env.REACT_APP_SERVER_URL}/users/populer`,
           { method: "GET" }
         );
         const data = res.json();
         if (!res.ok) {
           throw new Error(data.message || "gagal meload penulis populer");
         }
+        return data;
       };
 
       try {
         const data = await fetchToBackend();
-        setPenulisData(data);
+        console.log(data);
+        setPenulisData(data.user);
       } catch (error) {
         console.log(error);
       }
@@ -28,11 +30,11 @@ export default function PenulisPop() {
     getTulisanPop();
   }, []);
 
-  const fake = [
-    { name: "udin", fakultas: "teknik", blog: "6", id: 5 },
-    { name: "udindas", fakultas: "kesmas", blog: "9", id: 7 },
-    { name: "udin da", fakultas: "hukum", blog: "2", id: 8 },
-  ];
+  // const fake = [
+  //   { name: "udin", fakultas: "teknik", blog: "6", id: 5 },
+  //   { name: "udindas", fakultas: "kesmas", blog: "9", id: 7 },
+  //   { name: "udin da", fakultas: "hukum", blog: "2", id: 8 },
+  // ];
 
   return (
     <section className="text-gray-600 body-font">
@@ -47,12 +49,12 @@ export default function PenulisPop() {
           </p>
         </div>
         <div className="flex flex-wrap -m-4 pb-10">
-          {!fake ? (
+          {!penulisData ? (
             <h3 className="sm:text-1xl text-center mx-auto text-xl font-medium mb-24 text-gray-700">
               Belum tersedia tulisan populer
             </h3>
           ) : (
-            fake.map((penulis, index) => (
+            penulisData.map((penulis, index) => (
               <Penulis key={index} penulis={penulis} />
             ))
           )}

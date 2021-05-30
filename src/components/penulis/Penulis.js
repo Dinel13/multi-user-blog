@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export default function Penulis(props) {
-    const {name, fakultas, id, blog , image} = props.penulis
+    const {name, fakultas, _id, blog , image} = props.penulis
   return (
     <div className="p-2 lg:w-1/3 md:w-1/2 w-full ">
       <div className="h-full flex items-center border-gray-300 shadow-lg border p-4 rounded-lg">
@@ -19,7 +19,7 @@ export default function Penulis(props) {
           <h3 className="text-gray-500 mb-3">{fakultas}</h3>
           <div className="flex items-center flex-wrap ">
             <Link
-              to={`/Penulis/${id}`}
+              to={`/penulis/${_id}`}
               className="text-gray-500 inline-flex items-center md:mb-2 lg:mb-0 hover:text-gray-700 font-bold"
             >
               Selengkapnya
@@ -51,7 +51,7 @@ export default function Penulis(props) {
                 <path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path>
                 <polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon>
               </svg>
-              <span className="ml-1 font-medium" >{blog}</span>
+              <span className="ml-1 font-medium" >{blog.length}</span>
             </span>
           </div>
         </div>
