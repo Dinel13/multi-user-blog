@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 import Penulis from "../penulis/Penulis";
 
@@ -7,16 +7,19 @@ export default function PenulisPop() {
 
   React.useEffect(() => {
     const getTulisanPop = async () => {
-      const res = await fetch(
-        `${process.env.REACT_APP_SERVER_URL}/user/populer`,
-        { method: "GET" }
-      );
-      const data = res.json();
-      if (!res.ok) {
-        throw new Error(data.message || "gagal meload penulis populer");
-      }
+      const fetchToBackend = async () => {
+        const res = await fetch(
+          `${process.env.REACT_APP_SERVER_URL}/user/populer`,
+          { method: "GET" }
+        );
+        const data = res.json();
+        if (!res.ok) {
+          throw new Error(data.message || "gagal meload penulis populer");
+        }
+      };
+
       try {
-        const data = await getTulisanPop();
+        const data = await fetchToBackend();
         setPenulisData(data);
       } catch (error) {
         console.log(error);
@@ -25,11 +28,11 @@ export default function PenulisPop() {
     getTulisanPop();
   }, []);
 
-  const fake =[
-    {name : "udin", fakultas : "teknik", blog : "6" ,id :5},
-    {name : "udindas", fakultas : "kesmas", blog : "9", id :7},
-    {name : "udin da", fakultas : "hukum", blog : "2", id :8},
-  ]
+  const fake = [
+    { name: "udin", fakultas: "teknik", blog: "6", id: 5 },
+    { name: "udindas", fakultas: "kesmas", blog: "9", id: 7 },
+    { name: "udin da", fakultas: "hukum", blog: "2", id: 8 },
+  ];
 
   return (
     <section className="text-gray-600 body-font">
@@ -49,7 +52,9 @@ export default function PenulisPop() {
               Belum tersedia tulisan populer
             </h3>
           ) : (
-            fake.map((penulis, index) => <Penulis key={index} penulis={penulis} />)
+            fake.map((penulis, index) => (
+              <Penulis key={index} penulis={penulis} />
+            ))
           )}
         </div>
       </div>

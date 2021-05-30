@@ -7,16 +7,18 @@ export default function TulisanTerbaru() {
 
   React.useEffect(() => {
     const getTulisanPop = async () => {
-      const res = await fetch(
-        `${process.env.REACT_APP_SERVER_URL}/blog/terbaru`,
-        { method: "GET" }
-      );
-      const data = res.json();
-      if (!res.ok) {
-        throw new Error(data.message || "gagal meload tulisan terbaru");
-      }
+      const fetchToBackend = async () => {
+        const res = await fetch(
+          `${process.env.REACT_APP_SERVER_URL}/blog/terbaru`,
+          { method: "GET" }
+        );
+        const data = res.json();
+        if (!res.ok) {
+          throw new Error(data.message || "gagal meload tulisan terbaru");
+        }
+      };
       try {
-        const data = await getTulisanPop();
+        const data = await fetchToBackend();
         setBlogData(data);
       } catch (error) {
         console.log(error);
