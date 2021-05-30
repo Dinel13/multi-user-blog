@@ -10,6 +10,7 @@ import Hero from "./components/hero/Hero";
 import ErrorModal from "./components/modal/ErrorModal";
 import PenulisPop from "./components/Populer/PenulisPop";
 import TulisanPop from "./components/Populer/TulisanPop";
+import TulisanTerbaru from "./components/Populer/TulisanTerbaru";
 import Bacaan from "./pages/Bacaan";
 import BacaOneBlog from "./pages/BacaOneBlog";
 import CreateBlog from "./pages/CreateBlog";
@@ -33,6 +34,7 @@ function App() {
       <Switch>
         <Route path="/" exact>
           <Hero />
+          <TulisanTerbaru />
           <TulisanPop />
           <PenulisPop />
         </Route>
@@ -64,6 +66,7 @@ function App() {
       <Switch>
         <Route path="/" exact>
           <Hero />
+          <TulisanTerbaru />
           <TulisanPop />
           <PenulisPop />
         </Route>
