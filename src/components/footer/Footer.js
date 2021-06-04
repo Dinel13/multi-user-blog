@@ -1,11 +1,14 @@
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <footer className="text-gray-700 body-font border-gray-200 border bg-pink-200">
-      <div className="container px-5 py-24 mx-auto flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col">
+    <footer className="text-gray-700 body-font border-gray-200 border bg-red-200">
+      <div className="container px-5 py-12 mx-auto flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col">
         <div className="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left">
-          <Link to="/" className="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
+          <Link
+            to="/"
+            className="flex title-font font-medium items-center md:justify-start justify-center text-gray-900"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -13,104 +16,120 @@ export default function Footer() {
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth="2"
-              className="w-10 h-10 text-white p-2 bg-pink-500 rounded-full"
+              className="w-10 h-10 text-white p-2 bg-pink-600 rounded-full"
               viewBox="0 0 24 24"
             >
               <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
             </svg>
-            <span className="ml-3 text-xl">UnhasTa</span>
+            <span className="ml-3 text-xl">SuaraUnhas</span>
           </Link>
           <p className="mt-2 text-sm text-gray-500">
-            Air plant banjo lyft occupy retro adaptogen indego
+            Tempatnya anak Unhas berbagi kisah dan inspirasi
           </p>
         </div>
         <div className="flex-grow flex flex-wrap md:pl-20 -mb-10 md:mt-0 mt-10 md:text-left text-center">
-          <div className="lg:w-1/3 md:w-1/2 w-full px-4">
-            <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">
+          <div className="sm:w-1/2 w-full px-4">
+            <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-1.5">
               CATEGORIES
             </h2>
             <nav className="list-none mb-10">
               <li>
-                <Link to="/" className="text-gray-600 hover:text-gray-800">First Link</Link>
+                <Link
+                  to="/bacaan/kategori/inspirasi"
+                  className="text-gray-600 hover:text-gray-800"
+                >
+                  Inspirasi
+                </Link>
               </li>
               <li>
-                <Link to="/" className="text-gray-600 hover:text-gray-800">Second Link</Link>
+                <Link
+                  to="/bacaan/kategori/kegiatan"
+                  className="text-gray-600 hover:text-gray-800"
+                >
+                  Kegiatan
+                </Link>
               </li>
               <li>
-                <Link to="/" className="text-gray-600 hover:text-gray-800">Third Link</Link>
+                <Link
+                  to="/bacaan/kategori/kritik"
+                  className="text-gray-600 hover:text-gray-800"
+                >
+                  Kritik
+                </Link>
               </li>
               <li>
-                <Link to="/" className="text-gray-600 hover:text-gray-800">Fourth Link</Link>
+                <Link
+                  to="/bacaan/kategori/cerita"
+                  className="text-gray-600 hover:text-gray-800"
+                >
+                  Cerita
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/bacaan/kategori/tutorial"
+                  className="text-gray-600 hover:text-gray-800"
+                >
+                  Tutorial
+                </Link>
               </li>
             </nav>
           </div>
-          <div className="lg:w-1/3 md:w-1/2 w-full px-4">
-            <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">
-              CATEGORIES
+          <div className="sm:w-1/2 w-full px-4">
+            <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-1.5">
+              HALAMAN LAIN
             </h2>
             <nav className="list-none mb-10">
               <li>
-                <Link to="/" className="text-gray-600 hover:text-gray-800">First Link</Link>
+                <Link
+                  to="/tentang-kami"
+                  className="text-gray-600 hover:text-gray-800"
+                >
+                  Tentang SuaraUnhas
+                </Link>
               </li>
               <li>
-                <Link to="/" className="text-gray-600 hover:text-gray-800">Second Link</Link>
+                <Link
+                  to="/dukung-kami"
+                  className="text-gray-600 hover:text-gray-800"
+                >
+                  Dukung Kami
+                </Link>
               </li>
               <li>
-                <Link to="/" className="text-gray-600 hover:text-gray-800">Third Link</Link>
+                <Link
+                  to="/developper"
+                  className="text-gray-600 hover:text-gray-800"
+                >
+                  Tentang Salahuddin
+                </Link>
               </li>
               <li>
-                <Link to="/" className="text-gray-600 hover:text-gray-800">Fourth Link</Link>
+                <Link
+                  to="/bantuan"
+                  className="text-gray-600 hover:text-gray-800"
+                >
+                  Bantuan
+                </Link>
               </li>
             </nav>
           </div>
-          <div className="lg:w-1/3 md:w-1/2 w-full px-4">
-            <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">
-              CATEGORIES
-            </h2>
-            <nav className="list-none mb-10">
-              <li>
-                <Link to="/" className="text-gray-600 hover:text-gray-800">First Link</Link>
-              </li>
-              <li>
-                <Link to="/" className="text-gray-600 hover:text-gray-800">Second Link</Link>
-              </li>
-              <li>
-                <Link to="/" className="text-gray-600 hover:text-gray-800">Third Link</Link>
-              </li>
-              <li>
-                <Link to="/" className="text-gray-600 hover:text-gray-800">Fourth Link</Link>
-              </li>
-            </nav>
-          </div>
-          
         </div>
       </div>
-      <div className="bg-pink-400">
+      <div className="bg-red-500">
         <div className="container mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row">
-          <p className="text-gray-700 text-sm text-center sm:text-left">
-            © 2021 UnhasTa —
+          <p className="text-gray-800 text-sm text-center sm:text-left">
+            ©2021 SuaraUnhas by
             <a
               href="https://www.instagram.com/salahuddin_hafid/"
               rel="noopener noreferrer"
-              className="text-gray-900 ml-1"
+              className="text-gray-900 ml-1 font-medium"
               target="_blank"
             >
-              @salahuddin_hafid
+              salahuddin_hafid
             </a>
           </p>
           <span className="inline-flex sm:ml-auto sm:mt-0 mt-2 justify-center sm:justify-start">
-            <a href="/" className="text-gray-800">
-              <svg
-                fill="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                className="w-5 h-5"
-                viewBox="0 0 24 24"
-              >
-                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
-              </svg>
-            </a>
             <a href="/" className="ml-3 text-gray-800">
               <svg
                 fill="currentColor"
