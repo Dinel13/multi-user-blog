@@ -18,6 +18,7 @@ import Login from "./pages/Login";
 import MyAccount from "./pages/MyAccount";
 import NotFound from "./pages/NotFound";
 import Register from "./pages/Register";
+import Penulis from "./pages/Penulis";
 
 function App() {
   const dispatch = useDispatch();
@@ -56,6 +57,9 @@ function App() {
         <Route path="/akunku" exact>
           <MyAccount />
         </Route>
+        <Route path="/penulis/:id" exact>
+          <Penulis />
+        </Route>
         <Route path="*">
           <NotFound />
         </Route>
@@ -84,6 +88,9 @@ function App() {
         </Route>
         <Route path="/bacaan/:slug" exact>
           <BacaOneBlog />
+        </Route>
+        <Route path="/penulis/:id" exact>
+          <Penulis />
         </Route>
         <Route path="/akunku" exact>
           <Redirect to="/masuk" />

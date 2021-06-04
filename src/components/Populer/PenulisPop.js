@@ -21,7 +21,6 @@ export default function PenulisPop() {
 
       try {
         const data = await fetchToBackend();
-        console.log(data);
         setPenulisData(data.user);
       } catch (error) {
         console.log(error);
