@@ -7,7 +7,6 @@ export default function ErrorModal() {
 
   React.useEffect(() => {
     setShowModal(notification);
-    console.log(notification);
   }, [notification]);
 
   return (

@@ -1,11 +1,11 @@
 import { authActions } from "./authSlice";
 import { uiActions } from "./uiSlice";
 
-export const login = (email, password) => {
+export const login = (email, password, successLogin, failLogin) => {
   return async (dispatch) => {
     const loginToBackend = async () => {
       const response = await await fetch(
-        "http://localhost:8080/api/user/login",
+        `${process.env.REACT_APP_SERVER_URL}/user/login`,
         {
           method: "POST",
           body: JSON.stringify({
@@ -26,16 +26,20 @@ export const login = (email, password) => {
 
     try {
       const result = await loginToBackend();
+      console.log(result);
       dispatch(authActions.login(result));
+      successLogin();
     } catch (error) {
-      console.log(error);
+      console.error(error);
       dispatch(
         uiActions.showNotification({
           status: "error",
           title: "Gagal masuk",
           message: error.message,
+          action: null,
         })
       );
+      failLogin();
     }
   };
 };

@@ -90,7 +90,7 @@ export default function Header() {
               Baca
             </Link>
           </div>
-          {!name ? (
+          {name ? (
             <div className="flex items-end">
               <Link
                 to="/akunku"
