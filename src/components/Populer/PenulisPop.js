@@ -27,7 +27,6 @@ export default function PenulisPop() {
         setPenulisData(data.user);
         setStatus((prevState) => ({ ...prevState, pending: false }));
       } catch (error) {
-        console.log(error);
         setStatus((prevState) => ({
           ...prevState,
           pending: false,

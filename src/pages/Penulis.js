@@ -29,7 +29,7 @@ export default function Penulis() {
       }
     };
     fetchToBackend();
-  });
+  }, [id]);
 
   return (
     <div>

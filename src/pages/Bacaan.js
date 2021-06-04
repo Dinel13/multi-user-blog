@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { listAllBlog } from "../actions/blog";
 import Blog from "../components/blog/Blog";
 
@@ -15,18 +15,18 @@ import Blog from "../components/blog/Blog";
 // ]
 
 export default function Baca() {
-const [blogData , setBlogData] = useState(null)
+  const [blogData, setBlogData] = useState(null);
 
-useEffect(() => {
-    const fetchBlog = async () =>{
-        const res = await listAllBlog()
-        setBlogData(res)
-    }
+  useEffect(() => {
+    const fetchBlog = async () => {
+      const res = await listAllBlog();
+      setBlogData(res);
+    };
 
-    fetchBlog()
-}, [])
+    fetchBlog();
+  }, []);
 
-console.log(blogData);
+  console.log(blogData);
 
   return (
     <section className="text-gray-600 body-font">
@@ -35,9 +35,7 @@ console.log(blogData);
           Tulisan Terbaru
         </h1>
         <div className="flex flex-wrap -m-4">
-          {blogData && blogData.map(blog => (
-              <Blog blog={blog} />
-          ))}
+          {blogData && blogData.map((blog) => <Blog blog={blog} />)}
         </div>
       </div>
     </section>

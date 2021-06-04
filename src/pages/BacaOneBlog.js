@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import { singleBlog } from "../actions/blog";
@@ -7,11 +7,11 @@ import "./BacaOneBlog.css";
 
 export default function BacaOneBlog() {
   const token = useSelector((state) => state.auth.token);
-
+  const history = useHistory();
   const params = useParams();
   const [blogData, setBlogData] = useState("");
   const [comment, setComment] = useState("");
-  const [commentEror, setCommentEror] = useState("");
+  const [status, setStatus] = useState({});
 
   useEffect(() => {
     async function getBlog() {
@@ -22,7 +22,6 @@ export default function BacaOneBlog() {
   }, [params]);
 
   const { body } = blogData;
-  console.table(blogData.comment);
   useEffect(() => {
     document.getElementById("body").innerHTML = body;
   }, [body]);
@@ -30,19 +29,33 @@ export default function BacaOneBlog() {
   const submitComment = async (e) => {
     e.preventDefault();
     if (!comment || comment instanceof String) {
-      setCommentEror("Tuliskan komentar anda dulu");
-      setTimeout(() => setCommentEror(null), 4000);
-      return;
+      setStatus((prevState) => ({
+        ...prevState,
+        error: "Tuliskan komentar anda dulu",
+      }));
+      setTimeout(() => setStatus({}), 4000);
     } else if (comment.length > 2000) {
-      setCommentEror("Komentar anda terlalu panjang");
-      setTimeout(() => setCommentEror(null), 4000);
-      return;
+      console.log(comment.length);
+      setStatus((prevState) => ({
+        ...prevState,
+        error: "Komentar anda terlalu panjang",
+      }));
+      setTimeout(() => setStatus({}), 4000);
     } else if (!token) {
-      setCommentEror("Harus login sebelum komen");
-      setTimeout(() => setCommentEror(null), 4000);
-      return;
+      setStatus((prevState) => ({
+        ...prevState,
+        error: "Kamu harus login dulu",
+      }));
+      setTimeout(() => {
+        setStatus({});
+        history.push("/masuk");
+      }, 3000);
     } else {
       const saveComment = async () => {
+        setStatus((prevState) => ({
+          ...prevState,
+          pending: true,
+        }));
         const respon = await fetch(
           `${process.env.REACT_APP_SERVER_URL}/blog/${blogData.slug}/comment`,
           {
@@ -63,11 +76,18 @@ export default function BacaOneBlog() {
       };
       try {
         const data = await saveComment();
-        console.log(data);
-        setBlogData(prevState => ({ ...prevState, comment : data.comment}));
+        setBlogData((prevState) => ({ ...prevState, comment: data.comment }));
+        setComment("");
+        setStatus((prevState) => ({
+          ...prevState,
+          pending: false,
+        }));
       } catch (error) {
-        console.log(error.TypeError);
-        setCommentEror(error.TypeError);
+        setStatus((prevState) => ({
+          ...prevState,
+          pending: false,
+          error: "Sedang tidak bisa menambahkan komentar",
+        }));
       }
     }
   };
@@ -102,12 +122,13 @@ export default function BacaOneBlog() {
 
       <div>
         <h3 className="text-xl">Komentar</h3>
-        {blogData.comment && blogData.comment.map((comment, index) => (
-          <p key={index} className="text-gray-800 my-2">
-            {comment.name} :
-            <span className="text-gray-600 text-sm">{comment.comment}</span>
-          </p>
-        ))}
+        {blogData.comment &&
+          blogData.comment.map((comment, index) => (
+            <p key={index} className="text-gray-800 my-2">
+              <Link to={"/penulis/" + comment.userId}>{comment.name} :</Link>
+              <span className="text-gray-600 text-sm">{comment.comment}</span>
+            </p>
+          ))}
       </div>
 
       <form action="#" onSubmit={submitComment} className="w-full">
@@ -123,15 +144,35 @@ export default function BacaOneBlog() {
           value={comment}
           onChange={(e) => setComment(e.target.value)}
         />
-        {commentEror && (
-          <p className="text-red-500 text-sm py-1 italic">{commentEror}</p>
+        {status.error && (
+          <p className="text-red-500 text-sm py-1 italic">{status.error}</p>
         )}
-        <button
-          type="submit"
-          className="items-center bg-pink-700 border-5 focus:outline-none hover:bg-pink-900 rounded text-gray-100 py-1 px-3"
-        >
-          Kirim
-        </button>
+        {status.pending ? (
+          <button
+            type="submit"
+            disabled
+            className="items-center bg-pink-500 border-5 focus:outline-none rounded text-gray-100 py-1 px-3"
+          >
+            <svg
+              className="animate-spin h-5 w-5 mr-3 text-white"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={3}
+            >
+              <path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+          </button>
+        ) : (
+          <button
+            type="submit"
+            className="items-center bg-pink-700 border-5 focus:outline-none hover:bg-pink-900 rounded text-gray-100 py-1 px-3"
+          >
+            Kirim
+          </button>
+        )}
       </form>
     </div>
   );

@@ -26,11 +26,9 @@ export const login = (email, password, successLogin, failLogin) => {
 
     try {
       const result = await loginToBackend();
-      console.log(result);
       dispatch(authActions.login(result));
       successLogin();
     } catch (error) {
-      console.error(error);
       dispatch(
         uiActions.showNotification({
           status: "error",
@@ -46,17 +44,17 @@ export const login = (email, password, successLogin, failLogin) => {
 
 export const signup = (email, name, password, succesSingup, failSignup) => {
   return async (dispatch) => {
-    dispatch(
-      uiActions.showNotification({
-        status: "pending",
-        title: "Mendaftar...",
-        message: "Harap tunggu sebentar",
-      })
-    );
+    // dispatch(
+    //   uiActions.showNotification({
+    //     status: "pending",
+    //     title: "Mendaftar...",
+    //     message: "Harap tunggu sebentar",
+    //   })
+    // );
 
     const signupToBackend = async () => {
       const response = await await fetch(
-        "http://localhost:8080/api/user/signup",
+        `${process.env.REACT_APP_SERVER_URL}/user/signup`,
         {
           method: "POST",
           body: JSON.stringify({

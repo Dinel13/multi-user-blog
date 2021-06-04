@@ -20,6 +20,7 @@ export default function Login() {
 
   const singupHandler = (event) => {
     event.preventDefault();
+    setPending(true);
     dispatch(
       signup(
         email.current.value,

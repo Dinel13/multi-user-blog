@@ -27,7 +27,6 @@ export default function TulisanPop() {
         setBlogData(data.blog);
         setStatus((prevState) => ({ ...prevState, pending: false }));
       } catch (error) {
-        console.log(error);
         setStatus((prevState) => ({
           ...prevState,
           pending: false,

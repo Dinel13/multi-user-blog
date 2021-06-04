@@ -15,9 +15,7 @@ export default function Login() {
     setTimeout(() => history.push("/"), 2000);
   };
 
-  const onFailLogin = () => {
-    setPending(false);
-  };
+  const onFailLogin = () => setPending(false);
 
   const loginHandler = (event) => {
     event.preventDefault();
