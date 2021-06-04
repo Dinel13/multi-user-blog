@@ -60,7 +60,7 @@ export default function PenulisPop() {
           {status.pending && <Loading />}
           {status.error && (
             <h3 className="sm:text-1xl text-center mx-auto text-xl font-medium mb-24 text-gray-700">
-              Belum tersedia tulisan populer
+              Belum tersedia penulis populer
             </h3>
           )}
           {penulisData &&

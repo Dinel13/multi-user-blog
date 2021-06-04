@@ -1,11 +1,14 @@
 import React from "react";
 
 import Blog from "../blog/Blog";
+import Loading from "../loading/Loading";
 
 export default function TulisanTerbaru() {
   const [blogData, setBlogData] = React.useState(null);
+  const [status, setStatus] = React.useState({ pending: false, error: "" });
 
   React.useEffect(() => {
+    setStatus((prevState) => ({ ...prevState, pending: true }));
     const getTulisanPop = async () => {
       const fetchToBackend = async () => {
         const res = await fetch(
@@ -21,8 +24,14 @@ export default function TulisanTerbaru() {
       try {
         const data = await fetchToBackend();
         setBlogData(data.blog);
+        setStatus((prevState) => ({ ...prevState, pending: false }));
       } catch (error) {
         console.log(error);
+        setStatus((prevState) => ({
+          ...prevState,
+          pending: false,
+          error: error,
+        }));
       }
     };
     getTulisanPop();
@@ -65,13 +74,14 @@ export default function TulisanTerbaru() {
           Tulisan Terbaru
         </h1>
         <div className="flex flex-wrap -m-4 pb-10">
-          {!blogData ? (
+          {status.pending && <Loading />}
+          {status.error && (
             <h3 className="sm:text-1xl text-center mx-auto text-xl font-medium mb-24 text-gray-700">
               Belum tersedia tulisan Terbaru
             </h3>
-          ) : (
-            blogData.map((blog, index) => <Blog key={index} blog={blog} />)
           )}
+          {blogData &&
+            blogData.map((blog, index) => <Blog key={index} blog={blog} />)}
         </div>
       </div>
       <hr />
