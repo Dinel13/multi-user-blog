@@ -44,7 +44,7 @@ export const login = (email, password, successLogin, failLogin) => {
   };
 };
 
-export const signup = (email, name, password) => {
+export const signup = (email, name, password, succesSingup, failSignup) => {
   return async (dispatch) => {
     dispatch(
       uiActions.showNotification({
@@ -79,7 +79,7 @@ export const signup = (email, name, password) => {
     try {
       const result = await signupToBackend();
       dispatch(authActions.login(result));
-      console.log(result);
+      succesSingup();
     } catch (error) {
       dispatch(
         uiActions.showNotification({
@@ -88,6 +88,7 @@ export const signup = (email, name, password) => {
           message: error.message,
         })
       );
+      failSignup();
     }
   };
 };

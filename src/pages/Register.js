@@ -1,17 +1,34 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { signup } from "../store/authAction";
 
 export default function Login() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const email = useRef();
   const password = useRef();
   const name = useRef();
+  const [pending, setPending] = useState(null);
 
-  const loginHandler = (event) => {
+  const onSuccesSingup = () => {
+    setPending(false);
+    setTimeout(() => history.push("/"), 2000);
+  };
+
+  const onFailSignup = () => setPending(false);
+
+  const singupHandler = (event) => {
     event.preventDefault();
-    dispatch(signup(email.current.value, name.current.value, password.current.value));
+    dispatch(
+      signup(
+        email.current.value,
+        name.current.value,
+        password.current.value,
+        onSuccesSingup,
+        onFailSignup
+      )
+    );
   };
 
   return (
@@ -19,10 +36,10 @@ export default function Login() {
       <h1 className="text-3xl font-semibold text-center text-gray-700 dark:text-white">
         UnhasTa
       </h1>
-      <form className="mt-6" onSubmit={loginHandler}>
+      <form className="mt-6" onSubmit={singupHandler}>
         <div>
           <label
-            htmlFor="username"
+            htmlFor="email"
             className="block text-sm text-gray-800 dark:text-gray-200"
           >
             Email
@@ -30,13 +47,15 @@ export default function Login() {
           <input
             ref={email}
             type="email"
+            id="email"
+            required
             className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
           />
         </div>
         <div className="mt-4">
           <div className="flex items-center justify-between">
             <label
-              htmlFor="name"
+              htmlFor="userName"
               className="block text-sm text-gray-800 dark:text-gray-200"
             >
               Nama
@@ -45,6 +64,8 @@ export default function Login() {
           <input
             ref={name}
             type="text"
+            id="userName"
+            required
             className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
           />
         </div>
@@ -59,15 +80,40 @@ export default function Login() {
           </div>
           <input
             ref={password}
+            required
             type="password"
+            id="password"
             className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
           />
         </div>
 
         <div className="mt-6">
-          <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-pink-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
-            Daftar
-          </button>
+          {pending ? (
+            <button
+              type="button"
+              disabled
+              className="w-full md:w-4/6 mx-auto lg:w-3/6 flex justify-center items-center px-4 py-3 text-white bg-pink-400 rounded-md"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="animate-spin h-5 w-5 mr-3 text-white"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={3}
+                  d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                />
+              </svg>
+            </button>
+          ) : (
+            <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-pink-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
+              Daftar
+            </button>
+          )}
         </div>
       </form>
 
