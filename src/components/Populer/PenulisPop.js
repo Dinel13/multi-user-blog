@@ -1,11 +1,14 @@
 import React from "react";
 
 import Penulis from "../penulis/Penulis";
+import Loading from "../loading/Loading";
 
 export default function PenulisPop() {
   const [penulisData, setPenulisData] = React.useState(null);
+  const [status, setStatus] = React.useState({ pending: false, error: "" });
 
   React.useEffect(() => {
+    setStatus((prevState) => ({ ...prevState, pending: true }));
     const getTulisanPop = async () => {
       const fetchToBackend = async () => {
         const res = await fetch(
@@ -22,8 +25,14 @@ export default function PenulisPop() {
       try {
         const data = await fetchToBackend();
         setPenulisData(data.user);
+        setStatus((prevState) => ({ ...prevState, pending: false }));
       } catch (error) {
         console.log(error);
+        setStatus((prevState) => ({
+          ...prevState,
+          pending: false,
+          error: error,
+        }));
       }
     };
     getTulisanPop();
@@ -48,15 +57,16 @@ export default function PenulisPop() {
           </p>
         </div>
         <div className="flex flex-wrap -m-4 pb-10">
-          {!penulisData ? (
+          {status.pending && <Loading />}
+          {status.error && (
             <h3 className="sm:text-1xl text-center mx-auto text-xl font-medium mb-24 text-gray-700">
               Belum tersedia tulisan populer
             </h3>
-          ) : (
+          )}
+          {penulisData &&
             penulisData.map((penulis, index) => (
               <Penulis key={index} penulis={penulis} />
-            ))
-          )}
+            ))}
         </div>
       </div>
     </section>
