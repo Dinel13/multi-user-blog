@@ -65,7 +65,7 @@ export default function BacaOneBlog() {
               "Content-Type": "application/json",
               Authorization: `Bearer ${token}`,
             },
-            body: JSON.stringify({ comment: comment }),
+            body: JSON.stringify({ comment: comment, blogId: blogData._id }),
           }
         );
         const data = await respon.json();
@@ -102,7 +102,18 @@ export default function BacaOneBlog() {
         alt={blogData.title}
       />
       <div className="text-gray-800" id="body"></div>
-      <p className="text-gray-500 my-4">
+      <p className="text-gray-500 my-2">
+        Penulis:{" "}
+        {blogData.postedBy && (
+          <Link
+            to={"penulis/" + blogData.postedBy.publicId}
+            className="text-indigo-700 font-bold"
+          >
+            {blogData.postedBy.nickName}
+          </Link>
+        )}
+      </p>
+      <p className="text-gray-500 my-2">
         kategori:{" "}
         <span className="text-gray-700 font-bold">{blogData.category}</span>
       </p>
@@ -125,7 +136,12 @@ export default function BacaOneBlog() {
         {blogData.comment &&
           blogData.comment.map((comment, index) => (
             <p key={index} className="text-gray-800 my-2">
-              <Link to={"/penulis/" + comment.userId}>{comment.name} :</Link>
+              <Link
+                to={"/penulis/" + comment.publicId}
+                className="text-indigo-600"
+              >
+                {comment.nickName} :
+              </Link>
               <span className="text-gray-600 text-sm">{comment.comment}</span>
             </p>
           ))}

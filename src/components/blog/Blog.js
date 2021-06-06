@@ -5,27 +5,31 @@ export default function Blog(props) {
   const { category, title, image, excerpt, slug, comment, postedBy } =
     props.blog;
   return (
-    <div className="p-4 md:w-1/3">
+    <div className="p-3 sm:w-1/2 md:w-1/3 lg:w-1/4">
       <div className="h-full border-2 border-gray-300 border-opacity-60 rounded-lg overflow-hidden">
         <img
           className="lg:h-48 md:h-36 w-full object-cover object-center"
-          src={`${process.env.REACT_APP_SERVER_URL_IMAGE}/${image}`}
+          src={
+            image
+              ? `${process.env.REACT_APP_SERVER_URL_IMAGE}/${image}`
+              : "https://avatars.githubusercontent.com/u/54769734?v=4"
+          }
           alt="blog"
         />
-        <div className="p-6">
-          <h2 className="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">
-            {category} by {postedBy}
-          </h2>
-          <h1 className="title-font text-lg font-medium text-gray-900 mb-3">
+        <div className="px-3 pt-1.5 pb-4">
+          <small className="tracking-widest block text-gray-600 leading-none ">
+            {category} by {postedBy.name}
+          </small>
+          <h1 className="title-font text-lg font-medium text-gray-800 mb-1">
             {title}
           </h1>
-          <p className="leading-relaxed mb-3">
+          <p className="leading-relaxed text-gray-700 mb-0.5">
             <div dangerouslySetInnerHTML={{ __html: excerpt }}></div>
           </p>
           <div className="flex items-center flex-wrap ">
             <Link
               to={`/bacaan/${slug}`}
-              className="text-gray-600 inline-flex items-center md:mb-2 lg:mb-0 hover:text-gray-800 font-bold"
+              className="text-indigo-600 inline-flex items-center md:mb-2 lg:mb-0 hover:text-indigo-700 "
             >
               Selengkapnya
               <svg

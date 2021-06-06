@@ -175,11 +175,6 @@ const Editor = () => {
               className="rounded border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-900 placeholder-gray-500 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-pink-600 focus:border-transparent"
               placeholder="#Teknik #Coding #Javascript #seru"
               ref={hastagRef}
-              // onChange={(e) => {
-              //   const arrayHastag = e.target.value.split("#");
-              //   arrayHastag.shift();
-              //   arrayHastag.length > 5 && setArrayHastags(arrayHastags);
-              // }}
             />
             <small className="block text-gray-600 italic mb-4">
               Gunakan tanda pagar, maksimal 5 hastag
