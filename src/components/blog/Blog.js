@@ -2,7 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export default function Blog(props) {
-  const { category, title, image, excerpt, slug, comment } = props.blog;
+  const { category, title, image, excerpt, slug, comment, postedBy } =
+    props.blog;
   return (
     <div className="p-4 md:w-1/3">
       <div className="h-full border-2 border-gray-300 border-opacity-60 rounded-lg overflow-hidden">
@@ -13,12 +14,14 @@ export default function Blog(props) {
         />
         <div className="p-6">
           <h2 className="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">
-            {category}
+            {category} by {postedBy}
           </h2>
           <h1 className="title-font text-lg font-medium text-gray-900 mb-3">
             {title}
           </h1>
-          <p className="leading-relaxed mb-3"><div dangerouslySetInnerHTML={{__html: excerpt}}></div></p>
+          <p className="leading-relaxed mb-3">
+            <div dangerouslySetInnerHTML={{ __html: excerpt }}></div>
+          </p>
           <div className="flex items-center flex-wrap ">
             <Link
               to={`/bacaan/${slug}`}
@@ -38,9 +41,7 @@ export default function Blog(props) {
                 <path d="M12 5l7 7-7 7"></path>
               </svg>
             </Link>
-            <span className="text-gray-500 mr-3 inline-flex items-center lg:ml-auto md:ml-0 ml-auto leading-none text-sm pr-3 py-1 border-r-2 border-gray-200">
-              
-            </span>
+            <span className="text-gray-500 mr-3 inline-flex items-center lg:ml-auto md:ml-0 ml-auto leading-none text-sm pr-3 py-1 border-r-2 border-gray-200"></span>
             <span className="text-gray-500 inline-flex items-center leading-none text-sm">
               <svg
                 className="w-4 h-4 mr-1"

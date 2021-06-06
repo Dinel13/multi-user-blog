@@ -31,11 +31,7 @@ export default function Header() {
         offset > 10.58 ? "bg-gray-100" : "bg-red-500"
       }`}
     >
-      <div
-        className={`flex items-center justify-between flex-wrap ${
-          offset > 10 ? "p-3" : "p-4"
-        }`}
-      >
+      <div className={`flex items-center justify-between flex-wrap p-3.5 `}>
         <Link
           to="/"
           className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0"
@@ -67,25 +63,25 @@ export default function Header() {
           </button>
         </div>
         <nav
-          className="w-full flex-grow md:items-center md:w-auto hidden md:flex ml-2"
+          className="w-full flex-grow md:items-center md:w-auto  hidden md:flex ml-2"
           id="nav-item"
         >
-          <div className="flex-grow">
+          <div className="flex-grow md:flex md:justify-center">
             <Link
               to="/"
-              className="block mt-4 md:inline-block md:mt-0 text-gray-600 hover:text-gray-800  mr-4"
+              className="block mt-4 md:inline-block md:mt-0 text-gray-700 hover:text-gray-800 mr-4"
             >
               Beranda
             </Link>
             <Link
               to="/tulis"
-              className="block mt-4 md:inline-block md:mt-0 text-gray-600 hover:text-gray-800  mr-4"
+              className="block mt-4 md:inline-block md:mt-0 text-gray-700 hover:text-gray-800  mr-4"
             >
               Tulis
             </Link>
             <Link
               to="/bacaan"
-              className="block mt-4 md:inline-block md:mt-0 text-gray-600 hover:text-gray-800  mr-4"
+              className="block mt-4 md:inline-block md:mt-0 text-gray-700 hover:text-gray-800  mr-4"
             >
               Baca
             </Link>

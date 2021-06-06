@@ -1,7 +1,9 @@
 import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
+
 import { signup } from "../store/authAction";
+import { uiActions } from "../store/uiSlice";
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -21,6 +23,7 @@ export default function Login() {
   const singupHandler = (event) => {
     event.preventDefault();
     setPending(true);
+
     dispatch(
       signup(
         email.current.value,
@@ -49,9 +52,13 @@ export default function Login() {
             ref={email}
             type="email"
             id="email"
+            placeholder="namaku@student.unhas.ac.id"
             required
             className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
           />
+          <p className="text-sm text-gray-500">
+            Harus mengunakan email domain unhas
+          </p>
         </div>
         <div className="mt-4">
           <div className="flex items-center justify-between">
@@ -59,12 +66,13 @@ export default function Login() {
               htmlFor="userName"
               className="block text-sm text-gray-800 dark:text-gray-200"
             >
-              Nama
+              Nama Lengkap
             </label>
           </div>
           <input
             ref={name}
             type="text"
+            placeholder="namaku"
             id="userName"
             required
             className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
