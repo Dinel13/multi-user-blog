@@ -22,7 +22,6 @@ export default function BacaOneBlog() {
   }, [params]);
 
   const { body } = blogData;
-  console.log(blogData);
   useEffect(() => {
     document.getElementById("body").innerHTML = body;
   }, [body]);
@@ -36,7 +35,6 @@ export default function BacaOneBlog() {
       }));
       setTimeout(() => setStatus({}), 4000);
     } else if (comment.length > 2000) {
-      console.log(comment.length);
       setStatus((prevState) => ({
         ...prevState,
         error: "Komentar anda terlalu panjang",

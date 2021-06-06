@@ -21,7 +21,6 @@ export const createBlog = async (blog, token) => {
 };
 
 export const singleBlog = async (slug) => {
-  console.log(slug);
   try {
     const res = await fetch(
       `${process.env.REACT_APP_SERVER_URL}/blog/${slug}`,

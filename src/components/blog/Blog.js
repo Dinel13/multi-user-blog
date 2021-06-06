@@ -13,9 +13,9 @@ export default function Blog(props) {
           alt="blog"
         />
         <div className="px-3 pt-1.5 pb-4">
-          <small className="tracking-widest block text-gray-600 leading-none ">
+          <p className="block text-gray-600 leading-none text-sm ">
             {category} by {postedBy.name}
-          </small>
+          </p>
           <h1 className="title-font text-lg font-medium text-gray-800 mb-1">
             {title}
           </h1>

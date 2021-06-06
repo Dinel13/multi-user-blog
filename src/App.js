@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Route, Switch, Redirect } from "react-router-dom";
 
@@ -7,18 +7,19 @@ import { authActions } from "./store/authSlice";
 import Footer from "./components/footer/Footer";
 import Header from "./components/header/header";
 import Hero from "./components/hero/Hero";
+import Loading from "./components/loading/LoadingFull";
 import ErrorModal from "./components/modal/ErrorModal";
 import PenulisPop from "./components/Populer/PenulisPop";
 import TulisanPop from "./components/Populer/TulisanPop";
 import TulisanTerbaru from "./components/Populer/TulisanTerbaru";
-import Bacaan from "./pages/Bacaan";
-import BacaOneBlog from "./pages/BacaOneBlog";
-import CreateBlog from "./pages/CreateBlog";
-import Login from "./pages/Login";
-import MyAccount from "./pages/MyAccount";
-import NotFound from "./pages/NotFound";
-import Register from "./pages/Register";
-import Penulis from "./pages/Penulis";
+const Bacaan = React.lazy(() => import("./pages/Bacaan"));
+const BacaOneBlog = React.lazy(() => import("./pages/BacaOneBlog"));
+const CreateBlog = React.lazy(() => import("./pages/CreateBlog"));
+const Login = React.lazy(() => import("./pages/Login"));
+const MyAccount = React.lazy(() => import("./pages/MyAccount"));
+const NotFound = React.lazy(() => import("./pages/NotFound"));
+const Register = React.lazy(() => import("./pages/Register"));
+const Penulis = React.lazy(() => import("./pages/Penulis"));
 
 function App() {
   const dispatch = useDispatch();
@@ -105,7 +106,9 @@ function App() {
     <>
       <Header />
       <ErrorModal />
-      <main>{routes}</main>
+      <main>
+        <Suspense fallback={<Loading />}>{routes}</Suspense>
+      </main>
       <Footer />
     </>
   );

@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 
 import { signup } from "../store/authAction";
-import { uiActions } from "../store/uiSlice";
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -23,7 +22,6 @@ export default function Login() {
   const singupHandler = (event) => {
     event.preventDefault();
     setPending(true);
-
     dispatch(
       signup(
         email.current.value,
