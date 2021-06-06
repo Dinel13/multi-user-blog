@@ -1,18 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
+import { uiActions } from "../store/uiSlice";
 import { createBlog } from "../actions/blog";
 
 const Editor = () => {
+  const dispatch = useDispatch();
   const [editorHtml, setEditorHtml] = useState("");
   const [blogTitle, setBlogTitle] = useState("");
   const [blogImage, setBlogImage] = useState(null);
-  const [hastags, setHastags] = useState([]);
-  const [arrayHastags, setArrayHastags] = useState([]);
   const [category, setCategory] = useState(null);
+  const hastagRef = useRef();
 
   const token = useSelector((state) => state.auth.token);
   const history = useHistory();
@@ -21,18 +22,70 @@ const Editor = () => {
     setEditorHtml(html);
   };
 
+  const getArrayHastag = () => {
+    if (!hastagRef.current.value) {
+      return { fail: "Hastag masih kosong, gunakan minimal satu" };
+    }
+    const arrayHastag = hastagRef.current.value.split("#");
+    arrayHastag.shift(); //remove first elemant
+    if (arrayHastag.length <= 0) {
+      return { fail: "Hastag masih kosong, gunakan minimal satu" };
+    }
+    if (arrayHastag.length > 5) {
+      return { fail: "Hastag terlalu banyak, maksimal 5" };
+    }
+    return { data: arrayHastag };
+  };
+
   const publishBlog = async () => {
-    const formdata = new FormData();
-    formdata.append("bodyBlog", editorHtml);
-    formdata.append("titleBlog", blogTitle);
-    formdata.append("hastagsBlog", arrayHastags);
-    formdata.append("categoryBlog", category);
-    formdata.append("imageBlog", blogImage);
-    try {
-      const response = await createBlog(formdata, token);
-      history.push(`/bacaan/${response.slug}`);
-    } catch (error) {
-      console.log(error);
+    if (!blogTitle) {
+      dispatch(
+        uiActions.showNotification({
+          status: "error",
+          title: "Gagal mempublish",
+          message: "Judul Tulisan tidak boleh kosong",
+        })
+      );
+    } else if (!editorHtml) {
+      dispatch(
+        uiActions.showNotification({
+          status: "error",
+          title: "Gagal mempublish",
+          message: "Isi Tulisan tidak boleh kosong",
+        })
+      );
+    } else if (!category) {
+      dispatch(
+        uiActions.showNotification({
+          status: "error",
+          title: "Gagal mempublish",
+          message: "Harus pilih kategori tulisan dulu",
+        })
+      );
+    } else {
+      const hastag = getArrayHastag();
+      if (hastag.fail) {
+        dispatch(
+          uiActions.showNotification({
+            status: "error",
+            title: "Gagal mempublish",
+            message: hastag.fail,
+          })
+        );
+        return;
+      }
+      const formdata = new FormData();
+      formdata.append("bodyBlog", editorHtml);
+      formdata.append("titleBlog", blogTitle);
+      formdata.append("hastagsBlog", hastag.data);
+      formdata.append("categoryBlog", category);
+      formdata.append("imageBlog", blogImage);
+      try {
+        const response = await createBlog(formdata, token);
+        history.push(`/bacaan/${response.slug}`);
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -47,6 +100,9 @@ const Editor = () => {
     "Tutorial",
     "Info kegiatan",
   ];
+
+  // tidak bisa pake form onsubmit
+  // karena kan meredirect ke home jika body kosong
 
   return (
     <div className="container w-full mx-auto bg-white  dark:bg-gray-800">
@@ -79,27 +135,21 @@ const Editor = () => {
           </div>
         </div>
         <div className="p-2 lg:w-1/3 w-full ">
-          <div>
-            <div className="w-full pb-4">
-              <h5 className="mb-2">Gambar sampul</h5>
-              <hr />
-              <small className="block text-gray-600 mt-1">
-                Ukuran maksimal: 1mb
-              </small>
-              <label className="inline-flex items-center bg-pink-700 border-5 md:w-5/6 py-2 px-3 focus:outline-none hover:bg-pink-900 rounded-lg text-gray-100 mt-2 ">
-                <input
-                  onChange={(e) => setBlogImage(e.target.files[0])}
-                  type="file"
-                  accept="image/*"
-                  alt="your image"
-                  // hidden untuk menghilangkan nama file yang diupload
-                />
-              </label>
-            </div>
+          <div className="my-3">
+            <h5 className="">Gambar sampul</h5>
+            <label className="inline-flex items-center bg-pink-700 border-5  md:w-5/6 lg:w-10/12 py-2 px-3 focus:outline-none hover:bg-pink-900 rounded text-gray-100">
+              <input
+                onChange={(e) => setBlogImage(e.target.files[0])}
+                type="file"
+                accept="image/*"
+                alt="your image"
+                // hidden untuk menghilangkan nama file yang diupload
+              />
+            </label>
+            <small className="block text-gray-600">Ukuran maksimal: 1mb</small>
           </div>
           <div className="my-3">
             <h5>Kategori tulisan</h5>
-            <hr />
             <div onChange={(e) => setCategory(e.target.value)}>
               {categoriFake.map((categori, index) => (
                 <label className="block">
@@ -115,36 +165,36 @@ const Editor = () => {
               ))}
             </div>
           </div>
-          <div>
+          <div className="my-2">
             <label htmlFor="tag" className="py-2 text-gray-800">
               Hastag tulisan
             </label>
             <input
               type="text"
               id="tag"
-              className="rounded border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-900 placeholder-gray-500 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-pink-600 focus:border-transparent mb-4"
-              placeholder="Gunakan tanda pagar, maksimal 5 hastag"
-              value={hastags}
-              onChange={(e) =>{
-                setHastags(e.target.value)
-                const arrayHastags = e.target.value.split("#")
-                arrayHastags.shift()
-                console.log(arrayHastags);
-                arrayHastags.length > 5 ? console.log("error") : console.log("aman");
-                setArrayHastags(arrayHastags)
-              } }
+              className="rounded border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-900 placeholder-gray-500 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-pink-600 focus:border-transparent"
+              placeholder="#Teknik #Coding #Javascript #seru"
+              ref={hastagRef}
+              // onChange={(e) => {
+              //   const arrayHastag = e.target.value.split("#");
+              //   arrayHastag.shift();
+              //   arrayHastag.length > 5 && setArrayHastags(arrayHastags);
+              // }}
             />
+            <small className="block text-gray-600 italic mb-4">
+              Gunakan tanda pagar, maksimal 5 hastag
+            </small>
           </div>
           <div className="w-full">
             <button
               onClick={publishBlog}
-              className="px-10 items-center bg-pink-700 border-5 py-2  focus:outline-none hover:bg-pink-900 rounded text-gray-100"
+              className="px-8 items-center bg-pink-700 border-5 py-2  focus:outline-none hover:bg-pink-600 rounded text-gray-100"
             >
               Publish
             </button>
             <button
               onClick={saveDrafBlog}
-              className="ml-5 items-center bg-pink-500 border-5 py-2 px-5 focus:outline-none hover:bg-pink-900 rounded text-gray-100"
+              className="ml-5 items-center bg-transparent border-2 leading-none border-pink-700 py-2 px-3 focus:outline-none hover:bg-pink-800 rounded text-gray-800 hover:text-gray-50"
             >
               Simpan Draft
             </button>
