@@ -1,13 +1,18 @@
 ul {
-    list-style: disc;
-    list-style-position: inside;
-    margin-left: 10px;
+  list-style: disc;
+  list-style-position: inside;
+  margin-left: 10px;
 }
 ol {
-    list-style: decimal;
-    list-style-position: inside;
+  list-style: decimal;
+  list-style-position: inside;
+  margin-left: 10px;
+}
+a {
+  color: slateblue;
+  text-decoration: underline;
 }
 
 #imageBlog {
-    max-height: 50vh !important;
+  max-height: 50vh !important;
 }

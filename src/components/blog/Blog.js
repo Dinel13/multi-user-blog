@@ -9,11 +9,7 @@ export default function Blog(props) {
       <div className="h-full border-2 border-gray-300 border-opacity-60 rounded-lg overflow-hidden">
         <img
           className="lg:h-48 md:h-36 w-full object-cover object-center"
-          src={
-            image
-              ? `${process.env.REACT_APP_SERVER_URL_IMAGE}/${image}`
-              : "https://avatars.githubusercontent.com/u/54769734?v=4"
-          }
+          src={`${process.env.REACT_APP_SERVER_URL_IMAGE}/${image}`}
           alt="blog"
         />
         <div className="px-3 pt-1.5 pb-4">

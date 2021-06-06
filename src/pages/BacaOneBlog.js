@@ -107,7 +107,7 @@ export default function BacaOneBlog() {
         Oleh{" "}
         {blogData.postedBy && (
           <Link
-            to={"penulis/" + blogData.postedBy.publicId}
+            to={"/penulis/" + blogData.postedBy.publicId}
             className="text-indigo-700 font-bold"
           >
             {blogData.postedBy.nickName}
@@ -130,16 +130,14 @@ export default function BacaOneBlog() {
           blogData.hastags.map((hastag, index) => (
             <p
               key={index}
-              className="bg-gray-300 text-gray-900 inline-block mr-4"
+              className="bg-gray-300 rounded px-1 text-gray-900 inline-block mr-4"
             >
               #{hastag}
             </p>
           ))}
       </div>
-      <hr className="my-6" />
-
       <div>
-        <h3 className="text-xl">Komentar</h3>
+        <h3 className="text-md mt-2">Komentar</h3>
         {blogData.comment &&
           blogData.comment.map((comment, index) => (
             <p key={index} className="text-gray-800 my-2">
