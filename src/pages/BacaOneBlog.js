@@ -22,6 +22,7 @@ export default function BacaOneBlog() {
   }, [params]);
 
   const { body } = blogData;
+  console.log(blogData);
   useEffect(() => {
     document.getElementById("body").innerHTML = body;
   }, [body]);
@@ -103,7 +104,7 @@ export default function BacaOneBlog() {
       />
       <div className="text-gray-800" id="body"></div>
       <p className="text-gray-500 my-2">
-        Penulis:{" "}
+        Oleh{" "}
         {blogData.postedBy && (
           <Link
             to={"penulis/" + blogData.postedBy.publicId}
@@ -111,6 +112,12 @@ export default function BacaOneBlog() {
           >
             {blogData.postedBy.nickName}
           </Link>
+        )}{" "}
+        sejak{" "}
+        {blogData.createdAt && (
+          <small className="text-gray-700 font-bold">
+            {blogData.createdAt.substring(0, 10)}
+          </small>
         )}
       </p>
       <p className="text-gray-500 my-2">
