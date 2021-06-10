@@ -101,7 +101,7 @@ export default function Footer() {
                   to="/developper"
                   className="text-gray-600 hover:text-gray-800"
                 >
-                  Tentang Salahuddin
+                  Tentang Pengembang
                 </Link>
               </li>
               <li>

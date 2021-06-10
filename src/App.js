@@ -20,6 +20,7 @@ const MyAccount = React.lazy(() => import("./pages/MyAccount"));
 const NotFound = React.lazy(() => import("./pages/NotFound"));
 const Register = React.lazy(() => import("./pages/Register"));
 const Penulis = React.lazy(() => import("./pages/Penulis"));
+const TentangKami = React.lazy(() => import("./pages/TentangKami"));
 
 function App() {
   const dispatch = useDispatch();
@@ -57,6 +58,24 @@ function App() {
           <MyAccount />
         </Route>
         <Route path="/penulis/:id" exact>
+          <Penulis />
+        </Route>
+        <Route path="/bacaan/kategori/:kategori" exact>
+          <Penulis />
+        </Route>
+        <Route path="/tentang-kami" exact>
+          <TentangKami />
+        </Route>
+        <Route path="/bantuan" exact>
+          <Penulis />
+        </Route>
+        <Route path="/dukung-kami" exact>
+          <Penulis />
+        </Route>
+        <Route path="/developper" exact>
+          <Penulis />
+        </Route>
+        <Route path="/newsletter" exact>
           <Penulis />
         </Route>
         <Route path="*">
