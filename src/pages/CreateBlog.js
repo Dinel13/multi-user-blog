@@ -152,9 +152,8 @@ const Editor = () => {
             <h5>Kategori tulisan</h5>
             <div onChange={(e) => setCategory(e.target.value)}>
               {categoriFake.map((categori, index) => (
-                <label className="block">
+                <label key={index} className="block">
                   <input
-                    key={index}
                     className="list-unstyled mr-4"
                     type="radio"
                     value={categori}

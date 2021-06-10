@@ -93,14 +93,17 @@ export default function BacaOneBlog() {
 
   return (
     <div className="lg:container mx-auto my-8 px-8 lg:px-24">
-      <h1 className="text-gray-900 text-3xl font-bold">{blogData.title}</h1>
+      <h1 className="text-gray-900 text-3xl my-5 font-bold">
+        {blogData.title}
+      </h1>
       <img
-        className="text-center mx-auto h-2/3"
+        className="text-center rounded-lg mx-auto h-2/3"
         id="imageBlog"
         src={`${process.env.REACT_APP_SERVER_URL_IMAGE}/${blogData.image}`}
         alt={blogData.title}
       />
-      <div className="text-gray-800" id="body"></div>
+      <div className="text-gray-800 mt-4" id="body"></div>
+      <hr className="my-3 text-3xl" />
       <p className="text-gray-500 my-2">
         Oleh{" "}
         {blogData.postedBy && (
@@ -141,7 +144,7 @@ export default function BacaOneBlog() {
             <p key={index} className="text-gray-800 my-2">
               <Link
                 to={"/penulis/" + comment.publicId}
-                className="text-indigo-600"
+                className="text-indigo-700"
               >
                 {comment.nickName} :
               </Link>

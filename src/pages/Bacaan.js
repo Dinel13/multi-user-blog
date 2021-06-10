@@ -35,7 +35,8 @@ export default function Baca() {
           Tulisan Terbaru
         </h1>
         <div className="flex flex-wrap -m-4">
-          {blogData && blogData.map((blog) => <Blog blog={blog} />)}
+          {blogData &&
+            blogData.map((blog, index) => <Blog key={index} blog={blog} />)}
         </div>
       </div>
     </section>
