@@ -1,5 +1,7 @@
 import React from "react";
 
+import Unhas from "../assets/unhas.jpg";
+
 export default function TentangKami() {
   return (
     <section class="text-gray-600 body-font">
@@ -11,7 +13,7 @@ export default function TentangKami() {
           <img
             class="object-cover object-center rounded"
             alt="hero"
-            src="https://dummyimage.com/720x600"
+            src={Unhas}
           />
         </div>
         <div class="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
@@ -26,7 +28,7 @@ export default function TentangKami() {
             kami harapkan menjadi wadah mahasiswa untuk merepresentasikan
             dirinya. yaitu sebagai mahasiswa yang penuh akan ide dan gagasan.
             mahasiswa yang menghasilkan karya yang mengispiorasi bagi sesamanya.
-            sehiangga ia mampu menjadi mahasiswa yang sesunguhnya
+            sehiangga ia dapat mengabadikan karyanya dalam ingatan orang lain
           </p>
           {/* <div class="flex justify-center">
             <button class="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
