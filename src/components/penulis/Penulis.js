@@ -1,26 +1,26 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Avatar from "../../assets/avatar.png";
 
 export default function Penulis(props) {
-    const {name, fakultas, _id, blog , image} = props.penulis
+  const { name, fakultas, publicId, blog, image } = props.penulis;
   return (
     <div className="p-2 lg:w-1/3 md:w-1/2 w-full ">
       <div className="h-full flex items-center border-gray-300 shadow-lg border p-4 rounded-lg">
         <img
           alt={name}
           className="w-20 h-20 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4"
-          src={image ? image : "https://avatars.githubusercontent.com/u/54769734?v=4"}
-        //   https://dummyimage.com/98x98
+          src={image ? image : Avatar}
         />
         <div className="flex-grow sm:pl-4">
           <h2 className="title-font font-medium text-lg text-gray-900">
             {name}
           </h2>
-          <h3 className="text-gray-500 mb-3">{fakultas}</h3>
+          <h4 className="text-gray-500 leading-none">Fakultas : {fakultas}</h4>
           <div className="flex items-center flex-wrap ">
             <Link
-              to={`/penulis/${_id}`}
-              className="text-gray-500 inline-flex items-center md:mb-2 lg:mb-0 hover:text-gray-700 font-bold"
+              to={`/penulis/${publicId}`}
+              className="text-indigo-600 inline-flex items-center md:mb-2 lg:mb-0 hover:text-indigo-700 font-bold"
             >
               Selengkapnya
               <svg
@@ -51,7 +51,7 @@ export default function Penulis(props) {
                 <path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path>
                 <polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon>
               </svg>
-              <span className="ml-1 font-medium" >{blog.length}</span>
+              <span className="ml-1 font-medium">{blog.length}</span>
             </span>
           </div>
         </div>
