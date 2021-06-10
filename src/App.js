@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Route, Switch, Redirect } from "react-router-dom";
 
-import { authActions } from "./store/authSlice";
+import { login } from "./store/authSlice";
 
 import Footer from "./components/footer/Footer";
 import Header from "./components/header/header";
@@ -26,9 +26,7 @@ function App() {
   const token = useSelector((state) => state.auth.token);
   React.useEffect(() => {
     localStorage.getItem("authUnhas") &&
-      dispatch(
-        authActions.login(JSON.parse(localStorage.getItem("authUnhas")))
-      );
+      dispatch(login(JSON.parse(localStorage.getItem("authUnhas"))));
   });
   let routes;
   if (token) {

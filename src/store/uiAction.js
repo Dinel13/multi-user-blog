@@ -1,10 +1,9 @@
-import { uiActions } from "./uiSlice";
+import { showNotification } from "./uiSlice";
 
-export const showError = (status, title, message, action) => {
-  console.log("te");
+export const showNotif = (status, title, message, action) => {
   return async (dispatch) => {
     dispatch(
-      uiActions.showNotification({
+      showNotification({
         status: status,
         title: title,
         message: message,
@@ -12,8 +11,4 @@ export const showError = (status, title, message, action) => {
       })
     );
   };
-};
-
-export const hideError = () => {
-  return uiActions.hideNotification();
 };

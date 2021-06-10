@@ -2,8 +2,8 @@
   min-height: 80vh;
   background-image: linear-gradient(
       to right bottom,
-      rgba(92, 16, 16, 0.726),
-      rgba(85, 36, 36, 0.527)
+      rgba(63, 29, 29, 0.815),
+      rgba(124, 76, 76, 0.527)
     ),
     url(../../assets/bg.jpg);
   background-size: cover;

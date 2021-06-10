@@ -4,7 +4,7 @@ import "react-quill/dist/quill.snow.css";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-import { uiActions } from "../store/uiSlice";
+import { showNotification } from "../store/uiSlice";
 import { createBlog } from "../actions/blog";
 
 const Editor = () => {
@@ -40,7 +40,7 @@ const Editor = () => {
   const publishBlog = async () => {
     if (!blogTitle) {
       dispatch(
-        uiActions.showNotification({
+        showNotification({
           status: "error",
           title: "Gagal mempublish",
           message: "Judul Tulisan tidak boleh kosong",
@@ -48,7 +48,7 @@ const Editor = () => {
       );
     } else if (!editorHtml) {
       dispatch(
-        uiActions.showNotification({
+        showNotification({
           status: "error",
           title: "Gagal mempublish",
           message: "Isi Tulisan tidak boleh kosong",
@@ -56,7 +56,7 @@ const Editor = () => {
       );
     } else if (!category) {
       dispatch(
-        uiActions.showNotification({
+        showNotification({
           status: "error",
           title: "Gagal mempublish",
           message: "Harus pilih kategori tulisan dulu",
@@ -66,7 +66,7 @@ const Editor = () => {
       const hastag = getArrayHastag();
       if (hastag.fail) {
         dispatch(
-          uiActions.showNotification({
+          showNotification({
             status: "error",
             title: "Gagal mempublish",
             message: hastag.fail,

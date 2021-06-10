@@ -13,11 +13,11 @@ const uiSlice = createSlice({
       };
     },
     hideNotification(state) {
-      state.notification = null
+      state.notification = null;
     },
   },
 });
 
-export const uiActions = uiSlice.actions;
+export const { showNotification, hideNotification } = uiSlice.actions;
 
 export default uiSlice.reducer;

@@ -1,130 +1,165 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { PaperClipIcon } from "@heroicons/react/solid";
 
+import { logout } from "../store/authSlice";
+import { showNotification } from "../store/uiSlice";
+
 export default function MyAccount() {
+  const dispatch = useDispatch();
+  const id = useSelector((state) => state.auth.userId);
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.REACT_APP_SERVER_URL}/userData/${id}`,
+          {
+            method: "GET",
+          }
+        );
+        const result = await response.json();
+        if (!response.ok) {
+          throw new Error("Tidak bisa mendapatkan data user");
+        }
+        setUser(result.user);
+      } catch (error) {
+        dispatch(
+          showNotification({
+            status: "error",
+            title: "Gagal masuk",
+            message: error.message,
+            action: null,
+          })
+        );
+      }
+    };
+    getUser();
+  }, [dispatch, id]);
+
   return (
-    //     <section className="text-gray-600 body-font">
-    //     <div className="container px-5 py-24 mx-auto">
-    //       <div className="flex flex-col text-center w-full mb-20">
-    //         <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">
-    //           Penulis Populer
-    //         </h1>
-    //         <p className="lg:w-2/3 mx-auto leading-relaxed text-base">
-    //           Kamu bisa saja tidak melakukan apa-apa tapi jangan iri ketika yang
-    //           berkarya kini telah menuai hasilnya.
-    //         </p>
-    //       </div>
-
-    //     </div>
-    //     </section>
-
     <div className="bg-white w-full md:w-5/6 lg:md-4/6 mx-auto overflow-hidden ">
-      <div className="px-4 py-5 flex items-center sm:px-6">
-        <img
-          alt="test"
-          className="bg-gray-100 object-cover object-center flex-shrink-0 rounded-lg mr-4"
-          style={{width : "100px"}}
-          src="https://avatars.githubusercontent.com/u/54769734?v=4"
-        />
-        <div className="" >
-          <h3 className="text-lg leading-6 font-medium text-gray-900">
-            Applicant Information
-          </h3>
-          <p className="mt-1 max-w-2xl text-sm text-gray-500">
-            Personal details and application.
-          </p>
-        </div>
-        <button className="text-gray-100 mr-1 inline-flex items-center ml-auto   rounded-md py-2 px-3 bg-pink-600 hover:bg-pink-800">
-          Update
-        </button>
-      </div>
-      <div className="border-t border-gray-200">
-        <dl>
-          <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">Full name</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-              Margot Foster
-            </dd>
+      <h2 className="text-center text-3xl mt-4 font-medium">My Account</h2>
+      {user && (
+        <>
+          <div className="px-4 py-5 flex items-center sm:px-6">
+            <img
+              alt="test"
+              className="bg-gray-100 object-cover object-center flex-shrink-0 rounded-lg mr-4"
+              style={{ width: "100px" }}
+              src="https://avatars.githubusercontent.com/u/54769734?v=4"
+            />
+            <div className="">
+              <h3 className="text-lg leading-6 font-medium text-gray-900">
+                User Information
+              </h3>
+              <p className="mt-1 max-w-2xl text-sm text-gray-500">
+                Personal details and application.
+              </p>
+            </div>
+            <div className="ml-auto">
+              <button
+                // to="/akunku/"
+                onClick={() =>
+                  dispatch(
+                    showNotification({
+                      status: "error",
+                      title: "Belum bisa",
+                      message: "fungsi ini masih sementara dibuat",
+                      action: null,
+                    })
+                  )
+                }
+                className="text-gray-100 inline-flex items-center mr-1.5 mb-1.5 sm:mb-0 rounded py-1.5 px-3 bg-pink-600 hover:bg-pink-700"
+              >
+                Update
+              </button>
+              <button
+                onClick={() => dispatch(logout())}
+                className="text-gray-100  inline-flex items-center rounded py-1.5 px-3 bg-red-700 hover:bg-red-600"
+              >
+                Log Out
+              </button>
+            </div>
           </div>
-          <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">
-              Application for
-            </dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-              Backend Developer
-            </dd>
+          <div className="border-t border-gray-200">
+            <dl>
+              <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">
+                  Nama Lengkap
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  {user.name}
+                </dd>
+              </div>
+              <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">
+                  Nama panggilan
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  {user.nickName}
+                </dd>
+              </div>
+              <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">
+                  Alamat email
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  {user.email}
+                </dd>
+              </div>
+              <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">Fakultas</dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  {user.fakultas}
+                </dd>
+              </div>
+              <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">Bio</dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  Fugiat ipsum ipsum deserunt culpa aute sint do nostrud anim
+                  incididunt cillum culpa consequat. Excepteur qui ipsum aliquip
+                  consequat sint. Sit id mollit nulla mollit nostrud in ea
+                  officia proident. Irure nostrud pariatur mollit ad adipisicing
+                  reprehenderit deserunt qui eu.
+                </dd>
+              </div>
+              <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">Tulisan</dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  <ul className="border border-gray-200 rounded-md divide-y divide-gray-200">
+                    {user.blog.map((item) => (
+                      <li
+                        key={item._id}
+                        className="pl-3 pr-4 py-3 flex items-center justify-between text-sm"
+                      >
+                        <div className="w-0 flex-1 flex items-center">
+                          <PaperClipIcon
+                            className="flex-shrink-0 h-5 w-5 text-gray-400"
+                            aria-hidden="true"
+                          />
+                          <span className="ml-2 flex-1 w-0 truncate">
+                            {item.title}
+                          </span>
+                        </div>
+                        <div className="ml-4 flex-shrink-0">
+                          <Link
+                            to={`/bacaan/${item.slug}`}
+                            className="font-medium text-indigo-600 hover:text-indigo-500"
+                          >
+                            Lihat
+                          </Link>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </dd>
+              </div>
+            </dl>
           </div>
-          <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">Email address</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-              margotfoster@example.com
-            </dd>
-          </div>
-          <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">
-              Salary expectation
-            </dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-              $120,000
-            </dd>
-          </div>
-          <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">About</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-              Fugiat ipsum ipsum deserunt culpa aute sint do nostrud anim
-              incididunt cillum culpa consequat. Excepteur qui ipsum aliquip
-              consequat sint. Sit id mollit nulla mollit nostrud in ea officia
-              proident. Irure nostrud pariatur mollit ad adipisicing
-              reprehenderit deserunt qui eu.
-            </dd>
-          </div>
-          <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">Attachments</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-              <ul className="border border-gray-200 rounded-md divide-y divide-gray-200">
-                <li className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
-                  <div className="w-0 flex-1 flex items-center">
-                    <PaperClipIcon
-                      className="flex-shrink-0 h-5 w-5 text-gray-400"
-                      aria-hidden="true"
-                    />
-                    <span className="ml-2 flex-1 w-0 truncate">
-                      resume_back_end_developer.pdf
-                    </span>
-                  </div>
-                  <div className="ml-4 flex-shrink-0">
-                    <a
-                      href="#"
-                      className="font-medium text-indigo-600 hover:text-indigo-500"
-                    >
-                      Download
-                    </a>
-                  </div>
-                </li>
-                <li className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
-                  <div className="w-0 flex-1 flex items-center">
-                    <PaperClipIcon
-                      className="flex-shrink-0 h-5 w-5 text-gray-400"
-                      aria-hidden="true"
-                    />
-                    <span className="ml-2 flex-1 w-0 truncate">
-                      coverletter_back_end_developer.pdf
-                    </span>
-                  </div>
-                  <div className="ml-4 flex-shrink-0">
-                    <a
-                      href="#"
-                      className="font-medium text-indigo-600 hover:text-indigo-500"
-                    >
-                      Download
-                    </a>
-                  </div>
-                </li>
-              </ul>
-            </dd>
-          </div>
-        </dl>
-      </div>
+        </>
+      )}
     </div>
   );
 }
