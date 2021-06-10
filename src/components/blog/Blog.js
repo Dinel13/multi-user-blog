@@ -14,12 +14,12 @@ export default function Blog(props) {
         />
         <div className="px-3 pt-1.5 pb-4">
           <p className="block text-gray-600 leading-none text-sm ">
-            {category} by {postedBy.name}
+            {category} by {postedBy.nickName}
           </p>
           <h1 className="title-font text-lg font-medium text-gray-800 mb-1">
             {title}
           </h1>
-          <p className="leading-relaxed text-gray-700 mb-0.5">
+          <p className="leading-relaxed text-sm text-gray-700 mb-0.5">
             <div dangerouslySetInnerHTML={{ __html: excerpt }}></div>
           </p>
           <div className="flex items-center flex-wrap ">
