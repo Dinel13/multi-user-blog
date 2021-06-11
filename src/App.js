@@ -22,6 +22,7 @@ const Register = React.lazy(() => import("./pages/Register"));
 const Penulis = React.lazy(() => import("./pages/Penulis"));
 const TentangKami = React.lazy(() => import("./pages/TentangKami"));
 const Develop = React.lazy(() => import("./pages/Develop"));
+const Kategori = React.lazy(() => import("./pages/BacaKategori"));
 
 function App() {
   const dispatch = useDispatch();
@@ -62,7 +63,7 @@ function App() {
           <Penulis />
         </Route>
         <Route path="/bacaan/kategori/:kategori" exact>
-          <Penulis />
+          <Kategori />
         </Route>
         <Route path="/tentang-kami" exact>
           <TentangKami />
@@ -115,7 +116,7 @@ function App() {
           <Redirect to="/masuk" />
         </Route>
         <Route path="/bacaan/kategori/:kategori" exact>
-          <Penulis />
+          <Kategori />
         </Route>
         <Route path="/tentang-kami" exact>
           <TentangKami />
