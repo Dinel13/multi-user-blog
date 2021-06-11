@@ -11,7 +11,7 @@ export default function Loading() {
       <h2 className="text-center text-gray-700 text-xl font-semibold">
         Loading...
       </h2>
-      <p className="w-1/3 text-center text-gray-600">
+      <p className="w-2/3 md:w-1/3 text-center text-gray-600">
         Kami butuh sedikit waktu untuk mendapatkan data dari server.
       </p>
     </div>
