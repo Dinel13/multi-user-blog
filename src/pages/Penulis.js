@@ -27,7 +27,6 @@ export default function Penulis() {
       };
       try {
         const data = await getUserData();
-        console.log(data);
         setUserData(data.user);
       } catch (error) {
         console.log(error);
