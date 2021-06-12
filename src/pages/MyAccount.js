@@ -5,6 +5,7 @@ import { PaperClipIcon } from "@heroicons/react/solid";
 
 import { logout } from "../store/authSlice";
 import { showNotification } from "../store/uiSlice";
+import Avatar from "../assets/avatar.png";
 
 export default function MyAccount() {
   const dispatch = useDispatch();
@@ -48,7 +49,7 @@ export default function MyAccount() {
               alt="test"
               className="bg-gray-100 object-cover object-center flex-shrink-0 rounded-lg mr-4"
               style={{ width: "100px" }}
-              src="https://avatars.githubusercontent.com/u/54769734?v=4"
+              src={Avatar}
             />
             <div className="">
               <h3 className="text-lg leading-6 font-medium text-gray-900">
@@ -59,22 +60,17 @@ export default function MyAccount() {
               </p>
             </div>
             <div className="ml-auto">
-              <button
-                // to="/akunku/"
-                onClick={() =>
-                  dispatch(
-                    showNotification({
-                      status: "error",
-                      title: "Belum bisa",
-                      message: "fungsi ini masih sementara dibuat",
-                      action: null,
-                    })
-                  )
-                }
+              <Link
+                to={{
+                  pathname: "/akunku/update",
+                  state: {
+                    user: user,
+                  },
+                }}
                 className="text-gray-100 inline-flex items-center mr-1.5 mb-1.5 sm:mb-0 rounded py-1.5 px-3 bg-pink-600 hover:bg-pink-700"
               >
                 Update
-              </button>
+              </Link>
               <button
                 onClick={() => dispatch(logout())}
                 className="text-gray-100  inline-flex items-center rounded py-1.5 px-3 bg-red-700 hover:bg-red-600"

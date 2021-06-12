@@ -17,6 +17,7 @@ export default function BacaKategori() {
   useEffect(() => {
     const fetchBlog = async () => {
       setLoading(true);
+      setBlogData("");
       const res = await searchCategory(kategori);
       if (res.error) {
         dispatch(
@@ -29,7 +30,8 @@ export default function BacaKategori() {
         );
         return setLoading(false);
       }
-      setBlogData(res);
+      res.blog.length > 0 && setBlogData(res.blog);
+      return setLoading(false);
     };
     fetchBlog();
   }, [kategori, dispatch]);

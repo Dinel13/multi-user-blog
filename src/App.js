@@ -17,6 +17,7 @@ const BacaOneBlog = React.lazy(() => import("./pages/BacaOneBlog"));
 const CreateBlog = React.lazy(() => import("./pages/CreateBlog"));
 const Login = React.lazy(() => import("./pages/Login"));
 const MyAccount = React.lazy(() => import("./pages/MyAccount"));
+const UpdateAccount = React.lazy(() => import("./pages/UpdateAccount"));
 const NotFound = React.lazy(() => import("./pages/NotFound"));
 const Register = React.lazy(() => import("./pages/Register"));
 const Penulis = React.lazy(() => import("./pages/Penulis"));
@@ -58,6 +59,9 @@ function App() {
         </Route>
         <Route path="/akunku" exact>
           <MyAccount />
+        </Route>
+        <Route path="/akunku/update" exact>
+          <UpdateAccount />
         </Route>
         <Route path="/penulis/:id" exact>
           <Penulis />

@@ -35,7 +35,7 @@ export default function Footer() {
             <nav className="list-none mb-10">
               <li>
                 <Link
-                  to="/bacaan/kategori/inspirasi"
+                  to="/bacaan/kategori/Inspirasi"
                   className="text-gray-600 hover:text-gray-800"
                 >
                   Inspirasi
@@ -43,7 +43,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  to="/bacaan/kategori/kegiatan"
+                  to="/bacaan/kategori/Kegiatan"
                   className="text-gray-600 hover:text-gray-800"
                 >
                   Kegiatan
@@ -51,7 +51,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  to="/bacaan/kategori/kritik"
+                  to="/bacaan/kategori/Kritik"
                   className="text-gray-600 hover:text-gray-800"
                 >
                   Kritik
@@ -59,7 +59,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  to="/bacaan/kategori/cerita"
+                  to="/bacaan/kategori/Cerita"
                   className="text-gray-600 hover:text-gray-800"
                 >
                   Cerita
@@ -67,7 +67,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  to="/bacaan/kategori/tutorial"
+                  to="/bacaan/kategori/Tutorial"
                   className="text-gray-600 hover:text-gray-800"
                 >
                   Tutorial
