@@ -19,7 +19,6 @@ export default function UpdateAccount(props) {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    console.log(user);
     const formdata = new FormData();
     formdata.append("image", user.image || null);
     formdata.append("name", user.name);
@@ -30,7 +29,6 @@ export default function UpdateAccount(props) {
     formdata.append("bio", user.bio);
     formdata.append("medsos", user.medsos);
     formdata.append("alamat", user.alamat);
-    console.log(formdata);
     const result = await fetch(
       `${process.env.REACT_APP_SERVER_URL}/user/update/${id}`,
       {
@@ -42,12 +40,25 @@ export default function UpdateAccount(props) {
         body: formdata,
       }
     );
-    if (!result.ok) {
+    if (result.status === 500) {
       return dispatch(
         showNotification({
           status: "error",
           title: "Gagal!!",
-          message: "Sedang tidak bisa mengupdate data",
+          message: "Pastikan ukuran file tidak lebih dari 1 MB",
+          action: null,
+        })
+      );
+    }
+
+    if (!result.ok) {
+      console.log(result);
+      const err = await result.json();
+      return dispatch(
+        showNotification({
+          status: "error",
+          title: "Gagal!!",
+          message: err.message || "Sedang tidak bisa mengupdate data",
           action: null,
         })
       );
@@ -60,12 +71,12 @@ export default function UpdateAccount(props) {
         action: null,
       })
     );
-    // setTimeout(() => dispatch(hideNotification()), 2000);
-    // setTimeout(() => history.push("/akunku"), 3000);
+    setTimeout(() => dispatch(hideNotification()), 2000);
+    setTimeout(() => history.push("/akunku"), 2500);
   };
   return (
     <div className="container w-full lg:w-11/12 xl:w-8/12 px-5 py-12 mx-auto">
-      <h3 className="text-lg font-medium leading-6 text-gray-900">
+      <h3 className="text-xl font-medium leading-6 text-gray-900">
         Update Profile
       </h3>
       <p className="mt-1 text-sm text-gray-600">
@@ -231,7 +242,6 @@ export default function UpdateAccount(props) {
                         }
                         type="file"
                         name="foto"
-                        enctype="multipart/form-data"
                         accept="image/*"
                         alt="Foto kamu"
                       />

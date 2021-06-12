@@ -4,8 +4,8 @@ import "react-quill/dist/quill.snow.css";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-import { showNotification } from "../store/uiSlice";
-import { createBlog } from "../actions/blog";
+import { showNotification, hideNotification } from "../store/uiSlice";
+// import { createBlog } from "../actions/blog";
 
 const Editor = () => {
   const dispatch = useDispatch();
@@ -81,10 +81,48 @@ const Editor = () => {
       formdata.append("categoryBlog", category);
       formdata.append("imageBlog", blogImage);
       try {
-        const response = await createBlog(formdata, token);
-        history.push(`/bacaan/${response.slug}`);
+        const response = await fetch(
+          `${process.env.REACT_APP_SERVER_URL}/blog`,
+          {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: formdata,
+          }
+        );
+
+        if (response.status === 500) {
+          throw new Error(
+            "Gagal menyimpan blog, pastikan ukuran sampul tidak lebih 1 mb"
+          );
+        }
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.message);
+        }
+        dispatch(
+          showNotification({
+            status: "error",
+            title: "Gagal!!",
+            message: "Berhasil menyimpan tulisan",
+            action: null,
+          })
+        );
+        setTimeout(() => dispatch(hideNotification()), 2000);
+        setTimeout(() => history.push(`/bacaan/${data.slug}`), 2500);
       } catch (error) {
-        console.log(error);
+        dispatch(
+          showNotification({
+            status: "error",
+            title: "Gagal!!",
+            message: error.message || "gagal menyimpan blog",
+            action: null,
+          })
+        );
       }
     }
   };

@@ -10,14 +10,18 @@ export default function Penulis(props) {
         <img
           alt={name}
           className="w-20 h-20 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4"
-          src={image ? image : Avatar}
+          src={
+            image
+              ? process.env.REACT_APP_SERVER_URL_IMAGE + "/" + image
+              : Avatar
+          }
         />
         <div className="flex-grow sm:pl-4">
           <h2 className="title-font font-medium text-lg text-gray-900">
             {name}
           </h2>
-          <h4 className="text-gray-500 leading-none">Fakultas : {fakultas}</h4>
-          <div className="flex items-center flex-wrap ">
+          <h4 className="text-gray-500 leading-none">{fakultas}</h4>
+          <div className="flex items-center flex-wrap justify-between">
             <Link
               to={`/penulis/${publicId}`}
               className="text-indigo-600 inline-flex items-center md:mb-2 lg:mb-0 hover:text-indigo-700 font-bold"
@@ -36,7 +40,7 @@ export default function Penulis(props) {
                 <path d="M12 5l7 7-7 7"></path>
               </svg>
             </Link>
-            <span className="text-gray-500 inline-flex items-center lg:ml-auto md:ml-0 ml-auto leading-none text-sm pl-3 py-1 border-l-2 border-gray-300">
+            <span className="text-gray-500 inline-flex  items-center lg:ml-auto md:ml-0 ml-auto leading-none text-sm pl-3 py-1 border-l-2 border-gray-300">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"

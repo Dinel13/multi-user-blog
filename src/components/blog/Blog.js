@@ -6,7 +6,7 @@ export default function Blog(props) {
     props.blog;
   return (
     <div className="p-3 sm:w-1/2 md:w-1/3 lg:w-1/4">
-      <div className="h-full border-2 border-gray-300 border-opacity-60 rounded-lg overflow-hidden">
+      <div className="h-full border-2 border-gray-300 border-opacity-60 shadow-lg rounded-lg overflow-hidden">
         <img
           className="lg:h-48 md:h-36 w-full object-cover object-center"
           src={`${process.env.REACT_APP_SERVER_URL_IMAGE}/${image}`}
@@ -14,7 +14,13 @@ export default function Blog(props) {
         />
         <div className="px-3 pt-1.5 pb-4">
           <p className="block text-gray-600 leading-none text-sm ">
-            {category} by {postedBy.nickName}
+            {category} by{" "}
+            <Link
+              to={`/penulis/${postedBy.publicId}`}
+              className="inline text-indigo-600"
+            >
+              {postedBy.nickName}
+            </Link>
           </p>
           <h1 className="title-font text-lg font-medium text-gray-800 mb-1">
             {title}

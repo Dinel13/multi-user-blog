@@ -1,12 +1,12 @@
 import React from "react";
 import { useParams, Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 
 import Avatar from "../assets/avatar.png";
-import { showNotification } from "../store/uiSlice";
+// import { showNotification } from "../store/uiSlice";
 
 export default function Penulis() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const params = useParams();
   const [userData, setUserData] = React.useState(null);
   const id = params.id;
@@ -59,7 +59,7 @@ export default function Penulis() {
               </h3>
               <p className="mt-1 text-sm text-gray-500">{userData.motto}</p>
             </div>
-            <div className="ml-auto">
+            {/* <div className="ml-auto">
               <button
                 onClick={() =>
                   dispatch(
@@ -75,7 +75,7 @@ export default function Penulis() {
               >
                 Ikuti
               </button>
-            </div>
+            </div> */}
           </div>
           <div className="border-t border-gray-200">
             <dl>
