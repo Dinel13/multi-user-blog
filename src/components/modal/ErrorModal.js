@@ -4,18 +4,37 @@ import { useSelector } from "react-redux";
 export default function ErrorModal() {
   const notification = useSelector((state) => state.ui.notification);
   const [showModal, setShowModal] = useState(null);
+  const [modal, setModal] = useState(null);
 
   React.useEffect(() => {
     setShowModal(notification);
-  }, [notification]);
+    setModal(document.getElementById("yakin"));
+
+    // to alwys hidden modal if no click the yakin
+    window.onclick = function (event) {
+      if (event.target === modal) {
+        notification.action();
+      } else {
+        setShowModal(null);
+      }
+    };
+  }, [notification, modal]);
 
   return (
     <>
       {showModal ? (
         <>
-          <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+          <div
+            // onClick={() => {
+            //   setShowModal(null);
+            // }}
+            className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+          >
             <div className="relative w-auto my-6 mx-auto py-5 max-w-3xl">
-              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+              <div
+                id="mymod"
+                className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none"
+              >
                 <div className="flex items-start justify-between p-4 border-b border-solid border-gray-200 rounded-t">
                   <h3 className="text-2xl font-semibold">
                     {notification.title}
@@ -37,9 +56,10 @@ export default function ErrorModal() {
                       Batal
                     </button>
                     <button
+                      id="yakin"
                       className="bg-red-600 text-gray-800 active:bg-red-500 font-bold uppercase text-sm px-6 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none  ease-linear transition-all duration-150"
                       type="button"
-                      onClick={notification.action}
+                      onClick={() => {}}
                     >
                       Yakin
                     </button>

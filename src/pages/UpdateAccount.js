@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { showNotification, hideNotification } from "../store/uiSlice";
@@ -37,7 +37,6 @@ export default function UpdateAccount(props) {
         method: "PUT",
         headers: {
           Accept: "application/json",
-          // "Content-Type": "multiport/form-data",
           Authorization: `Bearer ${token}`,
         },
         body: formdata,
@@ -61,8 +60,8 @@ export default function UpdateAccount(props) {
         action: null,
       })
     );
-    setTimeout(() => dispatch(hideNotification()), 2000);
-    setTimeout(() => history.push("/akunku"), 3000);
+    // setTimeout(() => dispatch(hideNotification()), 2000);
+    // setTimeout(() => history.push("/akunku"), 3000);
   };
   return (
     <div className="container w-full lg:w-11/12 xl:w-8/12 px-5 py-12 mx-auto">
@@ -269,12 +268,12 @@ export default function UpdateAccount(props) {
 
             <div className="container mx-auto w-11/12 xl:w-full">
               <div className="w-full py-4 sm:px-0 bg-white dark:bg-gray-800 flex justify-end">
-                <Link
-                  to="/akunku"
+                <button
+                  onClick={() => history.goBack()}
                   className="bg-gray-300 focus:outline-none transition duration-150 ease-in-out hover:bg-gray-400 dark:bg-gray-700 rounded text-indigo-600 dark:text-indigo-600 px-6 py-2 text-xs mr-4"
                 >
                   Cancel
-                </Link>
+                </button>
                 <button
                   className="bg-pink-700 focus:outline-none transition duration-150 ease-in-out hover:bg-pink-600 rounded text-white px-8 py-2 text-sm"
                   type="submit"
