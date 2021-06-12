@@ -40,20 +40,24 @@ export default function Penulis() {
       <h2 className="text-center text-3xl mt-4 font-medium">Tentang Penulis</h2>
       {userData && (
         <>
-          <div className="px-4 py-5 flex items-center sm:px-6">
+          <div className="px-4 py-5 flex items-end sm:px-6">
             <img
               alt="test"
-              className="bg-gray-100 object-cover object-center flex-shrink-0 rounded-lg mr-4"
-              style={{ width: "100px" }}
-              src={userData.image ? userData.image : Avatar}
+              className="bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4"
+              style={{ height: "100px", width: "100px" }}
+              src={
+                userData.image
+                  ? process.env.REACT_APP_SERVER_URL_IMAGE +
+                    "/" +
+                    userData.image
+                  : Avatar
+              }
             />
-            <div className="">
-              <h3 className="text-lg leading-6 font-medium text-gray-900">
-                User Information
+            <div className="sm:mb-1.5">
+              <h3 className="text-xl leading-none mb-1.5 mt-1 font-medium text-gray-900">
+                {userData.publicId}
               </h3>
-              <p className="mt-1 max-w-2xl text-sm text-gray-500">
-                Personal details and application.
-              </p>
+              <p className="mt-1 text-sm text-gray-500">{userData.motto}</p>
             </div>
             <div className="ml-auto">
               <button
@@ -67,21 +71,15 @@ export default function Penulis() {
                     })
                   )
                 }
-                className="text-gray-100 inline-flex items-center mr-1.5 mb-1.5 sm:mb-0 rounded py-1.5 px-3 bg-pink-600 hover:bg-pink-700"
+                className="text-gray-100 inline-flex items-center sm:mb-0 rounded py-1.5 px-3 bg-pink-600 hover:bg-pink-700"
               >
                 Ikuti
               </button>
-              {/* <button
-                onClick={() => dispatch(logout())}
-                className="text-gray-100  inline-flex items-center rounded py-1.5 px-3 bg-red-700 hover:bg-red-600"
-              >
-                Log Out
-              </button> */}
             </div>
           </div>
           <div className="border-t border-gray-200">
             <dl>
-              <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <div className="bg-gray-100 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">
                   Nama Lengkap
                 </dt>
@@ -97,7 +95,7 @@ export default function Penulis() {
                   {userData.nickName}
                 </dd>
               </div>
-              <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <div className="bg-gray-100 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">
                   Alamat email
                 </dt>
@@ -111,14 +109,24 @@ export default function Penulis() {
                   {userData.fakultas}
                 </dd>
               </div>
-              <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <div className="bg-gray-100 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">
+                  Modsos lain
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  {userData.medsos}
+                </dd>
+              </div>
+              <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">Alamat</dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  {userData.alamat}
+                </dd>
+              </div>
+              <div className="bg-gray-100 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">Bio</dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                  Fugiat ipsum ipsum deserunt culpa aute sint do nostrud anim
-                  incididunt cillum culpa consequat. Excepteur qui ipsum aliquip
-                  consequat sint. Sit id mollit nulla mollit nostrud in ea
-                  officia proident. Irure nostrud pariatur mollit ad adipisicing
-                  reprehenderit deserunt qui eu.
+                  {userData.bio}
                 </dd>
               </div>
               <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
