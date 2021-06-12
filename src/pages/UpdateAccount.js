@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { showNotification, hideNotification } from "../store/uiSlice";
@@ -7,37 +7,15 @@ import { showNotification, hideNotification } from "../store/uiSlice";
 export default function UpdateAccount(props) {
   const dispatch = useDispatch();
   const history = useHistory();
+  const location = useLocation();
   const id = useSelector((state) => state.auth.userId);
   const token = useSelector((state) => state.auth.token);
   const [user, setUser] = useState(null);
+  const { userData } = location.state;
 
   useEffect(() => {
-    const getUser = async () => {
-      try {
-        const response = await fetch(
-          `${process.env.REACT_APP_SERVER_URL}/allUserData/${id}`,
-          {
-            method: "GET",
-          }
-        );
-        const result = await response.json();
-        if (!response.ok) {
-          throw new Error("Tidak bisa mendapatkan data user");
-        }
-        setUser(result.user);
-      } catch (error) {
-        dispatch(
-          showNotification({
-            status: "error",
-            title: "Gagal masuk",
-            message: error.message,
-            action: null,
-          })
-        );
-      }
-    };
-    getUser();
-  }, [dispatch, id]);
+    setUser(userData);
+  }, [userData]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -66,12 +44,11 @@ export default function UpdateAccount(props) {
       }
     );
     if (!result.ok) {
-      const error = await result.json();
       return dispatch(
         showNotification({
           status: "error",
           title: "Gagal!!",
-          message: error.message || "Sedang tidak bisa mengupdate data",
+          message: "Sedang tidak bisa mengupdate data",
           action: null,
         })
       );
@@ -85,7 +62,7 @@ export default function UpdateAccount(props) {
       })
     );
     setTimeout(() => dispatch(hideNotification()), 2000);
-    setTimeout(() => history.push("/akunku"), 2100);
+    setTimeout(() => history.push("/akunku"), 3000);
   };
   return (
     <div className="container w-full lg:w-11/12 xl:w-8/12 px-5 py-12 mx-auto">

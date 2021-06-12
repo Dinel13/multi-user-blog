@@ -66,7 +66,7 @@ export default function MyAccount() {
                 to={{
                   pathname: "/akunku/update",
                   state: {
-                    user: user,
+                    userData: user,
                   },
                 }}
                 className="text-gray-100 inline-flex items-center mr-1.5 mb-1.5 sm:mb-0 rounded py-1.5 px-3 bg-pink-600 hover:bg-pink-700"
