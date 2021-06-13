@@ -117,7 +117,7 @@ const Editor = () => {
 
         if (response.status === 500) {
           throw new Error(
-            "Gagal menyimpan blog, pastikan ukuran sampul tidak lebih 1 mb"
+            "Gagal menyimpan blog, pastikan judul atau isi tidak terlalu singkat atau panjang serta ukuran sampul tidak lebih 1 mb"
           );
         }
 

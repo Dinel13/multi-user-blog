@@ -45,7 +45,8 @@ export default function UpdateAccount(props) {
         showNotification({
           status: "error",
           title: "Gagal!!",
-          message: "Pastikan ukuran file tidak lebih dari 1 MB",
+          message:
+            "Pastikan ukuran file tidak lebih dari 1 MB dan isian field tidak terlalu singkat atau terlalu panjang",
           action: null,
         })
       );
