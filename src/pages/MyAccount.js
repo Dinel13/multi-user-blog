@@ -67,7 +67,6 @@ export default function MyAccount() {
       );
       setTimeout(() => dispatch(hideNotification), 2000);
       const updateBlog = user.blog.filter((blog) => blog._id !== blogId);
-      console.log(updateBlog);
       setTimeout(
         () => setUser((prev) => ({ ...prev, blog: updateBlog })),
         2500
