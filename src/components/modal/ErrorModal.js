@@ -13,7 +13,6 @@ export default function ErrorModal() {
     // to alwys hidden modal if no click the yakin
     window.onclick = function (event) {
       if (event.target === modal) {
-        notification.action();
       } else {
         setShowModal(null);
       }
@@ -59,7 +58,10 @@ export default function ErrorModal() {
                       id="yakin"
                       className="bg-red-600 text-gray-800 active:bg-red-500 font-bold uppercase text-sm px-6 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none  ease-linear transition-all duration-150"
                       type="button"
-                      onClick={() => {}}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        notification.action();
+                      }}
                     >
                       Yakin
                     </button>

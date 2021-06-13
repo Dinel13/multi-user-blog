@@ -39,7 +39,6 @@ const Editor = () => {
   };
 
   const publishBlog = async () => {
-    setPending(true);
     if (!blogTitle) {
       dispatch(
         showNotification({
@@ -82,6 +81,7 @@ const Editor = () => {
       formdata.append("hastagsBlog", hastag.data);
       formdata.append("categoryBlog", category);
       formdata.append("imageBlog", blogImage);
+      setPending(true);
       try {
         const response = await fetch(
           `${process.env.REACT_APP_SERVER_URL}/blog`,
@@ -118,6 +118,7 @@ const Editor = () => {
         setTimeout(() => dispatch(hideNotification()), 2000);
         setTimeout(() => history.push(`/bacaan/${data.slug}`), 2500);
       } catch (error) {
+        setPending(false);
         dispatch(
           showNotification({
             status: "error",
@@ -126,7 +127,6 @@ const Editor = () => {
             action: null,
           })
         );
-        setPending(false);
       }
     }
   };

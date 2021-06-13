@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { PaperClipIcon } from "@heroicons/react/solid";
+// import { PaperClipIcon } from "@heroicons/react/solid";
 
 import { logout } from "../store/authSlice";
 import { showNotification } from "../store/uiSlice";
@@ -10,6 +10,7 @@ import Avatar from "../assets/avatar.png";
 export default function MyAccount() {
   const dispatch = useDispatch();
   const id = useSelector((state) => state.auth.userId);
+  const token = useSelector((state) => state.auth.token);
   const [user, setUser] = useState(null);
   useEffect(() => {
     const getUser = async () => {
@@ -38,6 +39,29 @@ export default function MyAccount() {
     };
     getUser();
   }, [dispatch, id]);
+
+  const removeTulisan = async (slug) => {
+    try {
+      const respon = await fetch(
+        `${process.env.REACT_APP_SERVER_URL}/blog/${slug}`,
+        {
+          method: "DELETE",
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(respon);
+      const result = await respon.json();
+      if (!respon.ok) {
+        throw new Error("Tidak bisa mendapatkan data user");
+      }
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="bg-white w-full md:w-5/6 lg:md-4/6 mx-auto overflow-hidden ">
@@ -143,10 +167,6 @@ export default function MyAccount() {
                         className="pl-3 pr-4 py-3 flex items-center justify-between text-sm"
                       >
                         <div className="w-0 flex-1 flex items-center">
-                          <PaperClipIcon
-                            className="flex-shrink-0 h-5 w-5 text-gray-400"
-                            aria-hidden="true"
-                          />
                           <span className="ml-2 flex-1 w-0 truncate">
                             {item.title}
                           </span>
@@ -154,10 +174,33 @@ export default function MyAccount() {
                         <div className="ml-4 flex-shrink-0">
                           <Link
                             to={`/bacaan/${item.slug}`}
-                            className="font-medium text-indigo-600 hover:text-indigo-500"
+                            className="font-medium mr-2.5 text-indigo-600 hover:text-indigo-500"
                           >
                             Lihat
                           </Link>
+                          <Link
+                            to={`/bacaan/${item.slug}`}
+                            className="font-medium mr-2.5 text-indigo-500 hover:text-indigo-500"
+                          >
+                            Edit
+                          </Link>
+                          <button
+                            onClick={() =>
+                              dispatch(
+                                showNotification({
+                                  status: "confirm",
+                                  title: "Konfirmasi",
+                                  message:
+                                    "Kamu yakin ingin menghapus tulisan ini?",
+                                  action: async () =>
+                                    await removeTulisan(item.slug),
+                                })
+                              )
+                            }
+                            className="font-medium text-red-600 hover:text-indigo-500"
+                          >
+                            Hapus
+                          </button>
                         </div>
                       </li>
                     ))}
