@@ -25,6 +25,10 @@ const TentangKami = React.lazy(() => import("./pages/TentangKami"));
 const Develop = React.lazy(() => import("./pages/Develop"));
 const Kategori = React.lazy(() => import("./pages/BacaKategori"));
 const UpdateTulisan = React.lazy(() => import("./pages/UpdateTulisan"));
+const DukungKami = React.lazy(() => import("./pages/DukungKami"));
+const Pengembang = React.lazy(() => import("./pages/Pengembang"));
+const Newsletter = React.lazy(() => import("./pages/Newsletter"));
+const Bantuan = React.lazy(() => import("./pages/Bantuan"));
 
 function App() {
   const dispatch = useDispatch();
@@ -77,16 +81,16 @@ function App() {
           <TentangKami />
         </Route>
         <Route path="/bantuan" exact>
-          <Develop />
+          <Bantuan />
         </Route>
         <Route path="/dukung-kami" exact>
-          <Develop />
+          <DukungKami />
         </Route>
         <Route path="/developper" exact>
-          <Develop />
+          <Pengembang />
         </Route>
         <Route path="/newsletter" exact>
-          <Develop />
+          <Newsletter />
         </Route>
         <Route path="*">
           <NotFound />
@@ -130,16 +134,16 @@ function App() {
           <TentangKami />
         </Route>
         <Route path="/bantuan" exact>
-          <Develop />
+          <Bantuan />
         </Route>
         <Route path="/dukung-kami" exact>
-          <Develop />
+          <DukungKami />
         </Route>
         <Route path="/developper" exact>
-          <Develop />
+          <Pengembang />
         </Route>
         <Route path="/newsletter" exact>
-          <Develop />
+          <Newsletter />
         </Route>
         <Route path="*">
           <NotFound />

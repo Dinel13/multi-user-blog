@@ -2,11 +2,11 @@ import React from "react";
 
 import Unhas from "../assets/unhas.jpg";
 
-export default function TentangKami() {
+export default function DukungKami() {
   return (
     <section class="text-gray-600 body-font">
       <h1 class=" sm:text-4xl text-center mt-8 text-3xl font-medium block text-gray-900">
-        Apa itu SuaraUnhas
+        Ayo dukung Suara Unhas
       </h1>
       <div class="container mx-auto flex px-5 py-16 md:flex-row flex-col items-center">
         <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0">
