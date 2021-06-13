@@ -181,51 +181,55 @@ export default function MyAccount() {
               <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">Tulisan</dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                  <ul className="border border-gray-200 rounded-md divide-y divide-gray-200">
-                    {user.blog.map((item) => (
-                      <li
-                        key={item._id}
-                        className="pl-3 pr-4 py-3 flex items-center justify-between text-sm"
-                      >
-                        <div className="w-0 flex-1 flex items-center">
-                          <span className="ml-2 flex-1 w-0 truncate">
-                            {item.title}
-                          </span>
-                        </div>
-                        <div className="ml-4 flex-shrink-0">
-                          <Link
-                            to={`/bacaan/${item.slug}`}
-                            className="font-medium mr-2.5 text-indigo-600 hover:text-indigo-500"
-                          >
-                            Lihat
-                          </Link>
-                          <Link
-                            to={`/bacaan/${item.slug}`}
-                            className="font-medium mr-2.5 text-indigo-500 hover:text-indigo-500"
-                          >
-                            Edit
-                          </Link>
-                          <button
-                            onClick={() =>
-                              dispatch(
-                                showNotification({
-                                  status: "confirm",
-                                  title: "Konfirmasi",
-                                  message:
-                                    "Kamu yakin ingin menghapus tulisan ini?",
-                                  action: async () =>
-                                    await removeTulisan(item.slug, item._id),
-                                })
-                              )
-                            }
-                            className="font-medium text-red-600 hover:text-indigo-500"
-                          >
-                            Hapus
-                          </button>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
+                  {user.blog.length !== 0 ? (
+                    <ul className="border ml-0  border-gray-200 rounded-md divide-y divide-gray-200">
+                      {user.blog.map((item) => (
+                        <li
+                          key={item._id}
+                          className="px-2 py-3 flex items-center justify-between text-sm"
+                        >
+                          <div className="w-0 flex-1 flex items-center">
+                            <span className="ml-1 flex-1 w-0 truncate">
+                              {item.title}
+                            </span>
+                          </div>
+                          <div className="ml-4 flex-shrink-0">
+                            <Link
+                              to={`/bacaan/${item.slug}`}
+                              className="font-medium mr-2.5 text-indigo-600 hover:text-indigo-500"
+                            >
+                              Lihat
+                            </Link>
+                            <Link
+                              to={`/bacaan/${item.slug}`}
+                              className="font-medium mr-2.5 text-indigo-500 hover:text-indigo-500"
+                            >
+                              Edit
+                            </Link>
+                            <button
+                              onClick={() =>
+                                dispatch(
+                                  showNotification({
+                                    status: "confirm",
+                                    title: "Konfirmasi",
+                                    message:
+                                      "Kamu yakin ingin menghapus tulisan ini?",
+                                    action: async () =>
+                                      await removeTulisan(item.slug, item._id),
+                                  })
+                                )
+                              }
+                              className="font-medium text-red-600 hover:text-indigo-500"
+                            >
+                              Hapus
+                            </button>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    "Belum ada tulisan"
+                  )}
                 </dd>
               </div>
             </dl>
