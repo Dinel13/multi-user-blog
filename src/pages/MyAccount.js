@@ -201,7 +201,7 @@ export default function MyAccount() {
                               Lihat
                             </Link>
                             <Link
-                              to={`/bacaan/${item.slug}`}
+                              to={`/update-tulisan/${item.slug}`}
                               className="font-medium mr-2.5 text-indigo-500 hover:text-indigo-500"
                             >
                               Edit

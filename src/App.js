@@ -24,6 +24,7 @@ const Penulis = React.lazy(() => import("./pages/Penulis"));
 const TentangKami = React.lazy(() => import("./pages/TentangKami"));
 const Develop = React.lazy(() => import("./pages/Develop"));
 const Kategori = React.lazy(() => import("./pages/BacaKategori"));
+const UpdateTulisan = React.lazy(() => import("./pages/UpdateTulisan"));
 
 function App() {
   const dispatch = useDispatch();
@@ -50,6 +51,9 @@ function App() {
         </Route>
         <Route path="/tulis" exact>
           <CreateBlog />
+        </Route>
+        <Route path="/update-tulisan/:slug" exact>
+          <UpdateTulisan />
         </Route>
         <Route path="/bacaan" exact>
           <Bacaan />
