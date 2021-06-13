@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 // import { PaperClipIcon } from "@heroicons/react/solid";
 
 import { logout } from "../store/authSlice";
-import { showNotification } from "../store/uiSlice";
+import { showNotification, hideNotification } from "../store/uiSlice";
 import Avatar from "../assets/avatar.png";
 
 export default function MyAccount() {
@@ -40,7 +40,7 @@ export default function MyAccount() {
     getUser();
   }, [dispatch, id]);
 
-  const removeTulisan = async (slug) => {
+  const removeTulisan = async (slug, blogId) => {
     try {
       const respon = await fetch(
         `${process.env.REACT_APP_SERVER_URL}/blog/${slug}`,
@@ -48,18 +48,40 @@ export default function MyAccount() {
           method: "DELETE",
           headers: {
             Accept: "application/json",
+            // "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
+          // body: JSON.stringify({}),
         }
       );
-      console.log(respon);
-      const result = await respon.json();
       if (!respon.ok) {
-        throw new Error("Tidak bisa mendapatkan data user");
+        throw new Error("Tidak bisa menghapus tulisan");
       }
-      console.log(result);
+      dispatch(
+        showNotification({
+          status: null,
+          title: "Berhasil!!",
+          message: "Tulisan Berhasil dihapus",
+          action: null,
+        })
+      );
+      setTimeout(() => dispatch(hideNotification), 2000);
+      const updateBlog = user.blog.filter((blog) => blog._id !== blogId);
+      console.log(updateBlog);
+      setTimeout(
+        () => setUser((prev) => ({ ...prev, blog: updateBlog })),
+        2500
+      );
     } catch (error) {
       console.log(error);
+      dispatch(
+        showNotification({
+          status: null,
+          title: "Gagal!!",
+          message: "Tidak bisa menghapus tulisan",
+          action: null,
+        })
+      );
     }
   };
 
@@ -193,7 +215,7 @@ export default function MyAccount() {
                                   message:
                                     "Kamu yakin ingin menghapus tulisan ini?",
                                   action: async () =>
-                                    await removeTulisan(item.slug),
+                                    await removeTulisan(item.slug, item._id),
                                 })
                               )
                             }
