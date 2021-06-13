@@ -1,13 +1,16 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 import { showNotification, hideNotification } from "../store/uiSlice";
+import { singleBlog } from "../actions/blog";
 // import { createBlog } from "../actions/blog";
 
 const Editor = () => {
+  const params = useParams();
+  const slug = params.slug;
   const dispatch = useDispatch();
   const [editorHtml, setEditorHtml] = useState("");
   const [pending, setPending] = useState();
@@ -19,10 +22,27 @@ const Editor = () => {
   const token = useSelector((state) => state.auth.token);
   const history = useHistory();
 
+  //get cureent blog data
+  useEffect(() => {
+    async function getBlog() {
+      const res = await singleBlog(slug);
+      console.log(res);
+      setEditorHtml(res.body);
+      setBlogTitle(res.title);
+      setCategory(res.category);
+      let hastags = res.hastags.join(" #");
+      hastags = "#" + hastags.substring(0);
+      hastagRef.current.value = hastags;
+    }
+    getBlog();
+  }, [slug]);
+
+  //to react quill
   const handleChange = (html) => {
     setEditorHtml(html);
   };
 
+  // to proses hastag string to array
   const getArrayHastag = () => {
     if (!hastagRef.current.value) {
       return { fail: "Hastag masih kosong, gunakan minimal satu" };
@@ -84,11 +104,11 @@ const Editor = () => {
       setPending(true);
       try {
         const response = await fetch(
-          `${process.env.REACT_APP_SERVER_URL}/blog`,
+          `${process.env.REACT_APP_SERVER_URL}/blog/${slug}`,
           {
-            method: "POST",
+            method: "PUT",
             headers: {
-              Accept: "application/json",
+              // Accept: "application/json",
               Authorization: `Bearer ${token}`,
             },
             body: formdata,
@@ -195,12 +215,22 @@ const Editor = () => {
             <div onChange={(e) => setCategory(e.target.value)}>
               {categoriFake.map((categori, index) => (
                 <label key={index} className="block">
-                  <input
-                    className="list-unstyled mr-4"
-                    type="radio"
-                    value={categori}
-                    name="categories"
-                  />
+                  {categori === category ? ( //chacked the currrent value
+                    <input
+                      className="list-unstyled mr-4"
+                      type="radio"
+                      checked
+                      value={categori}
+                      name="categories"
+                    />
+                  ) : (
+                    <input
+                      className="list-unstyled mr-4"
+                      type="radio"
+                      value={categori}
+                      name="categories"
+                    />
+                  )}
                   {categori}
                 </label>
               ))}
@@ -212,7 +242,7 @@ const Editor = () => {
             </label>
             <input
               type="text"
-              id="tag"
+              name="tag"
               className="rounded border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-900 placeholder-gray-500 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-pink-600 focus:border-transparent"
               placeholder="#Teknik #Coding #Javascript #seru"
               ref={hastagRef}
