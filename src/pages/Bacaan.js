@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { listAllBlog } from "../actions/blog";
 import Blog from "../components/blog/Blog";
+import Pagination from "../components/pagination/Pagination";
+import Search from "../components/serch/Search";
 
 export default function Baca() {
   const [blogData, setBlogData] = useState(null);
@@ -24,6 +26,8 @@ export default function Baca() {
           {blogData &&
             blogData.map((blog, index) => <Blog key={index} blog={blog} />)}
         </div>
+        <Search />
+        <Pagination />
       </div>
     </section>
   );

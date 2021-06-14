@@ -1,3 +1,5 @@
+import queryString from "query-string";
+
 export const createBlog = async (blog, token) => {
   try {
     const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/blog`, {
@@ -118,15 +120,23 @@ export const searchCategory = async (category) => {
   }
 };
 
-export const listSearch = (params) => {
+export const listSearch = async (params) => {
   console.log("search params", params);
-  let query; //= queryString.stringify(params);
+  let query = queryString.stringify(params);
   console.log("query params", query);
-  return fetch(`${process.env.REACT_APP_SERVER_URL}/blogs/search?${query}`, {
-    method: "GET",
-  })
-    .then((response) => {
-      return response.json();
-    })
-    .catch((err) => console.log(err));
+  try {
+    const respon = await fetch(
+      `${process.env.REACT_APP_SERVER_URL}/blogs/search?${query}`,
+      {
+        method: "GET",
+      }
+    );
+    const data = await respon.json();
+    if (!respon.ok) {
+      return { error: data.message || "gagal mencari tulisan" };
+    }
+    return data.blog;
+  } catch (error) {
+    console.log(error);
+  }
 };
