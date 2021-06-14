@@ -82,7 +82,7 @@ export default function Footer() {
             <nav className="list-none mb-10">
               <li>
                 <Link
-                  to="/tentang-kami"
+                  to="/tentang-suaraUnhas"
                   className="text-gray-600 hover:text-gray-800"
                 >
                   Tentang SuaraUnhas
@@ -102,6 +102,14 @@ export default function Footer() {
                   className="text-gray-600 hover:text-gray-800"
                 >
                   Tentang Pengembang
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/kritik-saran"
+                  className="text-gray-600 hover:text-gray-800"
+                >
+                  Kritik dan Saran
                 </Link>
               </li>
               <li>
