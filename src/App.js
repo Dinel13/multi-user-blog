@@ -22,7 +22,7 @@ const NotFound = React.lazy(() => import("./pages/NotFound"));
 const Register = React.lazy(() => import("./pages/Register"));
 const Penulis = React.lazy(() => import("./pages/Penulis"));
 const TentangKami = React.lazy(() => import("./pages/TentangKami"));
-const Develop = React.lazy(() => import("./pages/Develop"));
+// const Develop = React.lazy(() => import("./pages/Develop"));
 const Kategori = React.lazy(() => import("./pages/BacaKategori"));
 const UpdateTulisan = React.lazy(() => import("./pages/UpdateTulisan"));
 const DukungKami = React.lazy(() => import("./pages/DukungKami"));
