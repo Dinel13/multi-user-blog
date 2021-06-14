@@ -6,7 +6,7 @@ import Unhas from "../assets/unhas.jpg";
 export default function TentangKami() {
   return (
     <section class="text-gray-600 body-font bg-gray-100">
-      <h1 class="pt-12 sm:text-4xl text-center text-3xl font-medium block text-gray-900">
+      <h1 class="pt-12 text-center text-3xl sm:text-4xl md:text-5xl font-bold tracking-wider text-gray-900 -mb-6">
         Apa itu SuaraUnhas
       </h1>
       <div class="container mx-auto flex px-5 py-12 md:flex-row flex-col items-center md:items-start">

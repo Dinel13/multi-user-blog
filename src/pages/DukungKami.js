@@ -6,10 +6,10 @@ export default function DukungKami() {
     <section className="text-gray-600 body-font bg-gray-100">
       <div className="container px-5 py-16 mx-auto flex flex-wrap">
         <div className="mx-auto md:w-2/3 lg:w-8/12 mb-4">
-          <h2 className="text-center text-3xl font-medium text-gray-900 mb-4">
+          <h1 class=" text-center text-3xl sm:text-4xl md:text-5xl font-bold tracking-wider text-gray-900 mb-6">
             Dukung pengembang SuaraUnhas
-          </h2>
-          <p className="text-left text-gray-800">
+          </h1>
+          <p className="text-left text-lg text-gray-800">
             Kamu bisa mendukung SuaraUnhas dengan banyak cara. Sesuai dengan
             kemampuan yang kamu miliki. Beberapa caranya adalah seperti berikut
           </p>
@@ -88,7 +88,7 @@ export default function DukungKami() {
               </h2>
               <p className="leading-relaxed">
                 SuaraUnhas membutuhkan dana untuk biaya sewa dan pemeliharaan
-                server, hosting maupun domain. Sumbngana dana sekecil apapun
+                server, hosting maupun domain. Sumbangan dana sekecil apapun
                 dari kamu akan sangat membantu kami untuk terus berkembang.
               </p>
             </div>

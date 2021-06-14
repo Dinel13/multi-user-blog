@@ -5,8 +5,8 @@ import Unhas from "../assets/mee.jpg";
 export default function Pengembang() {
   return (
     <section class="text-gray-600 body-font bg-gray-200">
-      <h1 class="pt-12 sm:text-4xl text-center text-3xl font-medium block text-gray-900">
-        Mereka yang mengembangkan SuaraUnhas
+      <h1 class="pt-12 text-center text-3xl sm:text-4xl md:text-5xl font-bold tracking-wider text-gray-900 -mb-2">
+        Penggagas SuaraUnhas
       </h1>
       <div class="container mx-auto flex px-5 py-12 md:flex-row flex-col items-center">
         <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0 ">

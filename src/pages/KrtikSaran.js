@@ -24,7 +24,7 @@ export default function KririkSaran() {
           onSubmit={submitHandler}
           className="lg:w-5/12 md:w-4/5 bg-white rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0 relative z-2 shadow-md"
         >
-          <h2 className="text-gray-900 text-xl mb-1 font-medium title-font">
+          <h2 className="text-gray-900 text-xl  sm:text-2xl md:text-3xl  mb-1 font-bold tracking-wider">
             Kritik dan Saran
           </h2>
           <p className="leading-none mb-5 text-gray-700">
