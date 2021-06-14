@@ -136,11 +136,11 @@ const Editor = () => {
   };
 
   const categoriFake = [
-    "Inspiratif",
-    "Cerita",
-    "Kritik",
-    "Tutorial",
     "Info kegiatan",
+    "Inspiratif",
+    "Materi Kuliah",
+    "Opini",
+    "Kritik",
   ];
 
   // tidak bisa pake form onsubmit

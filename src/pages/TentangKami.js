@@ -39,7 +39,7 @@ export default function TentangKami() {
               Menulis{" "}
             </Link>
             . Kamu juga dapat membaca karya mahasiswa lain di halaman{" "}
-            <Link to="/baca" className="text-indigo-600 font-bold">
+            <Link to="/bacaan" className="text-indigo-600 font-bold">
               Menbaca{" "}
             </Link>
             . SuaraUnhas dikembangkan khusus bagi mahasiswa Universitas

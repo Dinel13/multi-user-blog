@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <footer className="text-gray-700 body-font border-gray-200 border bg-red-200">
+    <footer className="text-gray-800 body-font border-gray-200 border bg-red-300">
       <div className="container px-5 py-12 mx-auto flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col">
         <div className="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left">
           <Link
@@ -23,8 +23,8 @@ export default function Footer() {
             </svg>
             <span className="ml-3 text-xl">SuaraUnhas</span>
           </Link>
-          <p className="mt-2 text-sm text-gray-500">
-            Tempatnya anak Unhas berbagi kisah dan inspirasi
+          <p className="mt-2 text-sm text-gray-700">
+            Tempatnya anak Unhas berbagi suara dan inspirasi
           </p>
         </div>
         <div className="flex-grow flex flex-wrap md:pl-20 -mb-10 md:mt-0 mt-10 md:text-left text-center">
@@ -35,18 +35,26 @@ export default function Footer() {
             <nav className="list-none mb-10">
               <li>
                 <Link
-                  to="/bacaan/kategori/Inspirasi"
+                  to="/bacaan/kategori/Kegiatan"
                   className="text-gray-600 hover:text-gray-800"
                 >
-                  Inspirasi
+                  Info Kegiatan
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/bacaan/kategori/Kegiatan"
+                  to="/bacaan/kategori/Materi Kuliah"
                   className="text-gray-600 hover:text-gray-800"
                 >
-                  Kegiatan
+                  Materi Kuliah
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/bacaan/kategori/Inspirasif"
+                  className="text-gray-600 hover:text-gray-800"
+                >
+                  Inspirasif
                 </Link>
               </li>
               <li>
@@ -59,18 +67,10 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  to="/bacaan/kategori/Cerita"
+                  to="/bacaan/kategori/Opini"
                   className="text-gray-600 hover:text-gray-800"
                 >
-                  Cerita
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/bacaan/kategori/Tutorial"
-                  className="text-gray-600 hover:text-gray-800"
-                >
-                  Tutorial
+                  Opini
                 </Link>
               </li>
             </nav>
@@ -90,14 +90,6 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  to="/dukung-kami"
-                  className="text-gray-600 hover:text-gray-800"
-                >
-                  Dukung Kami
-                </Link>
-              </li>
-              <li>
-                <Link
                   to="/developper"
                   className="text-gray-600 hover:text-gray-800"
                 >
@@ -110,6 +102,14 @@ export default function Footer() {
                   className="text-gray-600 hover:text-gray-800"
                 >
                   Kritik dan Saran
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/dukung-kami"
+                  className="text-gray-600 hover:text-gray-800"
+                >
+                  Dukung Kami
                 </Link>
               </li>
               <li>
