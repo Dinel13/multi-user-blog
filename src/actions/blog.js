@@ -40,9 +40,9 @@ export const singleBlog = async (slug) => {
   }
 };
 
-export const listAllBlog = async () => {
+export const listAllBlog = async (page) => {
   try {
-    const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/blogs`, {
+    const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/all/${page}`, {
       method: "GET",
     });
 
@@ -50,7 +50,7 @@ export const listAllBlog = async () => {
     if (!res.ok) {
       return { error: data.message || "gagal" };
     }
-    return data;
+    return data.data;
   } catch (error) {
     console.log(error);
   }
