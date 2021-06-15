@@ -19,6 +19,14 @@ export default function ErrorModal() {
     };
   }, [notification, modal]);
 
+  React.useEffect(() => {
+    let timer;
+    if (showModal && notification && notification.status !== "confirm") {
+      timer = setTimeout(() => setShowModal(null), 3000);
+    }
+    return () => clearTimeout(timer);
+  }, [notification, showModal]);
+
   return (
     <>
       {notification && showModal && (

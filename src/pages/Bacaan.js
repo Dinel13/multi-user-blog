@@ -75,7 +75,10 @@ export default function Baca() {
             </h2>
             <h2 className="text-lg">
               Silahkan{" "}
-              <button className="text-indigo-600" onClick={prevHandler}>
+              <button
+                className="text-indigo-600 focus:outline-none"
+                onClick={prevHandler}
+              >
                 kembali kehalaman sebelumya
               </button>
             </h2>

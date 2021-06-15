@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import { searchCategory } from "../actions/blog";
@@ -45,9 +45,17 @@ export default function BacaKategori() {
         <div className="flex flex-wrap -m-4">
           {loading && <Loading />}
           {!loading && !blogData && (
-            <h3 className="sm:text-1xl text-center mx-auto text-xl font-medium mb-24 text-gray-700">
-              Belum tersedia penulis populer
-            </h3>
+            <div className="max-w-md my-12 px-2 py-4 bg-red-300 mx-auto rounded">
+              <h3 className="text-xl font-medium mb-2 text-gray-700">
+                Belum ada tulisan untuk kategori {kategori}
+              </h3>
+              <h2 className="text-lg">
+                Silahkan{" "}
+                <Link to="/bacaan" className="text-indigo-600">
+                  lihat semua kategori
+                </Link>
+              </h2>
+            </div>
           )}
           {blogData &&
             blogData.map((blog, index) => <Blog key={index} blog={blog} />)}

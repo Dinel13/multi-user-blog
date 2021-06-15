@@ -1,9 +1,51 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+
+import { showNotification } from "../store/uiSlice";
+import PendingButton from "../components/button/PendingButton";
 
 export default function KririkSaran() {
+  const dispatch = useDispatch();
   const textRef = useRef("");
   const emailRef = useRef("");
-  const submitHandler = () => {};
+  const [pending, setPending] = useState(false);
+
+  const submitHandler = async (event) => {
+    event.preventDefault();
+    setPending(true);
+    try {
+      const respon = await fetch(
+        `${process.env.REACT_APP_SERVER_URL}/other/feedback`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: emailRef.current.value,
+            message: textRef.current.value,
+          }),
+        }
+      );
+      const data = await respon.json();
+      console.log(data);
+      if (!respon.ok) {
+        throw new Error(data.message || "Tidak bisa mengirim saran dan kritik");
+      }
+      setPending(false);
+      emailRef.current.value = "";
+      textRef.current.value = "";
+    } catch (error) {
+      console.log(error);
+      setPending(false);
+      dispatch(
+        showNotification({
+          status: "confirm",
+          title: "Gagal mendapatkan data",
+          message: "DSFSDFSDFDSF",
+          action: null,
+        })
+      );
+    }
+  };
   return (
     <section className="text-gray-600 body-font relative">
       <div className="absolute inset-0 bg-gray-300">
@@ -57,9 +99,13 @@ export default function KririkSaran() {
               className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
             ></textarea>
           </div>
-          <button className="text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg">
-            Kirim
-          </button>
+          {pending ? (
+            <PendingButton />
+          ) : (
+            <button className="text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg">
+              Kirim
+            </button>
+          )}
           <p className="text-xs leading-none text-gray-500 mt-3">
             kritik atau saran kamu dijaga kerahasianya dan hanya digunakan untuk
             keperluan SuaraUnhas
