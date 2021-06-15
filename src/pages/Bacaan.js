@@ -5,7 +5,6 @@ import { showNotification, hideNotification } from "../store/uiSlice";
 import { listAllBlog } from "../actions/blog";
 import Blog from "../components/blog/Blog";
 import Pagination from "../components/pagination/Pagination";
-import { Link } from "react-router-dom";
 
 export default function Baca() {
   const dispatch = useDispatch();
