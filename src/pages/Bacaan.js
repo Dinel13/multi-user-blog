@@ -4,20 +4,25 @@ import { useLocation } from "react-router-dom";
 import { listAllBlog } from "../actions/blog";
 import Blog from "../components/blog/Blog";
 import Pagination from "../components/pagination/Pagination";
-import Search from "../components/serch/Search";
 
 export default function Baca() {
   const location = useLocation();
-  const seachResult = location.state.data;
   const [blogData, setBlogData] = useState(null);
+
+  //to check if this from seach result or not
+  // so its need to useEffet or not
+  let data;
+  if (location.state) {
+    data = location.state.data;
+  }
 
   useEffect(() => {
     const fetchBlog = async () => {
       const res = await listAllBlog();
       setBlogData(res);
     };
-    seachResult ? setBlogData(seachResult) : fetchBlog();
-  }, [seachResult]);
+    data ? setBlogData(data) : fetchBlog();
+  }, [data]);
 
   return (
     <section className="text-gray-600 body-font">
@@ -29,7 +34,6 @@ export default function Baca() {
           {blogData &&
             blogData.map((blog, index) => <Blog key={index} blog={blog} />)}
         </div>
-        <Search />
         <Pagination />
       </div>
     </section>

@@ -16,13 +16,22 @@ export default function Hero() {
     e.preventDefault();
     try {
       const data = await listSearch({ search: searchRef.current.value });
-      console.log(data);
+      searchRef.current.value = "";
       history.push({
         pathname: "/bacaan",
         state: { data: data },
       });
     } catch (error) {
       console.log(error);
+      dispatch(
+        showNotification({
+          status: "error",
+          title: "Gagal!!",
+          message: "Tidak bisa mencari",
+          action: null,
+        })
+      );
+      setTimeout(() => dispatch(hideNotification()), 1800);
     }
   };
 
@@ -89,7 +98,7 @@ export default function Hero() {
               />
               <button
                 type="submit"
-                className="absolute right-0 top-0 mt-2 mr-3"
+                className="absolute right-0 top-0 py-2 px-3"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

@@ -1,8 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState, useRef } from "react";
+import { Link, useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+
+import { showNotification, hideNotification } from "../../store/uiSlice";
+import { listSearch } from "../../actions/blog";
 
 export default function Header() {
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const searchRef = useRef();
   const [offset, setOffset] = useState(0);
   const name = useSelector((state) => state.auth.name);
   useEffect(() => {
@@ -11,6 +17,31 @@ export default function Header() {
       setOffset(window.pageYOffset);
     };
   }, []);
+
+  const searchSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const data = await listSearch({ search: searchRef.current.value });
+      if (data.error) {
+        throw data.error;
+      }
+      searchRef.current.value = "";
+      history.push({
+        pathname: "/bacaan",
+        state: { data: data },
+      });
+    } catch (error) {
+      dispatch(
+        showNotification({
+          status: "error",
+          title: "Gagal!!",
+          message: error || "Tidak bisa mencari",
+          action: null,
+        })
+      );
+      setTimeout(() => dispatch(hideNotification()), 1800);
+    }
+  };
 
   const clickMenu = () => {
     const navItem = document.getElementById("nav-item");
@@ -89,20 +120,20 @@ export default function Header() {
           <div className="flex flex-col md:flex-row items-end">
             <div className="flex items-end mb-2.5 md:mb-0 mt-4 md:mt-0">
               <form
-                // onSubmit={searchSubmit}
+                onSubmit={searchSubmit}
                 className="flex w-40 items-center justify-center p-0 md:mr-1.5 relative mx-auto text-gray-600"
               >
                 <input
-                  className="text-gray-700 w-full bg-gray-200 h-9 px-3 pr-6 rounded text-sm focus:outline-none"
+                  className="text-gray-700 w-full border border-red-500 bg-gray-200 h-9 px-3 pr-6 rounded text-sm focus:outline-none"
                   type="search"
                   name="search"
-                  // ref={searchRef}
+                  ref={searchRef}
                   required
                   placeholder="Cari tulisan"
                 />
                 <button
                   type="submit"
-                  className="absolute right-0 top-0 mt-2.5 mr-2"
+                  className="absolute right-0 top-0 py-2.5 px-2"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -126,7 +157,7 @@ export default function Header() {
               <div className="flex items-end">
                 <Link
                   to="/akunku"
-                  className="inline-flex items-center text-sm mr-2 p-2 leading-none mt-4 md:mt-0 border border-transparent rounded text-gray-50 bg-pink-700 hover:bg-pink-600 hover:text-gray-900  "
+                  className="inline-flex items-center text-sm mr-2 p-2 leading-none  md:mt-0 border border-transparent rounded text-gray-50 bg-red-700 hover:bg-red-600 hover:text-gray-900  "
                 >
                   <svg
                     fill="none"
