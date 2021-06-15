@@ -137,7 +137,7 @@ export default function BacaOneBlog() {
             </div>
           </div>
           <img
-            className="text-center rounded-lg mx-auto h-2/3"
+            className="text-center rounded-lg mx-auto md:w-2/3  h-2/3"
             id="imageBlog"
             src={`${process.env.REACT_APP_SERVER_URL_IMAGE}/${blogData.image}`}
             alt={blogData.title}
