@@ -1,13 +1,30 @@
+import React, { useRef } from "react";
+import { Link, useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+import { showNotification, hideNotification } from "../../store/uiSlice";
 import style from "./Hero.module.css";
-import { Link } from "react-router-dom";
+import { listSearch } from "../../actions/blog";
 
 export default function Hero() {
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const searchRef = useRef();
+  const token = useSelector((state) => state.auth.token);
+
+  const searchSubmit = (e) => {
+    e.preventDefault();
+    listSearch({ search: searchRef.current.value }).then((data) => {
+      console.log(data);
+    });
+  };
+
   return (
     <section className={style.heroBackground}>
       <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
         <div className="lg:flex-grow md:w-4/5 lg:pl-24 md:pl-16 flex flex-col items-start text-left">
           <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-white">
-            Tulisakan Suaramu
+            Tuliskan Suaramu
             <br />
             Agar Ceritamu Menjadi Abadi
           </h1>
@@ -16,13 +33,73 @@ export default function Hero() {
             Jadilah salah-satu dari orang-orang yang akan terus dikenang karena
             karyanya. Karena tulisanmu dapat menjadi inspirasi bagi orang lain.
           </p>
-          <div className="flex justify-center">
-            <Link
-              to="tulis"
-              className="inline-flex text-white bg-pink-800 border-0 py-2 px-6 focus:outline-none hover:bg-pink-600 rounded text-lg"
+          <div className="flex flex-col justify-center">
+            <div className="w-full block">
+              <button
+                onClick={() => {
+                  if (!token) {
+                    dispatch(
+                      showNotification({
+                        status: "error",
+                        title: "Kamu belum login",
+                        message: "Silahkan login dulu untuk melanjutkan",
+                        action: null,
+                      })
+                    );
+                    setTimeout(() => {
+                      dispatch(hideNotification());
+                      history.push("/login");
+                    }, 1800);
+                  } else {
+                    history.push("/tulis");
+                  }
+                }}
+                className="inline-flex  items-center text-white bg-red-600 border-0 py-2 px-4 focus:outline-none hover:bg-red-500 rounded"
+              >
+                Mulai Menulis
+              </button>
+              <Link
+                className="inline-flex items-center text-gray-900 bg-red-500 border-0 ml-2.5 py-2 px-4 focus:outline-none hover:bg-red-400 rounded"
+                to="/bacaan"
+              >
+                Mulai Membaca
+              </Link>
+            </div>
+            <p className="text-gray-200 font-medium text-md text-center my-2">
+              Atau
+            </p>
+            <form
+              onSubmit={searchSubmit}
+              className="flex w-full items-center justify-center p-0 relative mx-auto text-gray-600"
             >
-              Mulai Menulis
-            </Link>
+              <input
+                className="w-full text-gray-700 bg-gray-200 h-10 px-5 pr-14 rounded-md text-base focus:outline-none"
+                type="search"
+                name="search"
+                ref={searchRef}
+                required
+                placeholder="Cari tulisan"
+              />
+              <button
+                type="submit"
+                className="absolute right-0 top-0 mt-2 mr-3"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
+                </svg>
+              </button>
+            </form>
           </div>
         </div>
       </div>
