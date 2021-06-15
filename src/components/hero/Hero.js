@@ -16,9 +16,12 @@ export default function Hero() {
     e.preventDefault();
     try {
       const data = await listSearch({ search: searchRef.current.value });
+      if (data.error) {
+        throw data.error;
+      }
       searchRef.current.value = "";
       history.push({
-        pathname: "/bacaan",
+        pathname: "/pencarian",
         state: { data: data },
       });
     } catch (error) {
@@ -27,7 +30,7 @@ export default function Hero() {
         showNotification({
           status: "error",
           title: "Gagal!!",
-          message: "Tidak bisa mencari",
+          message: error || "Tidak bisa mencari",
           action: null,
         })
       );

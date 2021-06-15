@@ -27,7 +27,7 @@ export default function Header() {
       }
       searchRef.current.value = "";
       history.push({
-        pathname: "/bacaan",
+        pathname: "/pencarian",
         state: { data: data },
       });
     } catch (error) {

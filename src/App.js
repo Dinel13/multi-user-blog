@@ -29,6 +29,7 @@ const DukungKami = React.lazy(() => import("./pages/DukungKami"));
 const Pengembang = React.lazy(() => import("./pages/Pengembang"));
 const Newsletter = React.lazy(() => import("./pages/Newsletter"));
 const Bantuan = React.lazy(() => import("./pages/Bantuan"));
+const Pencarian = React.lazy(() => import("./pages/Pencarian"));
 
 function App() {
   const dispatch = useDispatch();
@@ -61,6 +62,9 @@ function App() {
         </Route>
         <Route path="/bacaan" exact>
           <Bacaan />
+        </Route>
+        <Route path="/pencarian" exact>
+          <Pencarian />
         </Route>
         <Route path="/bacaan/:slug" exact>
           <BacaOneBlog />
@@ -120,6 +124,9 @@ function App() {
         </Route>
         <Route path="/bacaan" exact>
           <Bacaan />
+        </Route>
+        <Route path="/pencarian" exact>
+          <Pencarian />
         </Route>
         <Route path="/bacaan/:slug" exact>
           <BacaOneBlog />
