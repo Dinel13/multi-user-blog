@@ -148,22 +148,28 @@ const Editor = () => {
 
   return (
     <div className="container w-full mx-auto bg-white  dark:bg-gray-800">
+      <h1 className="pl-6 mt-8 md:text-3xl lg:text-4xl text-2xl font-medium tracking-wider title-font text-gray-800">
+        Mulai menulis
+      </h1>
       <div className="flex flex-wrap  p-4">
         <div className="p-2 lg:w-2/3 w-full ">
-          <div className="flex flex-col lg:mr-2">
+          <div className="flex flex-col lg:mr-2 text-gray-800">
             <div className="w-full">
-              <label htmlFor="judul" className="py-2 text-gray-800">
+              <label htmlFor="judul" className="py-2">
                 Judul
               </label>
               <input
                 type="text"
                 id="judul"
-                className="rounded border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-900 placeholder-gray-500 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-pink-600 focus:border-transparent mb-4"
+                className="rounded border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-900 placeholder-gray-500 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-pink-600 focus:border-transparent mb-2"
                 placeholder="Judul Tulisan"
                 value={blogTitle}
                 onChange={(e) => setBlogTitle(e.target.value)}
               />
             </div>
+            <label htmlFor="judul" className="">
+              Isi tulisan
+            </label>
             <ReactQuill
               className=""
               theme="snow"
