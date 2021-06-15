@@ -136,65 +136,96 @@ export default function BacaOneBlog() {
               </p>
             </div>
           </div>
-          <img
-            className="text-center rounded-lg mx-auto md:w-2/3  h-2/3"
-            id="imageBlog"
-            src={`${process.env.REACT_APP_SERVER_URL_IMAGE}/${blogData.image}`}
-            alt={blogData.title}
-          />
+          {blogData.image !== "uploads/images/default.jpg" ? (
+            <img
+              className="text-center rounded-lg mx-auto lg:h-9/12  h-2/3"
+              id="imageBlog"
+              src={`${process.env.REACT_APP_SERVER_URL_IMAGE}/${blogData.image}`}
+              alt={blogData.title}
+            />
+          ) : (
+            <br />
+          )}
         </>
       )}
 
       <div className="text-gray-800 mt-4 text-lg" id="body"></div>
-      <WhatsappShareButton
-        url="http://localhost:3000/bacaan/mulai-dari-akhir-andi"
-        separator=" "
-        title="website keren ini"
-      >
-        <WhatsappIcon size={44} round={true} />
-      </WhatsappShareButton>
-      <hr className="my-3 text-3xl" />
-
-      <p className="text-gray-500 my-2">
+      <div className="w-full bg-red-100 mt-8 p-3">
+        <p className="text-lg text-gray-800">Bagikan tulisan ini</p>
+        <div className="flex flex-wrap flex-row mt-2">
+          <WhatsappShareButton
+            url="http://localhost:3000/bacaan/mulai-dari-akhir-andi"
+            separator=" "
+            className="mr-2"
+            title="website keren ini"
+          >
+            <WhatsappIcon size={44} round={true} />
+          </WhatsappShareButton>
+          <FacebookShareButton
+            url="http://localhost:3000/bacaan/mulai-dari-akhir-andi"
+            className="mr-2"
+            separator=" "
+            title="website keren ini"
+          >
+            <FacebookIcon size={44} round={true} />
+          </FacebookShareButton>
+          <TwitterShareButton
+            url="http://localhost:3000/bacaan/mulai-dari-akhir-andi"
+            className="mr-2"
+            separator=" "
+            title="website keren ini"
+          >
+            <TwitterIcon size={44} round={true} />
+          </TwitterShareButton>
+          <TelegramShareButton
+            url="http://localhost:3000/bacaan/mulai-dari-akhir-andi"
+            separator=" "
+            title="website keren ini"
+          >
+            <TelegramIcon size={44} round={true} />
+          </TelegramShareButton>
+        </div>
+      </div>
+      <p className="text-gray-600 text-lg mt-4 mb-2">
         kategori:{" "}
         <span className="text-gray-700 font-bold">{blogData.category}</span>
       </p>
-      <div className="text-gray-500">
+      <div className="text-gray-600 text-lg">
         Hastag:{" "}
         {blogData.hastags &&
           blogData.hastags.map((hastag, index) => (
             <p
               key={index}
-              className="bg-gray-300 rounded px-1 text-gray-900 inline-block mr-4"
+              className="bg-gray-300 text-base rounded px-1 text-gray-900 inline-block mr-4"
             >
               #{hastag}
             </p>
           ))}
       </div>
       <div>
-        <h3 className="text-md mt-2">Komentar</h3>
+        <h3 className="text-lg text-gray-800 mt-2 ">Komentar pembaca</h3>
         {blogData.comment &&
           blogData.comment.map((comment, index) => (
-            <p key={index} className="text-gray-800 my-2">
+            <p key={index} className="text-gray-800 ml-2">
               <Link
                 to={"/penulis/" + comment.publicId}
-                className="text-indigo-700"
+                className="text-indigo-600"
               >
-                {comment.nickName} :
+                {comment.nickName} :{" "}
               </Link>
               <span className="text-gray-600 text-sm">{comment.comment}</span>
             </p>
           ))}
       </div>
 
-      <form action="#" onSubmit={submitComment} className="w-full">
-        <label htmlFor="komen" className="py-2 text-gray-900">
-          Tambahkan Komen
+      <form action="#" onSubmit={submitComment} className="w-full mt-2">
+        <label htmlFor="komen" className=" text-gray-800">
+          Tambahkan Komentar
         </label>
         <textarea
           id="komen"
           type="text"
-          className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none require"
+          className="w-full px-3 py-2 text-gray-700 border-2 border-gray-300 rounded-lg hover:border-blue-500  focus:outline-none require"
           rows="3"
           placeholder="Tuliskan komen anda"
           value={comment}
