@@ -12,11 +12,18 @@ export default function Hero() {
   const searchRef = useRef();
   const token = useSelector((state) => state.auth.token);
 
-  const searchSubmit = (e) => {
+  const searchSubmit = async (e) => {
     e.preventDefault();
-    listSearch({ search: searchRef.current.value }).then((data) => {
+    try {
+      const data = await listSearch({ search: searchRef.current.value });
       console.log(data);
-    });
+      history.push({
+        pathname: "/bacaan",
+        state: { data: data },
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+
 import { listAllBlog } from "../actions/blog";
 import Blog from "../components/blog/Blog";
 import Pagination from "../components/pagination/Pagination";
 import Search from "../components/serch/Search";
 
 export default function Baca() {
+  const location = useLocation();
+  const seachResult = location.state.data;
   const [blogData, setBlogData] = useState(null);
 
   useEffect(() => {
@@ -12,9 +16,8 @@ export default function Baca() {
       const res = await listAllBlog();
       setBlogData(res);
     };
-
-    fetchBlog();
-  }, []);
+    seachResult ? setBlogData(seachResult) : fetchBlog();
+  }, [seachResult]);
 
   return (
     <section className="text-gray-600 body-font">

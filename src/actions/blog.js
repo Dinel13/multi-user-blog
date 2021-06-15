@@ -121,9 +121,7 @@ export const searchCategory = async (category) => {
 };
 
 export const listSearch = async (params) => {
-  console.log("search params", params);
   let query = queryString.stringify(params);
-  console.log("query params", query);
   try {
     const respon = await fetch(
       `${process.env.REACT_APP_SERVER_URL}/blogs/search?${query}`,
