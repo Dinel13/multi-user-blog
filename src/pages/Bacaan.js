@@ -66,7 +66,7 @@ export default function Baca() {
           {blogData &&
             blogData.map((blog, index) => <Blog key={index} blog={blog} />)}
         </div>
-        {blogData.length ? (
+        {blogData && blogData.length ? (
           <Pagination page={page} lanjut={nextHandler} belum={prevHandler} />
         ) : (
           <div className="max-w-sm my-12 px-2 py-4 bg-red-300 mx-auto rounded">
