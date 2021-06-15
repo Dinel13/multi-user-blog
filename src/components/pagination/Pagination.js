@@ -1,10 +1,13 @@
 import React from "react";
 
-export default function Pagination() {
+export default function Pagination({ lanjut, belum, page }) {
   return (
-    <div className="flex flex-col items-center my-12">
-      <div className="flex text-gray-700">
-        <div className="h-12 w-12 mr-1 flex justify-center items-center rounded-full bg-gray-200 cursor-pointer">
+    <div className="flex item-center justify-center my-12">
+      <button
+        onClick={belum}
+        className="flex items-center text-lg tracking-tighter hover:text-blue-700 focus:outline-none"
+      >
+        <div className="h-10 w-10 mr-1 flex justify-center items-center rounded-full bg-gray-300">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="100%"
@@ -20,33 +23,17 @@ export default function Pagination() {
             <polyline points="15 18 9 12 15 6"></polyline>
           </svg>
         </div>
-        <div className="flex h-12 font-medium rounded-full bg-gray-200">
-          <div className="w-12 md:flex justify-center items-center hidden  cursor-pointer leading-5 transition duration-150 ease-in  rounded-full  ">
-            1
-          </div>
-          <div className="w-12 md:flex justify-center items-center hidden  cursor-pointer leading-5 transition duration-150 ease-in  rounded-full bg-teal-600 text-white ">
-            2
-          </div>
-          <div className="w-12 md:flex justify-center items-center hidden  cursor-pointer leading-5 transition duration-150 ease-in  rounded-full  ">
-            3
-          </div>
-          <div className="w-12 md:flex justify-center items-center hidden  cursor-pointer leading-5 transition duration-150 ease-in  rounded-full  ">
-            ...
-          </div>
-          <div className="w-12 md:flex justify-center items-center hidden  cursor-pointer leading-5 transition duration-150 ease-in  rounded-full  ">
-            13
-          </div>
-          <div className="w-12 md:flex justify-center items-center hidden  cursor-pointer leading-5 transition duration-150 ease-in  rounded-full  ">
-            14
-          </div>
-          <div className="w-12 md:flex justify-center items-center hidden  cursor-pointer leading-5 transition duration-150 ease-in  rounded-full  ">
-            15
-          </div>
-          <div className="w-12 h-12 md:hidden flex justify-center items-center cursor-pointer leading-5 transition duration-150 ease-in rounded-full bg-teal-600 text-white">
-            2
-          </div>
-        </div>
-        <div className="h-12 w-12 ml-1 flex justify-center items-center rounded-full bg-gray-200 cursor-pointer">
+        sebelumnya
+      </button>
+      <div className="flex mt-1 mx-2 items-center justify-center h-10 bg-gray-300 w-10 text-gray-800 font-bold rounded-full">
+        <span>{page}</span>
+      </div>
+      <button
+        onClick={lanjut}
+        className="flex items-center text-lg tracking-tighter hover:text-blue-700 focus:outline-none"
+      >
+        selanjutnya
+        <div className="h-10 w-10 ml-1 flex justify-center items-center rounded-full bg-gray-300">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="100%"
@@ -62,7 +49,7 @@ export default function Pagination() {
             <polyline points="9 18 15 12 9 6"></polyline>
           </svg>
         </div>
-      </div>
+      </button>
     </div>
   );
 }

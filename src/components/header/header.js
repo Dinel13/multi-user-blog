@@ -20,15 +20,16 @@ export default function Header() {
 
   const searchSubmit = async (e) => {
     e.preventDefault();
+    const search = searchRef.current.value;
     try {
-      const data = await listSearch({ search: searchRef.current.value });
+      const data = await listSearch({ search });
       if (data.error) {
         throw data.error;
       }
       searchRef.current.value = "";
       history.push({
         pathname: "/pencarian",
-        state: { data: data },
+        state: { data, search },
       });
     } catch (error) {
       dispatch(
