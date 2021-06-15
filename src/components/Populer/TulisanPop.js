@@ -39,7 +39,7 @@ export default function TulisanPop() {
 
   return (
     <section className="text-gray-600 body-font">
-      <div className="container px-5 pt-24 pb-18 mx-auto">
+      <div className="container px-5  pt-10 sm:pt-14 lg:pt-16 pb-8 mx-auto">
         <h1 className="sm:text-3xl text-center text-2xl font-medium title-font mb-8 text-gray-900">
           Tulisan Populer
         </h1>
