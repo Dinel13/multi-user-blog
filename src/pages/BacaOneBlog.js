@@ -1,6 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useHistory, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import {
+  WhatsappIcon,
+  WhatsappShareButton,
+  TwitterIcon,
+  TwitterShareButton,
+  TelegramIcon,
+  TelegramShareButton,
+  FacebookIcon,
+  FacebookShareButton,
+} from "react-share";
 
 import { singleBlog } from "../actions/blog";
 import "./BacaOneBlog.css";
@@ -92,35 +102,59 @@ export default function BacaOneBlog() {
   };
 
   return (
-    <div className="lg:container mx-auto my-8 px-8 lg:px-24">
-      <h1 className="text-gray-900 text-3xl my-5 font-bold">
-        {blogData.title}
-      </h1>
-      <img
-        className="text-center rounded-lg mx-auto h-2/3"
-        id="imageBlog"
-        src={`${process.env.REACT_APP_SERVER_URL_IMAGE}/${blogData.image}`}
-        alt={blogData.title}
-      />
-      <div className="text-gray-800 mt-4" id="body"></div>
+    <div className="max-w-screen-lg mx-auto my-8 px-8 lg:px-24 ">
+      {blogData.postedBy && (
+        <>
+          <h1 className="text-gray-900 text-3xl sm:text-4xl md:text-5xl  my-6 font-semibold">
+            {blogData.title}
+          </h1>
+          <div className="flex items-center mb-5">
+            <img
+              alt={blogData.name}
+              className="w-14 h-14 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4"
+              src={
+                blogData.postedBy.image &&
+                process.env.REACT_APP_SERVER_URL_IMAGE +
+                  "/" +
+                  blogData.postedBy.image
+              }
+            />
+            <div className="flex flex-col">
+              <Link
+                to={"/penulis/" + blogData.postedBy.publicId}
+                className="text-indigo-600 font-medium text-lg tracking-wide"
+              >
+                {blogData.postedBy.name}
+              </Link>
+              <p className="text-gray-600">
+                Ditulis tanggal{" "}
+                {blogData.createdAt && (
+                  <small className="font-semibold  tracking-wider">
+                    {blogData.createdAt.substring(0, 10)}
+                  </small>
+                )}
+              </p>
+            </div>
+          </div>
+          <img
+            className="text-center rounded-lg mx-auto h-2/3"
+            id="imageBlog"
+            src={`${process.env.REACT_APP_SERVER_URL_IMAGE}/${blogData.image}`}
+            alt={blogData.title}
+          />
+        </>
+      )}
+
+      <div className="text-gray-800 mt-4 text-lg" id="body"></div>
+      <WhatsappShareButton
+        url="http://localhost:3000/bacaan/mulai-dari-akhir-andi"
+        separator=" "
+        title="website keren ini"
+      >
+        <WhatsappIcon size={44} round={true} />
+      </WhatsappShareButton>
       <hr className="my-3 text-3xl" />
-      <p className="text-gray-500 my-2">
-        Oleh{" "}
-        {blogData.postedBy && (
-          <Link
-            to={"/penulis/" + blogData.postedBy.publicId}
-            className="text-indigo-700 font-bold"
-          >
-            {blogData.postedBy.nickName}
-          </Link>
-        )}{" "}
-        sejak{" "}
-        {blogData.createdAt && (
-          <small className="text-gray-700 font-bold">
-            {blogData.createdAt.substring(0, 10)}
-          </small>
-        )}
-      </p>
+
       <p className="text-gray-500 my-2">
         kategori:{" "}
         <span className="text-gray-700 font-bold">{blogData.category}</span>
