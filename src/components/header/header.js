@@ -69,81 +69,118 @@ export default function Header() {
           <div className="flex-grow md:flex md:justify-center">
             <Link
               to="/"
-              className="block mt-4 md:inline-block md:mt-0 text-gray-700 hover:text-gray-800 mr-4"
+              className="block mt-1 md:inline-block md:mt-0 text-gray-700 hover:text-gray-800 mr-4"
             >
               Beranda
             </Link>
             <Link
               to="/tulis"
-              className="block mt-4 md:inline-block md:mt-0 text-gray-700 hover:text-gray-800  mr-4"
+              className="block mt-3 md:inline-block md:mt-0 text-gray-700 hover:text-gray-800  mr-4"
             >
               Tulis
             </Link>
             <Link
               to="/bacaan"
-              className="block mt-4 md:inline-block md:mt-0 text-gray-700 hover:text-gray-800  mr-4"
+              className="block mt-3 md:inline-block md:mt-0 text-gray-700 hover:text-gray-800  mr-4"
             >
               Baca
             </Link>
           </div>
-          {name ? (
-            <div className="flex items-end">
-              <Link
-                to="/akunku"
-                className="inline-flex items-center text-sm mr-2 p-2 leading-none mt-4 md:mt-0 border border-transparent rounded text-gray-50 bg-pink-700 hover:bg-pink-600 hover:text-gray-900  "
+          <div className="flex flex-col md:flex-row items-end">
+            <div className="flex items-end mb-2.5 md:mb-0 mt-4 md:mt-0">
+              <form
+                // onSubmit={searchSubmit}
+                className="flex w-40 items-center justify-center p-0 md:mr-1.5 relative mx-auto text-gray-600"
               >
-                <svg
-                  fill="none"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  className="w-4 h-4 mr-1"
-                  viewBox="0 0 24 24"
+                <input
+                  className="text-gray-700 w-full bg-gray-200 h-9 px-3 pr-6 rounded text-sm focus:outline-none"
+                  type="search"
+                  name="search"
+                  // ref={searchRef}
+                  required
+                  placeholder="Cari tulisan"
+                />
+                <button
+                  type="submit"
+                  className="absolute right-0 top-0 mt-2.5 mr-2"
                 >
-                  <path d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                Akunku
-              </Link>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                    />
+                  </svg>
+                </button>
+              </form>
             </div>
-          ) : (
-            <div className="flex items-end">
-              <Link
-                to="/daftar"
-                className="inline-flex items-center text-sm mr-1.5 p-2 leading-none mt-0 border bg-transparent border-gray-800 rounded text-gray-800  hover:bg-pink-600 hover:text-gray-50 hover:border-pink-600  "
-              >
-                Daftar
-                <svg
-                  fill="none"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  className="w-4 h-4 ml-1"
-                  viewBox="0 0 24 24"
+
+            {name ? (
+              <div className="flex items-end">
+                <Link
+                  to="/akunku"
+                  className="inline-flex items-center text-sm mr-2 p-2 leading-none mt-4 md:mt-0 border border-transparent rounded text-gray-50 bg-pink-700 hover:bg-pink-600 hover:text-gray-900  "
                 >
-                  <path d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
-                </svg>
-              </Link>
-              <Link
-                to="/masuk"
-                className="inline-flex items-center text-sm  p-2 leading-none mt-0 border border-transparent rounded text-gray-50 bg-pink-700 hover:bg-pink-600 hover:text-gray-900  "
-              >
-                Masuk
-                <svg
-                  fill="none"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  className="w-4 h-4 ml-1"
-                  viewBox="0 0 24 24"
+                  <svg
+                    fill="none"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    className="w-4 h-4 mr-1"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  Akunku
+                </Link>
+              </div>
+            ) : (
+              <div className="flex items-end">
+                <Link
+                  to="/daftar"
+                  className="inline-flex items-center text-sm mr-1.5 p-2 leading-none mt-0 border bg-transparent border-gray-800 rounded text-gray-800  hover:bg-pink-600 hover:text-gray-50 hover:border-pink-600  "
                 >
-                  <path d="M5 12h14M12 5l7 7-7 7"></path>
-                </svg>
-              </Link>
-            </div>
-          )}
+                  Daftar
+                  <svg
+                    fill="none"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    className="w-4 h-4 ml-1"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+                  </svg>
+                </Link>
+                <Link
+                  to="/masuk"
+                  className="inline-flex items-center text-sm  p-2 leading-none mt-0 border border-transparent rounded text-gray-50 bg-pink-700 hover:bg-pink-600 hover:text-gray-900  "
+                >
+                  Masuk
+                  <svg
+                    fill="none"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    className="w-4 h-4 ml-1"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M5 12h14M12 5l7 7-7 7"></path>
+                  </svg>
+                </Link>
+              </div>
+            )}
+          </div>
         </nav>
       </div>
     </header>
