@@ -150,37 +150,36 @@ export default function BacaOneBlog() {
       )}
 
       <div className="text-gray-800 mt-4 text-lg" id="body"></div>
-      <div className="w-full bg-red-100 mt-8 p-3">
+      <div className="w-full bg-red-100 mt-8 p-3 rounded">
         <p className="text-lg text-gray-800">Bagikan tulisan ini</p>
         <div className="flex flex-wrap flex-row mt-2">
           <WhatsappShareButton
-            url="http://localhost:3000/bacaan/mulai-dari-akhir-andi"
+            url={process.env.REACT_APP_SERVER_URL_LINK + blogData.slug}
+            title={blogData.title}
             separator=" "
             className="mr-2"
-            title="website keren ini"
           >
             <WhatsappIcon size={44} round={true} />
           </WhatsappShareButton>
           <FacebookShareButton
-            url="http://localhost:3000/bacaan/mulai-dari-akhir-andi"
+            url={process.env.REACT_APP_SERVER_URL_LINK + blogData.slug}
+            quote={blogData.title}
             className="mr-2"
-            separator=" "
-            title="website keren ini"
           >
             <FacebookIcon size={44} round={true} />
           </FacebookShareButton>
           <TwitterShareButton
-            url="http://localhost:3000/bacaan/mulai-dari-akhir-andi"
+            url={process.env.REACT_APP_SERVER_URL_LINK + blogData.slug}
             className="mr-2"
-            separator=" "
-            title="website keren ini"
+            via="SuaraUnhas"
+            hashtags={["SuaraUnhas", "Unhas"]}
+            title={blogData.title}
           >
             <TwitterIcon size={44} round={true} />
           </TwitterShareButton>
           <TelegramShareButton
-            url="http://localhost:3000/bacaan/mulai-dari-akhir-andi"
-            separator=" "
-            title="website keren ini"
+            url={process.env.REACT_APP_SERVER_URL_LINK + blogData.slug}
+            title={blogData.title}
           >
             <TelegramIcon size={44} round={true} />
           </TelegramShareButton>
