@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "SuaraUnhas",
+  "name": "Tulisan suara mahasiswa universitas hasanuddin",
   "icons": [
     {
       "src": "favicon.ico",
