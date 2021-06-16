@@ -36,9 +36,9 @@ export default function Login() {
   };
 
   return (
-    <div className="w-full max-w-md my-8 p-10 m-auto bg-gray-50 border-gray-300 border rounded-md shadow-xl dark:bg-gray-800">
+    <div className="form-card dark:bg-gray-800">
       <h1 className="text-3xl font-semibold text-center text-gray-700 dark:text-white">
-        UnhasTa
+        Daftar SuaraUnhas
       </h1>
       <form className="mt-6" onSubmit={singupHandler}>
         <div>

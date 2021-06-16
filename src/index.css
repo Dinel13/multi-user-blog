@@ -32,4 +32,7 @@
     margin-right: 0.25em;
     vertical-align: -0.4em;
   }
+  .form-card {
+    @apply w-full max-w-md my-10 p-10 m-auto bg-gray-100 border-gray-300 border rounded-md shadow-xl;
+  }
 }

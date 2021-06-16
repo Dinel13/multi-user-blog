@@ -70,7 +70,7 @@ export default function ResetPassword() {
 
   return (
     <div style={{ minHeight: "70vh" }}>
-      <div className="w-full max-w-md my-8 p-10 m-auto bg-white border-gray-300 border rounded-md shadow-md dark:bg-gray-800">
+      <div className="form-card dark:bg-gray-800">
         <h1 className="text-3xl font-semibold text-center text-gray-700 dark:text-white">
           Reset Password
         </h1>

@@ -54,7 +54,7 @@ export default function ForgotPassword() {
 
   return (
     <div style={{ minHeight: "70vh", padding: "0 10px" }}>
-      <div className="w-full max-w-md my-12 p-10 m-auto shadow-lg border-gray-300 border rounded-md bg-gray-100 dark:bg-gray-800">
+      <div className="form-card dark:bg-gray-800">
         <h1 className="text-3xl font-semibold text-center text-gray-700 dark:text-white">
           Lupa Password
         </h1>
