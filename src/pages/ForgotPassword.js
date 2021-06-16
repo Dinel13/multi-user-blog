@@ -44,7 +44,7 @@ export default function ForgotPassword() {
       dispatch(
         showNotification({
           status: "error",
-          title: "Gagal!!",
+          title: "Gagal !!",
           message: error.message,
           action: null,
         })

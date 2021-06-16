@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import { showNotification } from "../store/uiSlice";
@@ -30,16 +30,23 @@ export default function KririkSaran() {
         throw new Error(data.message || "Tidak bisa mengirim saran dan kritik");
       }
       setPending(false);
+      dispatch(
+        showNotification({
+          status: "suc",
+          title: "Berhasil !!",
+          message: "Krirtik dan saran berhasil dikirim",
+          action: null,
+        })
+      );
       emailRef.current.value = "";
       textRef.current.value = "";
     } catch (error) {
-      console.log(error);
       setPending(false);
       dispatch(
         showNotification({
-          status: "confirm",
-          title: "Gagal mendapatkan data",
-          message: "DSFSDFSDFDSF",
+          status: "",
+          title: "Gagal !!",
+          message: error.message,
           action: null,
         })
       );
@@ -101,11 +108,9 @@ export default function KririkSaran() {
           {pending ? (
             <PendingButton />
           ) : (
-            <button className="text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg">
-              Kirim
-            </button>
+            <button className="btn-pri py-2 px-6 rounded text-lg">Kirim</button>
           )}
-          <p className="text-xs leading-none text-gray-500 mt-3">
+          <p className="text-xs leading-none text-gray-500 mt-2">
             kritik atau saran kamu dijaga kerahasianya dan hanya digunakan untuk
             keperluan SuaraUnhas
           </p>

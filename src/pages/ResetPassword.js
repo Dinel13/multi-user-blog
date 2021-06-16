@@ -60,7 +60,7 @@ export default function ResetPassword() {
       dispatch(
         showNotification({
           status: "error",
-          title: "Gagal!!",
+          title: "Gagal !!",
           message: error.message,
           action: null,
         })

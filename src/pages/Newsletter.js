@@ -1,9 +1,58 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+
+import { showNotification } from "../store/uiSlice";
+import PendingButton from "../components/button/PendingButton";
 
 export default function Newsletter() {
   const nameRef = useRef("");
   const emailRef = useRef("");
-  const submitHandler = () => {};
+  const dispatch = useDispatch();
+  const [pending, setPending] = useState(false);
+
+  const submitHandler = async (event) => {
+    event.preventDefault();
+    setPending(true);
+    try {
+      const respon = await fetch(
+        `${process.env.REACT_APP_SERVER_URL}/other/newsletter`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: emailRef.current.value,
+            name: nameRef.current.value,
+          }),
+        }
+      );
+      const data = await respon.json();
+      if (!respon.ok) {
+        throw new Error(data.message || "Tidak bisa berlanggan newletter");
+      }
+      setPending(false);
+      emailRef.current.value = "";
+      nameRef.current.value = "";
+      dispatch(
+        showNotification({
+          status: "suc",
+          title: "Berhasil !!",
+          message: data.message,
+          action: null,
+        })
+      );
+    } catch (error) {
+      console.log(error);
+      setPending(false);
+      dispatch(
+        showNotification({
+          status: "",
+          title: "Gagal !!",
+          message: error.message,
+          action: null,
+        })
+      );
+    }
+  };
   return (
     <section
       className="text-gray-600 body-font relative bg-gray-100"
@@ -58,12 +107,13 @@ export default function Newsletter() {
             </div>
 
             <div className="p-2 w-full">
-              <button
-                type="submit"
-                className="flex ml-0 text-white bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg"
-              >
-                Berlanganan
-              </button>
+              {pending ? (
+                <PendingButton />
+              ) : (
+                <button className="btn-pri py-2 px-6 rounded text-lg">
+                  Berlanganan
+                </button>
+              )}
             </div>
             <small className="pl-2 text-xs italic">
               Kamu dapat membatalkan langganan newsletter kapan saja.
