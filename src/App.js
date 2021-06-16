@@ -39,7 +39,7 @@ function App() {
   React.useEffect(() => {
     localStorage.getItem("authUnhas") &&
       dispatch(login(JSON.parse(localStorage.getItem("authUnhas"))));
-  });
+  }, [dispatch]);
   let routes;
   if (token) {
     routes = (

@@ -1,8 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import PendingButton from "../components/button/PendingButton";
 
 import { showNotification, hideNotification } from "../store/uiSlice";
 // import { createBlog } from "../actions/blog";
@@ -22,6 +23,12 @@ const Editor = () => {
   const handleChange = (html) => {
     setEditorHtml(html);
   };
+
+  useEffect(() => {
+    if (localStorage.getItem("blog")) {
+      setEditorHtml(JSON.parse(localStorage.getItem("blog")));
+    }
+  }, []);
 
   const getArrayHastag = () => {
     if (!hastagRef.current.value) {
@@ -114,6 +121,7 @@ const Editor = () => {
             action: null,
           })
         );
+        localStorage.removeItem("blog");
         setPending(false);
         setTimeout(() => dispatch(hideNotification()), 2000);
         setTimeout(() => history.push(`/bacaan/${data.slug}`), 2500);
@@ -133,6 +141,14 @@ const Editor = () => {
 
   const saveDrafBlog = () => {
     localStorage.setItem("blog", JSON.stringify(editorHtml));
+    dispatch(
+      showNotification({
+        status: "suc",
+        title: "Berhasil !!",
+        message: "Draft tulisan berhasil disimpan",
+        action: null,
+      })
+    );
   };
 
   const categoriFake = [
@@ -184,8 +200,13 @@ const Editor = () => {
         </div>
         <div className="p-2 lg:w-1/3 w-full ">
           <div className="my-3">
-            <h5 className="">Gambar sampul</h5>
-            <label className="inline-flex items-center bg-pink-700 border-5  md:w-5/6 lg:w-10/12 py-2 px-3 focus:outline-none hover:bg-pink-900 rounded text-gray-100">
+            <h5 className="">
+              Gambar sampul{" "}
+              <small className="text-sm text-gray-600">
+                (bisa di kosongkan)
+              </small>
+            </h5>
+            <label className="inline-flex items-center btn-pri md:w-5/6 lg:w-10/12 py-2 px-3">
               <input
                 onChange={(e) => setBlogImage(e.target.files[0])}
                 type="file"
@@ -229,28 +250,20 @@ const Editor = () => {
           </div>
           <div className="w-full">
             {pending ? (
-              <button
-                onClick={publishBlog}
-                disabled
-                className="px-8 items-center bg-pink-400 border-5 py-2  focus:outline-none  rounded text-gray-100"
-              >
-                Publish
-              </button>
+              <PendingButton />
             ) : (
-              <button
-                onClick={publishBlog}
-                className="px-8 items-center bg-pink-700 border-5 py-2  focus:outline-none hover:bg-pink-600 rounded text-gray-100"
-              >
-                Publish
-              </button>
+              <>
+                <button onClick={publishBlog} className="px-8 py-2 btn-sec">
+                  Publish
+                </button>
+                <button
+                  onClick={saveDrafBlog}
+                  className="ml-4 py-2 px-3 btn-pri"
+                >
+                  Simpan Draft
+                </button>
+              </>
             )}
-
-            <button
-              onClick={saveDrafBlog}
-              className="ml-5 items-center bg-transparent border-2 leading-none border-pink-700 py-2 px-3 focus:outline-none hover:bg-pink-800 rounded text-gray-800 hover:text-gray-50"
-            >
-              Simpan Draft
-            </button>
           </div>
         </div>
       </div>
