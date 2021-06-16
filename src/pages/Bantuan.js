@@ -1,11 +1,64 @@
-import React, { useRef } from "react";
+import { useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+
+import { showNotification } from "../store/uiSlice";
+
+import PendingButton from "../components/button/PendingButton";
+import SubmitFull from "../components/button/SubmitFull";
 import Un from "../assets/jk.jpg";
 
 export default function Bantuan() {
   const nameRef = useRef("");
   const emailRef = useRef("");
   const pesanRef = useRef("");
-  const submitHandler = () => {};
+  const dispatch = useDispatch();
+  const [pending, setPending] = useState(false);
+
+  const submitHandler = async (event) => {
+    event.preventDefault();
+    setPending(true);
+    try {
+      const respon = await fetch(
+        `${process.env.REACT_APP_SERVER_URL}/other/help`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: emailRef.current.value,
+            name: nameRef.current.value,
+            message: pesanRef.current.value,
+          }),
+        }
+      );
+      const data = await respon.json();
+      if (!respon.ok) {
+        throw new Error(data.message || "Tidak bisa mengirim bantuan");
+      }
+      setPending(false);
+      emailRef.current.value = "";
+      nameRef.current.value = "";
+      pesanRef.current.value = "";
+      dispatch(
+        showNotification({
+          status: "suc",
+          title: "Berhasil !!",
+          message: data.message,
+          action: null,
+        })
+      );
+    } catch (error) {
+      console.log(error);
+      setPending(false);
+      dispatch(
+        showNotification({
+          status: "",
+          title: "Gagal !!",
+          message: error.message,
+          action: null,
+        })
+      );
+    }
+  };
   return (
     <section className="lg:py-8  relative">
       <div className="xl:mx-auto xl:container  relative ">
@@ -103,10 +156,8 @@ export default function Bantuan() {
                     defaultValue={""}
                   />
                 </div>
-                <div className="py-5">
-                  <button className="py-2.5 md:py-3 px-6 md:px-10 rounded-md  bg-red-500 text-white hover:opacity-90 ease-in duration-150 text-sm md:text-lg tracking-wider font-semibold">
-                    Kirim
-                  </button>
+                <div className="py-5 w-11/12 lg:w-full xl:w-10/12">
+                  {pending ? <PendingButton /> : <SubmitFull text="kirim" />}
                 </div>
               </form>
             </div>
