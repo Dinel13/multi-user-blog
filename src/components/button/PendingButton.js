@@ -5,7 +5,7 @@ export default function PendingButton() {
     <button
       type="button"
       disabled
-      className="w-full flex justify-center items-center px-4 py-3 text-white bg-red-400 rounded-md"
+      className="w-full flex justify-center items-center px-4 py-3 text-white bg-red-300 rounded-md"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

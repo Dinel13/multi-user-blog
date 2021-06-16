@@ -26,7 +26,6 @@ export default function KririkSaran() {
         }
       );
       const data = await respon.json();
-      console.log(data);
       if (!respon.ok) {
         throw new Error(data.message || "Tidak bisa mengirim saran dan kritik");
       }

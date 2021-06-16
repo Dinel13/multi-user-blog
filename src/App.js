@@ -30,6 +30,8 @@ const Pengembang = React.lazy(() => import("./pages/Pengembang"));
 const Newsletter = React.lazy(() => import("./pages/Newsletter"));
 const Bantuan = React.lazy(() => import("./pages/Bantuan"));
 const Pencarian = React.lazy(() => import("./pages/Pencarian"));
+const ForgotPassword = React.lazy(() => import("./pages/ForgotPassword"));
+const ResetPassword = React.lazy(() => import("./pages/ResetPassword"));
 
 function App() {
   const dispatch = useDispatch();
@@ -99,6 +101,9 @@ function App() {
         <Route path="/kritik-saran" exact>
           <KritikSaran />
         </Route>
+        <Route path="/reset-password/:token" exact>
+          <ResetPassword />
+        </Route>
         <Route path="*">
           <NotFound />
         </Route>
@@ -154,6 +159,12 @@ function App() {
         </Route>
         <Route path="/newsletter" exact>
           <Newsletter />
+        </Route>
+        <Route path="/reset-password/:token" exact>
+          <ResetPassword />
+        </Route>
+        <Route path="/lupa-password" exact>
+          <ForgotPassword />
         </Route>
         <Route path="*">
           <NotFound />
