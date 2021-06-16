@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 
 import { showNotification } from "../store/uiSlice";
 import PendingButton from "../components/button/PendingButton";
+import SubmitFull from "../components/button/SubmitFull";
 
 export default function ForgotPassword() {
   const dispatch = useDispatch();
@@ -73,16 +74,7 @@ export default function ForgotPassword() {
             />
           </div>
           <div className="mt-4">
-            {pending ? (
-              <PendingButton />
-            ) : (
-              <button
-                type="submit"
-                className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-red-500 rounded-md hover:bg-red-600 focus:outline-none"
-              >
-                Kirim
-              </button>
-            )}
+            {pending ? <PendingButton /> : <SubmitFull text="Kirim" />}
           </div>
         </form>
       </div>

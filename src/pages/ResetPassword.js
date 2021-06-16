@@ -4,6 +4,7 @@ import { useParams, useHistory } from "react-router-dom";
 
 import { showNotification } from "../store/uiSlice";
 import PendingButton from "../components/button/PendingButton";
+import SubmitFull from "../components/button/SubmitFull";
 
 export default function ResetPassword() {
   const dispatch = useDispatch();
@@ -104,16 +105,7 @@ export default function ResetPassword() {
           </div>
 
           <div className="mt-4">
-            {pending ? (
-              <PendingButton />
-            ) : (
-              <button
-                type="submit"
-                className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-green-600 rounded-md hover:bg-green-700 focus:outline-none focus:bg-green-800"
-              >
-                Reset
-              </button>
-            )}
+            {pending ? <PendingButton /> : <SubmitFull text="Reset" />}
           </div>
         </form>
       </div>
