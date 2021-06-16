@@ -63,7 +63,7 @@ export default function Header() {
         offset > 10.58 ? "bg-gray-100" : "bg-red-500"
       }`}
     >
-      <div className={`flex items-center justify-between flex-wrap p-3.5 `}>
+      <div className="flex items-center justify-between flex-wrap p-3.5 px-4 md:px-6 lg:px-10 ">
         <Link
           to="/"
           className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0"
@@ -75,7 +75,7 @@ export default function Header() {
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth="2"
-            className="w-10 h-10 text-white p-2 bg-pink-700 rounded-full"
+            className="w-10 h-10 text-white p-2 bg-red-700 rounded-full"
             viewBox="0 0 24 24"
           >
             <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
@@ -83,7 +83,7 @@ export default function Header() {
           <span className="ml-2 text-2xl text-gray-800">SuaraUnhas</span>
         </Link>
         <div className="block md:hidden" onClick={clickMenu}>
-          <button className="flex items-center px-3 py-2 border rounded text-gray-600 border-gray-600 hover:text-gray-700 hover:border-3 hover:border-gray-700">
+          <button className="flex items-center px-3 py-2 border rounded text-gray-600 border-gray-600 hover:text-gray-700 hover:border-3 hover:border-gray-700 focus:outline-none">
             <svg
               className="h-3 w-3"
               viewBox="0 0 20 20"
@@ -158,7 +158,7 @@ export default function Header() {
               <div className="flex items-end">
                 <Link
                   to="/akunku"
-                  className="inline-flex items-center text-sm mr-2 p-2 leading-none  md:mt-0 border border-transparent rounded text-gray-50 bg-red-700 hover:bg-red-600 hover:text-gray-900  "
+                  className="inline-flex items-center btn-ter text-sm  p-2 md:mt-0"
                 >
                   <svg
                     fill="none"
@@ -178,7 +178,7 @@ export default function Header() {
               <div className="flex items-end">
                 <Link
                   to="/daftar"
-                  className="inline-flex items-center text-sm mr-1.5 p-2 leading-none mt-0 border bg-transparent border-gray-800 rounded text-gray-800  hover:bg-pink-600 hover:text-gray-50 hover:border-pink-600  "
+                  className="inline-flex items-center text-sm mr-1.5 px-2 py-1.5 btn-pri  border-2 border-red-700"
                 >
                   Daftar
                   <svg
@@ -195,7 +195,7 @@ export default function Header() {
                 </Link>
                 <Link
                   to="/masuk"
-                  className="inline-flex items-center text-sm  p-2 leading-none mt-0 border border-transparent rounded text-gray-50 bg-pink-700 hover:bg-pink-600 hover:text-gray-900  "
+                  className="inline-flex items-center text-sm p-2 btn-ter"
                 >
                   Masuk
                   <svg

@@ -73,14 +73,11 @@ export default function Hero() {
                     history.push("/tulis");
                   }
                 }}
-                className="inline-flex  items-center text-white bg-red-600 border-0 py-2 px-4 focus:outline-none hover:bg-red-500 rounded"
+                className="inline-flex mr-2 py-2 px-4 btn-sec"
               >
                 Mulai Menulis
               </button>
-              <Link
-                className="inline-flex items-center text-gray-900 bg-red-500 border-0 ml-2.5 py-2 px-4 focus:outline-none hover:bg-red-400 rounded"
-                to="/bacaan"
-              >
+              <Link className="inline-flex py-2 px-4 btn-pri" to="/bacaan">
                 Mulai Membaca
               </Link>
             </div>

@@ -32,6 +32,19 @@
     margin-right: 0.25em;
     vertical-align: -0.4em;
   }
+
+  .btn-pri {
+    @apply text-white bg-red-500 focus:outline-none hover:bg-red-600 rounded transition-colors duration-150;
+  }
+
+  .btn-sec {
+    @apply text-white bg-red-600 focus:outline-none hover:bg-red-500 rounded transition-colors duration-150;
+  }
+
+  .btn-ter {
+    @apply text-white bg-red-700 focus:outline-none hover:bg-red-600 rounded transition-colors duration-150;
+  }
+
   .form-card {
     @apply w-full max-w-md my-10 p-10 m-auto bg-gray-100 border-gray-300 border rounded-md shadow-xl;
   }

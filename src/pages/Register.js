@@ -101,7 +101,7 @@ export default function Login() {
         </div>
       </form>
 
-      <p className="mt-8 text-sm font-light text-center text-gray-700">
+      <p className="mt-6 -mb-2 text-sm font-light text-center text-gray-700">
         Sudah Punya Akun?{" "}
         <Link
           to="/masuk"

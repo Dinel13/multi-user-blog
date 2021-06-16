@@ -13,10 +13,7 @@ const NotFound = () => {
             halaman beranda kami{" "}
           </p>
 
-          <Link
-            to="/"
-            className="px-4 inline py-2 text-sm font-medium leading-5 shadow text-white transition-colors duration-150 border border-transparent rounded-lg focus:outline-none focus:shadow-outline-blue bg-red-500 active:bg-blue-600 hover:bg-red-600"
-          >
+          <Link to="/" className="px-4 py-2 font-medium leading-5 btn-pri">
             kembali ke beranda
           </Link>
         </div>
