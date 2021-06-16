@@ -160,6 +160,9 @@ function App() {
         <Route path="/newsletter" exact>
           <Newsletter />
         </Route>
+        <Route path="/kritik-saran" exact>
+          <KritikSaran />
+        </Route>
         <Route path="/reset-password/:token" exact>
           <ResetPassword />
         </Route>
