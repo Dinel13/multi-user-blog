@@ -31,19 +31,13 @@ export default function ErrorModal() {
     <>
       {notification && showModal && (
         <>
-          <div
-            // onClick={() => {
-            //   setShowModal(null);
-            // }}
-            className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
-          >
+          <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
             <div className="relative w-auto my-6 mx-auto py-5 max-w-3xl">
               <div
-                id="mymod"
                 style={{ minWidth: "300px", maxWidth: "380px" }}
                 className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none"
               >
-                <div className="flex items-start justify-between p-4 border-b border-solid border-gray-200 rounded-t">
+                <div className="flex items-start justify-between p-4 bg-red-200 rounded-t">
                   <h3 className="text-2xl font-semibold">
                     {notification.title}
                   </h3>
@@ -57,7 +51,7 @@ export default function ErrorModal() {
                 {notification.status === "confirm" ? (
                   <div className="flex items-center justify-end p-3.5 border-t border-solid border-blueGray-200 rounded-b">
                     <button
-                      className="bg-red-400 text-gray-800 active:bg-red-500 font-bold uppercase px-6 py-2 rounded text-sm outline-none focus:outline-none mr-2 ease-linear transition-all duration-150"
+                      className="btn-pri font-medium uppercase text-sm px-6 py-2 mr-2"
                       type="button"
                       onClick={() => setShowModal(null)}
                     >
@@ -65,7 +59,7 @@ export default function ErrorModal() {
                     </button>
                     <button
                       id="yakin"
-                      className="bg-red-600 text-gray-800 active:bg-red-500 font-bold uppercase text-sm px-6 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none  ease-linear transition-all duration-150"
+                      className="btn-sec font-medium uppercase text-sm px-6 py-2"
                       type="button"
                       onClick={(e) => {
                         e.preventDefault();
@@ -78,18 +72,18 @@ export default function ErrorModal() {
                 ) : (
                   <div className="flex items-center justify-end p-3.5 border-t border-solid border-blueGray-200 rounded-b">
                     <button
-                      className="bg-red-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none  ease-linear transition-all duration-150"
+                      className="btn-pri font-medium uppercase text-sm px-6 py-2"
                       type="button"
                       onClick={() => setShowModal(null)}
                     >
-                      Close
+                      Tutup
                     </button>
                   </div>
                 )}
               </div>
             </div>
           </div>
-          <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+          <div className="opacity-40 fixed inset-0 z-40 bg-black"></div>
         </>
       )}
     </>

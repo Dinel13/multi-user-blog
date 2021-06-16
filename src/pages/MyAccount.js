@@ -106,7 +106,7 @@ export default function MyAccount() {
               </h3>
               <p className="mt-1 text-sm text-gray-500">{user.motto}</p>
             </div>
-            <div className="ml-auto">
+            <div className="ml-auto flex flex-col sm:flex-row items-center ">
               <Link
                 to={{
                   pathname: "/akunku/update",
@@ -114,13 +114,13 @@ export default function MyAccount() {
                     userData: user,
                   },
                 }}
-                className="text-gray-100 inline-flex items-center mr-1.5 mb-1.5 sm:mb-0 rounded py-1.5 px-3 bg-pink-600 hover:bg-pink-700"
+                className="p-2 mb-2  sm:mb-0 btn-sec"
               >
                 Update
               </Link>
               <button
                 onClick={() => dispatch(logout())}
-                className="text-gray-100  inline-flex items-center rounded py-1.5 px-3 bg-red-700 hover:bg-red-600"
+                className="btn-pri p-2 ml-2 leading-6"
               >
                 Log Out
               </button>
