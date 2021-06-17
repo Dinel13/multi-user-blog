@@ -3,6 +3,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { showNotification, hideNotification } from "../store/uiSlice";
+import PendingButton from "../components/button/PendingButton";
 
 export default function UpdateAccount(props) {
   const dispatch = useDispatch();
@@ -11,6 +12,7 @@ export default function UpdateAccount(props) {
   const id = useSelector((state) => state.auth.userId);
   const token = useSelector((state) => state.auth.token);
   const [user, setUser] = useState(null);
+  const [pending, setPending] = useState();
   const { userData } = location.state;
 
   useEffect(() => {
@@ -19,6 +21,7 @@ export default function UpdateAccount(props) {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    setPending(true);
     const formdata = new FormData();
     formdata.append("image", user.image || null);
     formdata.append("name", user.name);
@@ -29,51 +32,50 @@ export default function UpdateAccount(props) {
     formdata.append("bio", user.bio);
     formdata.append("medsos", user.medsos);
     formdata.append("alamat", user.alamat);
-    const result = await fetch(
-      `${process.env.REACT_APP_SERVER_URL}/user/update/${id}`,
-      {
-        method: "PUT",
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: formdata,
+    try {
+      const result = await fetch(
+        `${process.env.REACT_APP_SERVER_URL}/user/update/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            // Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: formdata,
+        }
+      );
+      if (result.status === 500) {
+        throw new Error(
+          "Pastikan ukuran file tidak lebih dari 1 MB dan isian field tidak terlalu singkat atau terlalu panjang"
+        );
       }
-    );
-    if (result.status === 500) {
-      return dispatch(
-        showNotification({
-          status: "error",
-          title: "Gagal!!",
-          message:
-            "Pastikan ukuran file tidak lebih dari 1 MB dan isian field tidak terlalu singkat atau terlalu panjang",
-          action: null,
-        })
-      );
-    }
+      const data = await result.json();
 
-    if (!result.ok) {
-      console.log(result);
-      const err = await result.json();
-      return dispatch(
+      if (!result.ok) {
+        throw new Error(data.message);
+      }
+      setPending(false);
+      dispatch(
+        showNotification({
+          status: "succes",
+          title: "Berhasil",
+          message: "Data berhasil diupdate",
+          action: null,
+        })
+      );
+      setTimeout(() => dispatch(hideNotification()), 2000);
+      setTimeout(() => history.push("/akunku"), 2500);
+    } catch (error) {
+      setPending(false);
+      dispatch(
         showNotification({
           status: "error",
-          title: "Gagal!!",
-          message: err.message || "Sedang tidak bisa mengupdate data",
+          title: "Gagal !!",
+          message: error.message || "gagal mengupload akun",
           action: null,
         })
       );
     }
-    dispatch(
-      showNotification({
-        status: "succes",
-        title: "Berhasil",
-        message: "Data berhasil diupdate",
-        action: null,
-      })
-    );
-    setTimeout(() => dispatch(hideNotification()), 2000);
-    setTimeout(() => history.push("/akunku"), 2500);
   };
   return (
     <div className="container w-full lg:w-11/12 xl:w-8/12 px-5 py-12 mx-auto">
@@ -279,18 +281,25 @@ export default function UpdateAccount(props) {
 
             <div className="container mx-auto w-11/12 xl:w-full">
               <div className="w-full py-4 sm:px-0 bg-white dark:bg-gray-800 flex justify-end">
-                <button
-                  onClick={() => history.goBack()}
-                  className="bg-gray-300 focus:outline-none transition duration-150 ease-in-out hover:bg-gray-400 dark:bg-gray-700 rounded text-indigo-600 dark:text-indigo-600 px-6 py-2 text-xs mr-4"
-                >
-                  Cancel
-                </button>
-                <button
-                  className="bg-pink-700 focus:outline-none transition duration-150 ease-in-out hover:bg-pink-600 rounded text-white px-8 py-2 text-sm"
-                  type="submit"
-                >
-                  Save
-                </button>
+                {pending ? (
+                  <PendingButton />
+                ) : (
+                  <>
+                    <button
+                      className="btn-sec px-6 py-2 text-sm mr-3"
+                      type="submit"
+                    >
+                      Update
+                    </button>
+                    <button
+                      onClick={() => history.goBack()}
+                      className="btn-pri px-6 py-2 text-sm mr-3"
+                      type="reset"
+                    >
+                      Batal
+                    </button>
+                  </>
+                )}
               </div>
             </div>
           </div>

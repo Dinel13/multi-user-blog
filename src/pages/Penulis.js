@@ -41,18 +41,27 @@ export default function Penulis() {
       {userData && (
         <>
           <div className="px-4 py-5 flex items-end sm:px-6">
-            <img
-              alt="test"
-              className="bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4"
-              style={{ height: "100px", width: "100px" }}
-              src={
-                userData.image
-                  ? process.env.REACT_APP_SERVER_URL_IMAGE +
-                    "/" +
-                    userData.image
-                  : Avatar
+            <a
+              href={
+                process.env.REACT_APP_SERVER_URL_IMAGE + "/" + userData.image
               }
-            />
+              rel="noreferrer"
+              target="_blank"
+            >
+              {" "}
+              <img
+                alt="test"
+                className="bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4"
+                style={{ height: "100px", width: "100px" }}
+                src={
+                  userData.image
+                    ? process.env.REACT_APP_SERVER_URL_IMAGE +
+                      "/" +
+                      userData.image
+                    : Avatar
+                }
+              />
+            </a>
             <div className="sm:mb-1.5">
               <h3 className="text-xl leading-none mb-1.5 mt-1 font-medium text-gray-900">
                 {userData.publicId}
